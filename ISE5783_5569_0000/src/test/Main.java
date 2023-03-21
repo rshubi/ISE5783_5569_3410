@@ -5,7 +5,13 @@ import static primitives.Util.isZero;
 
 import primitives.Point;
 import primitives.Vector;
-
+/**
+ * Name:Renana Shubi
+ * Gmail:Renana.shubi@gmail.com
+ * ID:323855569
+ * Exercise 1 
+ * Course:Mini project in software engineering
+ */
 /** Test program for the 1st stage
  * @author Dan Zilberstein */
 public final class Main {
