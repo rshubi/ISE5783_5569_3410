@@ -5,6 +5,7 @@ import primitives.Vector;
  * @author נעמי
  *A class for representing a plane inherits from a geometry
  *add a comment
+ *anither comment
  */
 
 public class Plane implements Geometry
