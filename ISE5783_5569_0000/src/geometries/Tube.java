@@ -1,38 +1,41 @@
 package geometries;
+
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
+
 /**
- * @author נעמי
- *A class for representing a tube 
- *that inherits from the radial geometric shapes class
+ * A class for representing a 3D tube
+ * 
+ * @author Maayan & Renana
  */
-public class Tube extends RadialGeometry{
-protected final Ray axisRay;
-/**
- * The constructor function gets
- * @param r-A ray that determines the direction of the tube
- * @param radius-radius of the tube
- */
-public Tube(Ray r,double radius)
-{
-	super(radius);
-	axisRay=r; 
-}
-/**
- *The function accepts a point and returns the normal vector to the tube at that point
- *
- */
-public Vector getNormal(Point p)
-{
-	return null;
-}
-/**
- * The function
- * @returns the ray of the tube
- */
-public Ray getAxisRay() 
-{
-	return axisRay;
-}
+public class Tube extends RadialGeometry {
+	protected final Ray axisRay;
+
+	/**
+	 * The constructor function gets
+	 * 
+	 * @param ray:    ray that determines the direction of the tube
+	 * @param radius: radius of the tube
+	 */
+	public Tube(Ray ray, double radius) {
+		super(radius);
+		axisRay = ray;
+	}
+
+	/**
+	 * @return the normal vector of the tube at a specific point
+	 */
+	public Vector getNormal(Point p) {
+		return null;
+	}
+
+	/**
+	 * A get function
+	 * 
+	 * @returns the ray of the tube
+	 */
+	public Ray getAxisRay() {
+		return axisRay;
+	}
 }

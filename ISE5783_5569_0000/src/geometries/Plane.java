@@ -1,58 +1,61 @@
 package geometries;
+
 import primitives.Point;
 import primitives.Vector;
+
 /**
- * @author נעמי
- *A class for representing a plane inherits from a geometry
- *add a comment
- *anither comment
+ * A class for representing a plane
+ * 
+ * @author Maayan & Renana
  */
 
-public class Plane implements Geometry
-{
+public class Plane implements Geometry {
 	private final Point q0;
 	private final Vector normal;
+
 	/**
-	 * constructor-
-	 * @param p1
-	 * @param p2
-	 * @param p3
-	 * Three points that form a plane
+	 * The constructor function gets
+	 * 
+	 * @param point1: First point to create the plane
+	 * @param point2: Second point to create the plane
+	 * @param point3: Third point to create the plane
 	 */
-	public Plane(Point p1,Point p2,Point p3)
-	{
-		q0=p1;
-		normal=null;
+	public Plane(Point point1, Point point2, Point point3) {
+		q0 = point1;
+		normal = null;
 	}
+
 	/**
-	 * constructor-
-	 * @param p
-	 * @param n
-	 * A point and a vector forming a plane
+	 * The constructor function gets
+	 * 
+	 * @param point:  The reference point for creating the plane
+	 * @param vactor: The normal vector to form the plane
 	 */
-	public Plane(Point p,Vector n)
-	{
-		q0=p;
-		normal=n.normalize();
+	public Plane(Point point, Vector vactor) {
+		q0 = point;
+		normal = vactor.normalize();
 	}
-	//A function that returns the normal to the plane
-	public Vector getNormal()
-	{
+
+	/**
+	 * @return the normal vector of the plane
+	 */
+	public Vector getNormal() {
 		return normal;
 	}
+
 	/**
-	 * The function accepts a point and returns the normal to the plane at the point
+	 * @return the normal vector of the plane at a specific point
 	 */
-	public Vector getNormal(Point p)
-	{
-		return normal;
+	public Vector getNormal(Point p) {
+		return null;
 	}
+
 	/**
-	 * The function
+	 * A get function
+	 * 
 	 * @returns the reference point of the plane
 	 */
-	public Point getQ0()
-	{
+	public Point getQ0() {
 		return q0;
 	}
 }

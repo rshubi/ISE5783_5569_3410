@@ -2,18 +2,19 @@ package geometries;
 
 import primitives.Point;
 import primitives.Vector;
+
 /**
+ * Interface Geometry for geometric shapes
  * 
- * @author נעמי
- *Interface Geometry for 3D shapes
+ * @author Maayan & Renana
  */
-public interface Geometry
-{
-/**
- * Every class that implements the interface should have a function that receives a point and 
- * @param p
- * @return the normal to the current form
- */
-public Vector getNormal(Point p);
+
+public interface Geometry {
+
+	/**
+	 * @param point a point on the surface of the geometry shape
+	 * @return the normal to the current shape at the point
+	 */
+	public Vector getNormal(Point point);
 
 }

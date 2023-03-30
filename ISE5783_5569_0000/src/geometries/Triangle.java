@@ -1,21 +1,22 @@
 package geometries;
+
 import primitives.Point;
+
 /**
+ * A class for representing a triangle
  * 
- * @author נעמי
- *A class for representing a triangle that inherits from a polygon
+ * @author Maayan & Renana
  */
-public class Triangle extends Polygon{
+public class Triangle extends Polygon {
 	/**
-	 *  The constructor function gets
-	 * @param p1
-	 * @param p2
-	 * @param p3
-	 * Three points forming a triangle
+	 * The constructor function gets
+	 * 
+	 * @param point1: First point to create the triangle
+	 * @param point2: Second point to create the triangle
+	 * @param point3: Third point to create the triangle
 	 */
-	public Triangle(Point p1,Point p2,Point p3)
-	{
-		super(p1,p2,p3);
+	public Triangle(Point point1, Point point2, Point point3) {
+		super(point1, point2, point3);
 	}
 
 }

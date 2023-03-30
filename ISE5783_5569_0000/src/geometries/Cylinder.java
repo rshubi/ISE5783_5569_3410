@@ -1,28 +1,32 @@
 package geometries;
 
 import primitives.Ray;
+
 /**
+ * A class for representing final cylinder
  * 
- * @author נעמי
- *A cylinder representation class inherits from an Tube( infinite cylinder)
+ * @author Maayan & Renana
  */
 
-public class Cylinder extends Tube{
-//field height keep the high to Cylinder
+public class Cylinder extends Tube {
+
 	private final double height;
+
 	/**
-	 * A builder who accepts
-	 * @param r-A Ray that creates the cylinder
-	 * @param radius-Radius that creates the cylinder
-	 * @param h-height because it is a finite roll
+	 * The constructor function gets
+	 * 
+	 * @param ray:    A ray that determines the direction of the cylinder
+	 * @param radius: the radius of the cylinder
+	 * @param Height: The height of the cylinder
 	 */
-	public Cylinder(Ray r,double radius,double h)
-	{
-		super(r,radius);
-		this.height=h;
+	public Cylinder(Ray ray, double radius, double Height) {
+		super(ray, radius);
+		this.height = Height;
 	}
+
 	/**
-	 * A function that 
+	 * A get function
+	 * 
 	 * @returns the height of the final cylinder
 	 */
 	public double getHeight() {

@@ -2,50 +2,52 @@ package geometries;
 
 import primitives.Point;
 import primitives.Vector;
+
 /**
  * 
- * @author נעמי
- *A class for representing a 3D sphere that inherits from RadialGeometry
+ * A class for representing a 3D sphere
+ * 
+ * @author Maayan & Renana
  */
-public class Sphere extends RadialGeometry
-{
+public class Sphere extends RadialGeometry {
 
 	private final Point center;
 	private final double radius;
+
 	/**
 	 * The constructor function gets
-	 * @param r-radius of the sphere
-	 * @param p-the center point of the sphere
+	 * 
+	 * @param r:     radius of the sphere
+	 * @param point: the center point of the sphere
 	 */
-	public Sphere(double r,Point p)
-	{
+	public Sphere(double r, Point point) {
 		super(r);
-		center=p;
-		radius=r;
-		// TODO Auto-generated constructor stub
+		center = point;
+		radius = r;
 	}
+
 	/**
-	 * The function accepts a point and 
-	 * returns the normal vector to the sphere at that point
+	 * @return the normal vector of the sphere at a specific point
 	 */
-	public Vector getNormal(Point p)
-	{
+	public Vector getNormal(Point p) {
 		return null;
 	}
+
 	/**
-	 * The function 
+	 * A get function
+	 * 
 	 * @returns the center point of the sphere
 	 */
-	public Point getCenter() 
-	{
+	public Point getCenter() {
 		return center;
 	}
+
 	/**
-	 * The function
-	 * @ returns the radius of the sphere
+	 * A get function
+	 * 
+	 * @returns the radius of the sphere
 	 */
-	public double getRadius() 
-	{
+	public double getRadius() {
 		return radius;
 	}
 }
