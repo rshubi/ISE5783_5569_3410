@@ -18,7 +18,7 @@ public class Ray {
 	 * @param rhsP-        right handle side point
 	 * @param rhsDir-right handle side direction vector for create ray
 	 */
-	Ray(Point rhsP, Vector rhsDir) {
+	public Ray(Point rhsP, Vector rhsDir) {
 		p0 = rhsP;
 		dir = rhsDir.normalize();
 	}

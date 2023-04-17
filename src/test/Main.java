@@ -7,11 +7,15 @@ import primitives.Point;
 import primitives.Vector;
 
 /**
+ * Name:Maayan Saidov
+ * Gmail:maayan18403@gmail.com
+ * ID:322903410
+ * 
  * Name:Renana Shubi
  * Gmail:Renana.shubi@gmail.com
  * ID:323855569
- * Exercise 1 
- * Course:Mini project in software engineering
+ *  
+ * 
  */
 /**
  * Test program for the 1st stage
