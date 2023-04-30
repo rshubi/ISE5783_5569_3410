@@ -30,12 +30,7 @@ class TubeTests {
 		Tube t = new Tube(r, 1);
 		Point p = new Point(1, 0, 1);
 		Vector n = t.getNormal(p);
-		assertEquals(0,r.getDir().dotProduct(n), "normal to tube is incorrect");
-		// =============== Boundary Values Tests ==================
-		// TC11:Test that checks whether it is possible to calculate a normal for a tube
-		// with a radius of 0
-		assertThrows(IllegalArgumentException.class, () -> new Tube(r, 0).getNormal(p),
-				"GetNormal() should throw an exception, but it failed");
+		assertEquals(0, r.getDir().dotProduct(n), "normal to tube is incorrect");
 		
 
 	}

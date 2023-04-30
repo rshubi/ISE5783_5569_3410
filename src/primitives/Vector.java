@@ -48,7 +48,7 @@ public class Vector extends Point {
 	}
 
 	/**
-	 * @param vToAdd: A vector that is added to a current vector
+	 * @param vToAdd A vector that is added to a current vector
 	 * @returns a new vector
 	 */
 	public Vector add(Vector vToAdd) {
@@ -101,7 +101,7 @@ public class Vector extends Point {
 	/**
 	 * scalar multiplication
 	 * 
-	 * @param v-second vector for scalar multiplication
+	 * @param v second vector for scalar multiplication
 	 * @returns A number that represents the scalar product
 	 */
 	public double dotProduct(Vector v) {

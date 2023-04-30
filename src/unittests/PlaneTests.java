@@ -52,11 +52,9 @@ class PlaneTests {
 		Vector v3 = p3.subtract(p1);
 		Plane p = new Plane(p1, p2, p3);
 		Vector normal = p.getNormal(p1);
-		assertEquals(0,v1.dotProduct(normal), "ERROR:normal to plane is not correct");
-		assertEquals(0,v2.dotProduct(normal), "ERROR:normal to plane is not correct");
-		assertEquals(0,v3.dotProduct(normal), "ERROR:normal to plane is not correct");
-		
-		
+		assertEquals(0, v1.dotProduct(normal), "ERROR:normal to plane is not correct");
+		assertEquals(0, v2.dotProduct(normal), "ERROR:normal to plane is not correct");
+		assertEquals(0, v3.dotProduct(normal), "ERROR:normal to plane is not correct");
 	}
 
 	/**
@@ -74,10 +72,10 @@ class PlaneTests {
 		Vector v3 = p3.subtract(p1);
 		Plane p = new Plane(p1, p2, p3);
 		Vector normal = p.getNormal(p1);
-		assertEquals(0,v1.dotProduct(normal), "ERROR:normal to plane is not correct");
-		assertEquals(0,v2.dotProduct(normal), "ERROR:normal to plane is not correct");
-		assertEquals(0,v3.dotProduct(normal), "ERROR:normal to plane is not correct");
-		
+		assertEquals(0, v1.dotProduct(normal), "ERROR:normal to plane is not correct");
+		assertEquals(0, v2.dotProduct(normal), "ERROR:normal to plane is not correct");
+		assertEquals(0, v3.dotProduct(normal), "ERROR:normal to plane is not correct");
+
 	}
 
 }

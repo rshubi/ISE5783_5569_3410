@@ -45,7 +45,7 @@ public class PointTests {
 		// TC11:Test that scaling two vectors does not produce a zero vector
 		assertThrows(IllegalArgumentException.class, () -> p1.subtract(p1),
 				"Subtract() should throw an exception, but it failed");
-		
+
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class PointTests {
 		Point p1 = new Point(1, 2, 3);
 		Point p2 = new Point(5, 7, 9);
 		double dr = p1.distance(p2);
-		assertEquals(Math.sqrt(77), dr,0.0000001, "Distance() wrong result");
+		assertEquals(Math.sqrt(77), dr, 0.0000001, "Distance() wrong result");
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class PointTests {
 		Point p1 = new Point(1, 2, 3);
 		Point p2 = new Point(5, 7, 9);
 		double dr = p1.distanceSquared(p2);
-		assertEquals(77,dr,0.0000001,  "DistanceSquared() wrong result");
+		assertEquals(77, dr, 0.0000001, "DistanceSquared() wrong result");
 	}
 
 }

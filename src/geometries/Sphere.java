@@ -12,7 +12,7 @@ import primitives.Vector;
 public class Sphere extends RadialGeometry {
 
 	private final Point center;
-	private final double radius;
+	//private final double radius;
 
 	/**
 	 * The constructor function gets
@@ -23,7 +23,6 @@ public class Sphere extends RadialGeometry {
 	public Sphere(double r, Point point) {
 		super(r);
 		center = point;
-		radius = r;
 	}
 
 	/**

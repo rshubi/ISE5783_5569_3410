@@ -33,9 +33,9 @@ public class Plane implements Geometry {
 	 * @param point:  The reference point for creating the plane
 	 * @param vactor: The normal vector to form the plane
 	 */
-	public Plane(Point point, Vector vactor) {
+	public Plane(Point point, Vector vector) {
 		q0 = point;
-		normal = vactor.normalize();
+		normal = vector.normalize();
 	}
 
 	/**

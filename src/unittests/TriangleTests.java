@@ -24,7 +24,7 @@ class TriangleTests {
 	void testGetNormal() {
 		// TC01:Test that checks whether the normal of the triangle is correct
 		Triangle tri = new Triangle(new Point(0, 0, 0), new Point(0, 2, 0), new Point(0, 0, 2));
-		assertEquals(new Vector(1, 0, 0), tri.getNormal(null),"GetNormal() should throw an exception, but it failed");
+		assertEquals(new Vector(1, 0, 0), tri.getNormal(null), "GetNormal() should throw an exception, but it failed");
 	}
 
 }

@@ -34,7 +34,7 @@ public class Ray {
 
 	@Override
 	public String toString() {
-		return p0.toString() + "+" + dir.toString();
+		return p0 + "+" + dir;
 	}
 
 	/**

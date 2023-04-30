@@ -31,7 +31,7 @@ class SphereTests {
 		Point p = new Point(1, 0, 0);
 		Sphere s = new Sphere(r, o);
 		Vector normal = p.subtract(o).normalize();
-		assertEquals(normal,s.getNormal(p), "GetNormal() the normal is incorrect");
+		assertEquals(normal, s.getNormal(p), "GetNormal() the normal is incorrect");
 
 	}
 

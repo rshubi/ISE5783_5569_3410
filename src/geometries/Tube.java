@@ -20,27 +20,20 @@ public class Tube extends RadialGeometry {
 	 * @param radius: radius of the tube
 	 */
 	public Tube(Ray ray, double radius) {
-		
+
 		super(radius);
-		if(isZero(radius) || radius < 0)
-            throw new IllegalArgumentException("Zero or negative radius");
+		if (isZero(radius) || radius < 0)
+			throw new IllegalArgumentException("Zero or negative radius");
 		axisRay = ray;
 	}
 
-	/**
-	 * @return the normal vector of the tube at a specific point
-	 */
+	@Override
 	public Vector getNormal(Point p) {
 		Vector v = axisRay.getDir();
 		Point p0 = axisRay.getP0();
 		double t = v.dotProduct(p.subtract(p0));
-		if(!isZero(t))
-        {
-		Point o = p0.add(v.scale(t));
-		Vector normal = p.subtract(o).normalize();
-		return normal;
-        }
-		 return p.subtract(axisRay.getP0()).normalize();
+		Point o = isZero(t) ? p0 : p0.add(v.scale(t));
+		return p.subtract(o).normalize();
 	}
 
 	/**
