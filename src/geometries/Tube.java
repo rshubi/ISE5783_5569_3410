@@ -5,6 +5,8 @@ import primitives.Ray;
 import primitives.Vector;
 import static primitives.Util.isZero;
 
+import java.util.List;
+
 /**
  * A class for representing a 3D tube
  * 
@@ -16,8 +18,8 @@ public class Tube extends RadialGeometry {
 	/**
 	 * The constructor function gets
 	 * 
-	 * @param ray:    ray that determines the direction of the tube
-	 * @param radius: radius of the tube
+	 * @param ray    ray that determines the direction of the tube
+	 * @param radius radius of the tube
 	 */
 	public Tube(Ray ray, double radius) {
 
@@ -43,5 +45,9 @@ public class Tube extends RadialGeometry {
 	 */
 	public Ray getAxisRay() {
 		return axisRay;
+	}
+
+	public List<Point> findIntersections(Ray ray) {
+		return null;
 	}
 }

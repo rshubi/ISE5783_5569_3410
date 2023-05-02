@@ -1,10 +1,13 @@
 package geometries;
 
+import java.util.List;
+
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
 
 /**
- * A class for representing a plane
+ * A class for representing a plane.
  * 
  * @author Maayan & Renana
  */
@@ -16,9 +19,9 @@ public class Plane implements Geometry {
 	/**
 	 * The constructor function gets
 	 * 
-	 * @param point1: First point to create the plane
-	 * @param point2: Second point to create the plane
-	 * @param point3: Third point to create the plane
+	 * @param point1 First point to create the plane
+	 * @param point2 Second point to create the plane
+	 * @param point3 Third point to create the plane
 	 */
 	public Plane(Point point1, Point point2, Point point3) {
 		q0 = point1;
@@ -30,8 +33,8 @@ public class Plane implements Geometry {
 	/**
 	 * The constructor function gets
 	 * 
-	 * @param point:  The reference point for creating the plane
-	 * @param vactor: The normal vector to form the plane
+	 * @param point  The reference point for creating the plane
+	 * @param vactor The normal vector to form the plane
 	 */
 	public Plane(Point point, Vector vector) {
 		q0 = point;
@@ -39,6 +42,8 @@ public class Plane implements Geometry {
 	}
 
 	/**
+	 * A get function
+	 * 
 	 * @return the normal vector of the plane
 	 */
 	public Vector getNormal() {
@@ -46,6 +51,8 @@ public class Plane implements Geometry {
 	}
 
 	/**
+	 * A function that calculates the vector perpendicular to the plane
+	 * 
 	 * @return the normal vector of the plane at a specific point
 	 */
 	public Vector getNormal(Point p) {
@@ -60,5 +67,9 @@ public class Plane implements Geometry {
 	 */
 	public Point getQ0() {
 		return q0;
+	}
+
+	public List<Point> findIntersections(Ray ray) {
+		return null;
 	}
 }

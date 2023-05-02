@@ -38,6 +38,25 @@ class VectorTests {
 	}
 
 	/**
+	 * Test method for {@link primitives.Vector#Sub()(primitives.Vector.Point)}.
+	 */
+	@Test
+	void testSubtract() {
+		Vector v1 = new Vector(1, 2, 3);
+		// ============ Equivalence Partitions Tests ==============
+		Vector v2 = new Vector(0, 3, -2);
+		Vector vr = v1.subtract(v2);
+		// TC01:Test that the connection of two vectors is correct
+		assertEquals(new Vector(1, -1, 5), vr, "Sub() wrong result");
+		// =============== Boundary Values Tests ==================
+
+		// TC11:Checking that adding two vectors does not produce a zero vector
+		assertThrows(IllegalArgumentException.class, () -> v1.subtract(v1),
+				"Add() should throw an exception, but it failed");
+
+	}
+
+	/**
 	 * Test method for {@link primitives.Vector#scale(double)}.
 	 */
 	@Test
@@ -66,8 +85,8 @@ class VectorTests {
 		// for simplicity)
 		assertEquals(v1.length() * v2.length(), vr.length(), 0.00001, "crossProduct() wrong result length");
 		// TC02: Test cross-product result orthogonality to its operands
-		assertEquals(0, vr.dotProduct(v1),  "crossProduct() result is not orthogonal to 1st operand");
-		assertEquals(0, vr.dotProduct(v2),  "crossProduct() result is not orthogonal to 1st operand");
+		assertEquals(0, vr.dotProduct(v1), "crossProduct() result is not orthogonal to 1st operand");
+		assertEquals(0, vr.dotProduct(v2), "crossProduct() result is not orthogonal to 1st operand");
 		// =============== Boundary Values Tests ==================
 		// TC11: test zero vector from cross-product of co-lined vectors
 		Vector v3 = new Vector(-2, -4, -6);

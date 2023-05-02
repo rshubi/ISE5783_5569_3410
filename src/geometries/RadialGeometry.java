@@ -11,7 +11,7 @@ public abstract class RadialGeometry implements Geometry {
 	/**
 	 * The constructor function gets
 	 * 
-	 * @param r: Radius of the geometric shape
+	 * @param r Radius of the geometric shape
 	 */
 	public RadialGeometry(double r) {
 		radius = r;

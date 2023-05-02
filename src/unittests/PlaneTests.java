@@ -6,10 +6,13 @@ package unittests;
 import static org.junit.jupiter.api.Assertions.*;
 import static primitives.Util.isZero;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import geometries.Plane;
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
 
 /**
@@ -75,6 +78,70 @@ class PlaneTests {
 		assertEquals(0, v1.dotProduct(normal), "ERROR:normal to plane is not correct");
 		assertEquals(0, v2.dotProduct(normal), "ERROR:normal to plane is not correct");
 		assertEquals(0, v3.dotProduct(normal), "ERROR:normal to plane is not correct");
+
+	}
+
+	/**
+	 * Test method for {@link geometries.Plane#findIntersections(primitives.Ray)}.
+	 */
+	@Test
+	public void testFindIntersections() {
+		// ============ Equivalence Partitions Tests ==============
+		Point p1 = new Point(1, 0, 0);
+		Point p2 = new Point(0, 1, 0);
+		Point p3 = new Point(0, 0, 1);
+		Plane p = new Plane(p1, p2, p3);
+		Vector v1 = p1.subtract(p2);
+		Vector v2 = p2.subtract(p3);
+		Vector v3 = p3.subtract(p1);
+		// TC01:Test that checks whether the normal of the plane is correct
+		Point p4 = new Point(1.5, -0.5, 0);
+		Ray r = new Ray(new Point(-1, 1, 0), new Vector(2.5, -1.5, 0));
+		List<Point> result = p.findIntersections(r);
+		assertNotEquals(0, r.getDir().dotProduct(v1), "The ray is ortogonaly to the plane");
+		assertNotEquals(0, r.getDir().dotProduct(v2), "The ray is ortogonaly to the plane");
+		assertNotEquals(0, r.getDir().dotProduct(v3), "The ray is ortogonaly to the plane");
+		assertEquals(1, result.size(), "Wrong number of points");
+		assertEquals(p4, result, "Ray crosses sphere");
+		// TC02:Test that checks whether the normal of the plane is correct
+
+		assertNull(p.findIntersections(new Ray(new Point(3, 1, -1), new Vector(2, 2, 2))), "Ray's line out of sphere");
+		assertNotEquals(0, r.getDir().dotProduct(v1), "The ray is ortogonaly to the plane");
+		assertNotEquals(0, r.getDir().dotProduct(v2), "The ray is ortogonaly to the plane");
+		assertNotEquals(0, r.getDir().dotProduct(v3), "The ray is ortogonaly to the plane");
+		// =============== Boundary Values Tests ==================
+		// 2 tests
+		// TC11:
+		assertNull(p.findIntersections(new Ray(new Point(2, 2, 2), new Vector(-3, 0, 3))), "Ray's line out of sphere");
+		// TC12
+		assertNull(p.findIntersections(new Ray(new Point(1, 0, 0), new Vector(-3, 0, 3))), "Ray's line out of sphere");
+		// 3 tests
+		// TC13-before the plane
+		Ray ray = new Ray(new Point(0.5, -0.5, 1), new Vector(2, 2, 2));
+		assertEquals(0, ray.getDir().dotProduct(v1), "The ray is ortogonaly to the plane");
+		assertEquals(0, ray.getDir().dotProduct(v2), "The ray is ortogonaly to the plane");
+		assertEquals(0, ray.getDir().dotProduct(v3), "The ray is ortogonaly to the plane");
+		// TC14- in the plane
+		ray = new Ray(new Point(0, 1, 0), new Vector(2, 2, 2));
+		assertEquals(0, ray.getDir().dotProduct(v1), "The ray is ortogonaly to the plane");
+		assertEquals(0, ray.getDir().dotProduct(v2), "The ray is ortogonaly to the plane");
+		assertEquals(0, ray.getDir().dotProduct(v3), "The ray is ortogonaly to the plane");
+		// TC15- after the plane
+		ray = new Ray(new Point(0, 2, 0), new Vector(2, 2, 2));
+		assertEquals(0, ray.getDir().dotProduct(v1), "The ray is ortogonaly to the plane");
+		assertEquals(0, ray.getDir().dotProduct(v2), "The ray is ortogonaly to the plane");
+		assertEquals(0, ray.getDir().dotProduct(v3), "The ray is ortogonaly to the plane");
+		// TC16
+		ray = new Ray(new Point(0.315829530927468, -0.540796017221324, 1.224966486293857),
+				new Vector(0.435266860626076, 2.799817280644068, -1.445387142834855));
+		assertNotEquals(0, ray.getDir().dotProduct(v1), "The ray is ortogonaly to the plane");
+		assertNotEquals(0, ray.getDir().dotProduct(v2), "The ray is ortogonaly to the plane");
+		assertNotEquals(0, ray.getDir().dotProduct(v3), "The ray is ortogonaly to the plane");
+		// TC17
+		ray = new Ray(new Point(1, 0, 0), new Vector(0.5, 2.8, -1.5));
+		assertNotEquals(0, ray.getDir().dotProduct(v1), "The ray is ortogonaly to the plane");
+		assertNotEquals(0, ray.getDir().dotProduct(v2), "The ray is ortogonaly to the plane");
+		assertNotEquals(0, ray.getDir().dotProduct(v3), "The ray is ortogonaly to the plane");
 
 	}
 

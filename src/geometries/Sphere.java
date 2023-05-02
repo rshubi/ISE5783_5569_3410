@@ -1,6 +1,9 @@
 package geometries;
 
+import java.util.List;
+
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
 
 /**
@@ -12,13 +15,13 @@ import primitives.Vector;
 public class Sphere extends RadialGeometry {
 
 	private final Point center;
-	//private final double radius;
+	// private final double radius;
 
 	/**
 	 * The constructor function gets
 	 * 
-	 * @param r:     radius of the sphere
-	 * @param point: the center point of the sphere
+	 * @param r     radius of the sphere
+	 * @param point the center point of the sphere
 	 */
 	public Sphere(double r, Point point) {
 		super(r);
@@ -26,6 +29,8 @@ public class Sphere extends RadialGeometry {
 	}
 
 	/**
+	 * A function that calculates the normal vector of the ball at a certain point
+	 * 
 	 * @return the normal vector of the sphere at a specific point
 	 */
 	public Vector getNormal(Point p) {
@@ -49,5 +54,9 @@ public class Sphere extends RadialGeometry {
 	 */
 	public double getRadius() {
 		return radius;
+	}
+
+	public List<Point> findIntersections(Ray ray) {
+		return null;
 	}
 }

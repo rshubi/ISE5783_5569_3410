@@ -23,7 +23,7 @@ public class Point {
 	/**
 	 * The constructor function gets
 	 * 
-	 * @param rhs: right handle side operand for constructor
+	 * @param rhs right handle side operand for constructor
 	 */
 
 	Point(Double3 rhs) {
@@ -47,7 +47,7 @@ public class Point {
 	/**
 	 * Adding a vector to a point
 	 * 
-	 * @param vToAdd: A vector that is added to a point
+	 * @param vToAdd A vector that is added to a point
 	 * @returns a new point
 	 */
 	public Point add(Vector vToAdd) {
@@ -55,9 +55,9 @@ public class Point {
 	}
 
 	/**
-	 * Vector subtraction
+	 * Vector subtraction to a point
 	 * 
-	 * @param pToSub: point for subtraction
+	 * @param pToSub point for subtraction
 	 * @returns a new vector
 	 */
 	public Vector subtract(Point pToSub) {
@@ -65,8 +65,10 @@ public class Point {
 	}
 
 	/**
-	 * @param point: A second point to calculate the distance between the current
-	 *               point
+	 * Calculating the distance between two points
+	 * 
+	 * @param point A second point to calculate the distance between the current
+	 *              point
 	 * @return the distance between 2 points
 	 */
 	public double distance(Point point) {
@@ -76,8 +78,8 @@ public class Point {
 	/**
 	 * Calculating the squared distance between two points
 	 * 
-	 * @param point: A second point to calculate the distance between the current
-	 *               point
+	 * @param point A second point to calculate the distance between the current
+	 *              point
 	 * @returns the distance between two points in a square
 	 */
 	public double distanceSquared(Point point) {
@@ -85,6 +87,10 @@ public class Point {
 		double dy = xyz.d2 - point.xyz.d2;
 		double dz = xyz.d3 - point.xyz.d3;
 		return dx * dx + dy * dy + dz * dz;
+	}
+
+	public double getX() {
+		return xyz.d1;
 	}
 
 }

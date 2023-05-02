@@ -26,12 +26,12 @@ class TubeTests {
 	void testGetNormal() {
 		// ============ Equivalence Partitions Tests ==============
 		// TC01:Test that checks whether the normal of the tube is correct
-		Ray r = new Ray(new Point(0, 0, 0), new Vector(0, 1, 0));
+		Ray r = new Ray(new Point(1, 2, 3), new Vector(0, 3, 0));
 		Tube t = new Tube(r, 1);
-		Point p = new Point(1, 0, 1);
+		Point p = new Point(3, 4, 6);
 		Vector n = t.getNormal(p);
-		assertEquals(0, r.getDir().dotProduct(n), "normal to tube is incorrect");
-		
+		assertEquals(new Vector(2, 0, 3).normalize(), n, "normal to tube is incorrect");
+		assertEquals(0, t.getAxisRay().getDir().dotProduct(n), "normal to tube is incorrect");
 
 	}
 }

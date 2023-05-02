@@ -3,10 +3,14 @@
  */
 package unittests;
 
+import geometries.Plane;
 import geometries.Triangle;
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,8 +27,58 @@ class TriangleTests {
 	@Test
 	void testGetNormal() {
 		// TC01:Test that checks whether the normal of the triangle is correct
-		Triangle tri = new Triangle(new Point(0, 0, 0), new Point(0, 2, 0), new Point(0, 0, 2));
-		assertEquals(new Vector(1, 0, 0), tri.getNormal(null), "GetNormal() should throw an exception, but it failed");
+		Point p1 = new Point(0, 0, 0);
+		Point p2 = new Point(0, 2, 0);
+		Point p3 = new Point(0, 0, 2);
+		Vector v1 = p1.subtract(p2);
+		Vector v2 = p2.subtract(p3);
+		Vector v3 = p3.subtract(p1);
+		Triangle tri = new Triangle(p1, p2, p3);
+		Vector normal = tri.getNormal(null);
+		assertEquals(0, v1.dotProduct(normal), "ERROR:normal to plane is not correct");
+		assertEquals(0, v2.dotProduct(normal), "ERROR:normal to plane is not correct");
+		assertEquals(0, v3.dotProduct(normal), "ERROR:normal to plane is not correct");
+		assertEquals(new Vector(1, 0, 0), normal, "GetNormal() should throw an exception, but it failed");
+	}
+
+	/**
+	 * Test method for
+	 * {@link geometries.Triangle#findIntersections(primitives.Ray)}.
+	 */
+	@Test
+	public void testFindIntersections() {
+
+		Triangle tr = new Triangle(new Point(0, 4, -4), new Point(4, 0, -4), new Point(-4, 0, -4));
+		// ============ Equivalence Partitions Tests ==============
+		// TC01: the ray goes through the triangle
+		Point p1 = new Point(0.5, 2.25, -4);
+		List<Point> result1 = tr.findIntersections(new Ray(new Point(2, 2, -3), new Vector(-3, 0.5, -2)));
+		assertEquals(p1, result1, "Ray crosses sphere");
+
+		// TC02: the ray is outside the triangle against edge
+		assertNull(tr.findIntersections(new Ray(new Point(5, 5, -2), new Vector(2, 2, -3))),
+				"the ray is outside the triangle against edge");
+
+		// TC03: the ray is outside the triangle against vertex
+		assertNull(tr.findIntersections(new Ray(new Point(-4.4, 0, 0), new Vector(1, 1, 1))),
+				"the ray is outside the triangle against edge");
+
+		// =============== Boundary Values Tests ==================
+		// TC04: ray through edge
+		result1 = tr
+				.findIntersections(new Ray(new Point(-2, 2, -4), new Vector(0.672256525989578, -0.942411481645453, 4)));
+		assertEquals(new Point(-2, 2, -4), result1, "Ray crosses sphere");
+
+		// TC05: ray through vertex
+		result1 = tr
+				.findIntersections(new Ray(new Point(-4, 0, -4), new Vector(2.672256525989578, 1.057588518354547, 4)));
+		assertEquals(new Point(-4, 0, 4), result1, "Ray crosses sphere");
+
+		// TC06: ray goes through the continuation of side 1
+		Triangle tr1 = new Triangle(new Point(0, 3, -3), new Point(3, 0, -3), new Point(-3, 0, -3));
+		assertNull(tr1.findIntersections(new Ray(new Point(-1, 4, -2), new Vector(0, 0, -1))),
+				"the ray is outside the triangle against edge");
+
 	}
 
 }

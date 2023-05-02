@@ -25,7 +25,7 @@ public class Vector extends Point {
 	/**
 	 * The constructor function gets
 	 * 
-	 * @param rhs: right handle side operand for constructor
+	 * @param rhs right handle side operand for constructor
 	 */
 	Vector(Double3 rhs) {
 		super(rhs);
@@ -48,6 +48,8 @@ public class Vector extends Point {
 	}
 
 	/**
+	 * A function that performs vector addition to vector
+	 * 
 	 * @param vToAdd A vector that is added to a current vector
 	 * @returns a new vector
 	 */
@@ -58,7 +60,7 @@ public class Vector extends Point {
 	/**
 	 * Multiply a vector by a scalar
 	 * 
-	 * @param scalar: A number with which the vector is multiplied
+	 * @param scalar A number with which the vector is multiplied
 	 * @returns a new vector
 	 */
 	public Vector scale(double scalar) {
@@ -66,9 +68,9 @@ public class Vector extends Point {
 	}
 
 	/**
-	 * Vector multiplication
+	 * Vector multiplication function
 	 * 
-	 * @param v-second vector
+	 * @param v second vector
 	 * @returns a new vector perpendicular to the two existing vectors
 	 */
 	public Vector crossProduct(Vector v) {
@@ -78,6 +80,8 @@ public class Vector extends Point {
 	}
 
 	/**
+	 * A function that calculates the squared length of the vector
+	 * 
 	 * @returns the squared length of the vector
 	 */
 	public double lengthSquared() {
@@ -85,6 +89,8 @@ public class Vector extends Point {
 	}
 
 	/**
+	 * A function that calculates the length of the vector
+	 * 
 	 * @returns the length of the vector
 	 */
 	public double length() {
@@ -92,6 +98,8 @@ public class Vector extends Point {
 	}
 
 	/**
+	 * A function that normalizes the vector
+	 * 
 	 * @returns the normalized vector
 	 */
 	public Vector normalize() {
