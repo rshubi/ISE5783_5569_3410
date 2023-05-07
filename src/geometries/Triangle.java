@@ -34,15 +34,21 @@ public class Triangle extends Polygon {
 		Vector v1 = p1.subtract(p0);
 		Vector v2 = p2.subtract(p0);
 		Vector v3 = p3.subtract(p0);
-		Vector n1 = (v1.crossProduct(v3)).normalize();
+		Vector n1 = (v1.crossProduct(v2)).normalize();
 		Vector n2 = (v2.crossProduct(v3)).normalize();
 		Vector n3 = (v3.crossProduct(v1)).normalize();
+		if(plane.findIntersections(ray)!=null)
+		{
 		Point p = plane.findIntersections(ray).get(0);
 		if ((ray.getDir().dotProduct(n1) > 0 && ray.getDir().dotProduct(n2) > 0 && ray.getDir().dotProduct(n3) > 0)
 				|| (ray.getDir().dotProduct(n1) < 0 && ray.getDir().dotProduct(n2) < 0
 						&& ray.getDir().dotProduct(n3) < 0))
+		{
 			list.add(p);
 		return list;
+		}
+		}
+		return null;
 
 	}
 

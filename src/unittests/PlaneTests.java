@@ -95,14 +95,14 @@ class PlaneTests {
 		Vector v2 = p2.subtract(p3);
 		Vector v3 = p3.subtract(p1);
 		// TC01:Test that checks whether the normal of the plane is correct
-		Point p4 = new Point(1.5, -0.5, 0);
-		Ray r = new Ray(new Point(-1, 1, 0), new Vector(2.5, -1.5, 0));
+		Point p4 = new Point(0.833333333333333,0.16666666666666696,0.0);
+		Ray r = new Ray(new Point(5, 6, 0), new Vector(-2.5, -3.5, 0));
 		List<Point> result = p.findIntersections(r);
 		assertNotEquals(0, r.getDir().dotProduct(v1), "The ray is ortogonaly to the plane");
 		assertNotEquals(0, r.getDir().dotProduct(v2), "The ray is ortogonaly to the plane");
 		assertNotEquals(0, r.getDir().dotProduct(v3), "The ray is ortogonaly to the plane");
 		assertEquals(1, result.size(), "Wrong number of points");
-		assertEquals(p4, result, "Ray crosses sphere");
+		assertEquals(List.of(p4), result, "Ray crosses sphere");
 		// TC02:Test that checks whether the normal of the plane is correct
 
 		assertNull(p.findIntersections(new Ray(new Point(3, 1, -1), new Vector(2, 2, 2))), "Ray's line out of sphere");
@@ -111,7 +111,7 @@ class PlaneTests {
 		assertNotEquals(0, r.getDir().dotProduct(v3), "The ray is ortogonaly to the plane");
 		// =============== Boundary Values Tests ==================
 		// 2 tests
-		// TC11:
+		// TC11:************
 		assertNull(p.findIntersections(new Ray(new Point(2, 2, 2), new Vector(-3, 0, 3))), "Ray's line out of sphere");
 		// TC12
 		assertNull(p.findIntersections(new Ray(new Point(1, 0, 0), new Vector(-3, 0, 3))), "Ray's line out of sphere");

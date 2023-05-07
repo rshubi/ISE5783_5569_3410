@@ -49,11 +49,12 @@ class TriangleTests {
 	public void testFindIntersections() {
 
 		Triangle tr = new Triangle(new Point(0, 4, -4), new Point(4, 0, -4), new Point(-4, 0, -4));
+		Triangle mytr = new Triangle(new Point(0, 1, 0), new Point(2, 6, 0), new Point(5, 0, 0));
 		// ============ Equivalence Partitions Tests ==============
 		// TC01: the ray goes through the triangle
-		Point p1 = new Point(0.5, 2.25, -4);
-		List<Point> result1 = tr.findIntersections(new Ray(new Point(2, 2, -3), new Vector(-3, 0.5, -2)));
-		assertEquals(p1, result1, "Ray crosses sphere");
+		Point p1 = new Point(2, 2, 0);
+		List<Point> result1 = mytr.findIntersections(new Ray(new Point(-2.09, 2.69, 2.3), new Vector(4.09, -0.69, -2.3)));
+		assertEquals(List.of(p1), result1, "Ray crosses sphere");
 
 		// TC02: the ray is outside the triangle against edge
 		assertNull(tr.findIntersections(new Ray(new Point(5, 5, -2), new Vector(2, 2, -3))),
@@ -65,19 +66,15 @@ class TriangleTests {
 
 		// =============== Boundary Values Tests ==================
 		// TC04: ray through edge
-		result1 = tr
-				.findIntersections(new Ray(new Point(-2, 2, -4), new Vector(0.672256525989578, -0.942411481645453, 4)));
-		assertEquals(new Point(-2, 2, -4), result1, "Ray crosses sphere");
+		assertNull(tr.findIntersections(new Ray(new Point(3, 5, 1), new Vector(-2,-5,-5))),"TC04:ERROR");
 
 		// TC05: ray through vertex
-		result1 = tr
-				.findIntersections(new Ray(new Point(-4, 0, -4), new Vector(2.672256525989578, 1.057588518354547, 4)));
-		assertEquals(new Point(-4, 0, 4), result1, "Ray crosses sphere");
+	        assertNull( tr.findIntersections(new Ray(new Point(3, 5, 1), new Vector(-3,-1,-5))));
 
 		// TC06: ray goes through the continuation of side 1
-		Triangle tr1 = new Triangle(new Point(0, 3, -3), new Point(3, 0, -3), new Point(-3, 0, -3));
-		assertNull(tr1.findIntersections(new Ray(new Point(-1, 4, -2), new Vector(0, 0, -1))),
-				"the ray is outside the triangle against edge");
+	        assertNull(tr.findIntersections(new Ray(new Point(3, 5, 1), new Vector(2, -5, -5))),
+	    				"the ray is outside the triangle against edge");
+	        
 
 	}
 

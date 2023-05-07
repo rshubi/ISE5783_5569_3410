@@ -6,6 +6,8 @@ import java.util.List;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
+import static primitives.Util.isZero;
+import static primitives.Util.alignZero;
 
 /**
  * A class for representing a plane.
@@ -72,11 +74,21 @@ public class Plane implements Geometry {
 
 	public List<Point> findIntersections(Ray ray) {
 		List<Point> list = new ArrayList();
-		double t = (normal.dotProduct(q0.subtract(ray.getP0())) / (normal.dotProduct(ray.getDir())));
+		double nv=normal.dotProduct(ray.getDir());
+		if (isZero(nv))
+			return null;
+		else{
+		Vector nQMinusP0=q0.subtract(ray.getP0());
+		double t = alignZero((normal.dotProduct(nQMinusP0)/nv));
 		Point p = ray.getPoint(t);
 		if (p != null)
+		{
 			list.add(p);
-		return list;
+		    return list;
+		}
+		
+			return null;
+		}
 
 	}
 }
