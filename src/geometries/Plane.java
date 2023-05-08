@@ -53,11 +53,7 @@ public class Plane implements Geometry {
 		return normal;
 	}
 
-	/**
-	 * A function that calculates the vector perpendicular to the plane
-	 * 
-	 * @return the normal vector of the plane at a specific point
-	 */
+	@Override
 	public Vector getNormal(Point p) {
 
 		return normal;
@@ -71,7 +67,8 @@ public class Plane implements Geometry {
 	public Point getQ0() {
 		return q0;
 	}
-
+	
+	@Override
 	public List<Point> findIntersections(Ray ray) {
 		List<Point> list = new ArrayList();
 		double nv=normal.dotProduct(ray.getDir());

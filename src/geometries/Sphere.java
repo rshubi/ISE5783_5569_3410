@@ -29,11 +29,7 @@ public class Sphere extends RadialGeometry {
 		center = point;
 	}
 
-	/**
-	 * A function that calculates the normal vector of the ball at a certain point
-	 * 
-	 * @return the normal vector of the sphere at a specific point
-	 */
+	@Override
 	public Vector getNormal(Point p) {
 
 		return p.subtract(center).normalize();
@@ -56,7 +52,7 @@ public class Sphere extends RadialGeometry {
 	public double getRadius() {
 		return radius;
 	}
-
+	@Override
 	public List<Point> findIntersections(Ray ray) {
 		List<Point> list = new ArrayList();
 		if (ray.getP0().equals(center)) 

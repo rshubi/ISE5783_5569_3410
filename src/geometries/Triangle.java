@@ -24,7 +24,7 @@ public class Triangle extends Polygon {
 	public Triangle(Point point1, Point point2, Point point3) {
 		super(point1, point2, point3);
 	}
-
+	@Override
 	public List<Point> findIntersections(Ray ray) {
 		List<Point> list = new ArrayList();
 		Point p0 = ray.getP0();
