@@ -67,23 +67,22 @@ public class Plane implements Geometry {
 	public Point getQ0() {
 		return q0;
 	}
-	
+
 	@Override
 	public List<Point> findIntersections(Ray ray) {
 		List<Point> list = new ArrayList();
-		double nv=normal.dotProduct(ray.getDir());
+		double nv = normal.dotProduct(ray.getDir());
 		if (isZero(nv))
 			return null;
-		else{
-		Vector nQMinusP0=q0.subtract(ray.getP0());
-		double t = alignZero((normal.dotProduct(nQMinusP0)/nv));
-		Point p = ray.getPoint(t);
-		if (p != null)
-		{
-			list.add(p);
-		    return list;
-		}
-		
+		else {
+			Vector nQMinusP0 = q0.subtract(ray.getP0());
+			double t = alignZero((normal.dotProduct(nQMinusP0) / nv));
+			Point p = ray.getPoint(t);
+			if (p != null) {
+				list.add(p);
+				return list;
+			}
+
 			return null;
 		}
 

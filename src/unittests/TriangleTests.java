@@ -26,7 +26,7 @@ class TriangleTests {
 	 */
 	@Test
 	void testGetNormal() {
-		  // ============ Equivalence Partitions Tests ==============
+		// ============ Equivalence Partitions Tests ==============
 		// TC01:Test that checks whether the normal of the triangle is correct
 		Point p1 = new Point(0, 0, 0);
 		Point p2 = new Point(0, 2, 0);
@@ -54,7 +54,8 @@ class TriangleTests {
 		// ============ Equivalence Partitions Tests ==============
 		// TC01: the ray goes through the triangle
 		Point p1 = new Point(2, 2, 0);
-		List<Point> result1 = mytr.findIntersections(new Ray(new Point(-2.09, 2.69, 2.3), new Vector(4.09, -0.69, -2.3)));
+		List<Point> result1 = mytr
+				.findIntersections(new Ray(new Point(-2.09, 2.69, 2.3), new Vector(4.09, -0.69, -2.3)));
 		assertEquals(List.of(p1), result1, "Ray crosses sphere");
 
 		// TC02: the ray is outside the triangle against edge
@@ -67,15 +68,14 @@ class TriangleTests {
 
 		// =============== Boundary Values Tests ==================
 		// TC11: The ray intersects on the edge of the triangle
-		assertNull(tr.findIntersections(new Ray(new Point(3, 5, 1), new Vector(-2,-5,-5))),"TC11:ERROR");
+		assertNull(tr.findIntersections(new Ray(new Point(3, 5, 1), new Vector(-2, -5, -5))), "TC11:ERROR");
 
 		// TC12: The ray intersects on vertice of the triangle
-	        assertNull( tr.findIntersections(new Ray(new Point(3, 5, 1), new Vector(-3,-1,-5))),"TC12:ERROR");
+		assertNull(tr.findIntersections(new Ray(new Point(3, 5, 1), new Vector(-3, -1, -5))), "TC12:ERROR");
 
-		// TC13:  The ray On the straight line continuing the edge of the triangle
-	        assertNull(tr.findIntersections(new Ray(new Point(3, 5, 1), new Vector(2, -5, -5))),
-	    				"TC13:ERROR:the ray is outside the triangle against edge");
-	        
+		// TC13: The ray On the straight line continuing the edge of the triangle
+		assertNull(tr.findIntersections(new Ray(new Point(3, 5, 1), new Vector(2, -5, -5))),
+				"TC13:ERROR:the ray is outside the triangle against edge");
 
 	}
 

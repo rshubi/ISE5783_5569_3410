@@ -24,6 +24,7 @@ public class Triangle extends Polygon {
 	public Triangle(Point point1, Point point2, Point point3) {
 		super(point1, point2, point3);
 	}
+
 	@Override
 	public List<Point> findIntersections(Ray ray) {
 		List<Point> list = new ArrayList();
@@ -37,16 +38,14 @@ public class Triangle extends Polygon {
 		Vector n1 = (v1.crossProduct(v2)).normalize();
 		Vector n2 = (v2.crossProduct(v3)).normalize();
 		Vector n3 = (v3.crossProduct(v1)).normalize();
-		if(plane.findIntersections(ray)!=null)
-		{
-		Point p = plane.findIntersections(ray).get(0);
-		if ((ray.getDir().dotProduct(n1) > 0 && ray.getDir().dotProduct(n2) > 0 && ray.getDir().dotProduct(n3) > 0)
-				|| (ray.getDir().dotProduct(n1) < 0 && ray.getDir().dotProduct(n2) < 0
-						&& ray.getDir().dotProduct(n3) < 0))
-		{
-			list.add(p);
-		return list;
-		}
+		if (plane.findIntersections(ray) != null) {
+			Point p = plane.findIntersections(ray).get(0);
+			if ((ray.getDir().dotProduct(n1) > 0 && ray.getDir().dotProduct(n2) > 0 && ray.getDir().dotProduct(n3) > 0)
+					|| (ray.getDir().dotProduct(n1) < 0 && ray.getDir().dotProduct(n2) < 0
+							&& ray.getDir().dotProduct(n3) < 0)) {
+				list.add(p);
+				return list;
+			}
 		}
 		return null;
 
