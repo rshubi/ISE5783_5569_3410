@@ -8,7 +8,8 @@ import primitives.Vector;
 
 /**
  * Camera Class
- *  @author Maayan & Renana 
+ * 
+ * @author Maayan & Renana
  *
  */
 public class Camera {
@@ -19,12 +20,14 @@ public class Camera {
 	private double width;
 	private double height;
 	private double distance;
-/**
- * The constructor function 
- * @param p0 Camera location point
- * @param vTo A vector that sets the direction of the camera to the forward
- * @param vUp A vector that sets the direction of the camera to the up
- */
+
+	/**
+	 * The constructor function
+	 * 
+	 * @param p0  Camera location point
+	 * @param vTo A vector that sets the direction of the camera to the forward
+	 * @param vUp A vector that sets the direction of the camera to the up
+	 */
 	public Camera(Point p0, Vector vTo, Vector vUp) {
 		if (!Util.isZero(vTo.dotProduct(vUp)))
 			throw new IllegalArgumentException("vUp is not ortogonal to vTo");
@@ -34,9 +37,11 @@ public class Camera {
 		vRight = (vTo.crossProduct(vUp)).normalize();
 		this.p0 = p0;
 	}
+
 	/**
 	 * A Set Function
-	 * @param width Width of the view plane
+	 * 
+	 * @param width  Width of the view plane
 	 * @param height height of the view plane
 	 * @return
 	 */
@@ -45,23 +50,27 @@ public class Camera {
 		this.height = height;
 		return this;
 	}
-/**
- * A Set Function
- * @param distance distance of the camera from the geometric body
- * @return
- */
+
+	/**
+	 * A Set Function
+	 * 
+	 * @param distance distance of the camera from the geometric body
+	 * @return
+	 */
 	public Camera setVPDistance(double distance) {
 		this.distance = distance;
 		return this;
 	}
-/**
- * The function returns a ray that passes through the center of a certain pixel
- * @param nX row number of view plane
- * @param nY column number of view plane
- * @param j column of a certain pixel
- * @param i row of a certain pixel
- * @return a ray that passes through the center of a certain pixel
- */
+
+	/**
+	 * The function returns a ray that passes through the center of a certain pixel
+	 * 
+	 * @param nX row number of view plane
+	 * @param nY column number of view plane
+	 * @param j  column of a certain pixel
+	 * @param i  row of a certain pixel
+	 * @return a ray that passes through the center of a certain pixel
+	 */
 	public Ray constructRay(int nX, int nY, int j, int i)/* throws Exception */ {// constructRayThroughPixel
 		Point Pc;
 		if (Util.isZero(distance))
@@ -92,6 +101,7 @@ public class Camera {
 
 	/**
 	 * A get function
+	 * 
 	 * @return the p0
 	 */
 	public Point getP0() {
@@ -100,6 +110,7 @@ public class Camera {
 
 	/**
 	 * A get function
+	 * 
 	 * @return the vUp
 	 */
 	public Vector getvUp() {
@@ -108,6 +119,7 @@ public class Camera {
 
 	/**
 	 * A get function
+	 * 
 	 * @return the vRight
 	 */
 	public Vector getvRight() {
@@ -116,6 +128,7 @@ public class Camera {
 
 	/**
 	 * A get function
+	 * 
 	 * @return the vTo
 	 */
 	public Vector getvTo() {
@@ -124,6 +137,7 @@ public class Camera {
 
 	/**
 	 * A get function
+	 * 
 	 * @return the width
 	 */
 	public double getWidth() {
@@ -132,6 +146,7 @@ public class Camera {
 
 	/**
 	 * A get function
+	 * 
 	 * @return the height
 	 */
 	public double getHeight() {
@@ -140,6 +155,7 @@ public class Camera {
 
 	/**
 	 * A get function
+	 * 
 	 * @return the distance
 	 */
 	public double getDistance() {

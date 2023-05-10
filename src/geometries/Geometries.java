@@ -11,32 +11,34 @@ import primitives.Point;
 import primitives.Ray;
 
 /**
- * Geometries class
- *  @author Maayan & Renana 
+ * @author נעמי
  *
  */
 public class Geometries implements Intersectable {
 	private List<Intersectable> geometriesList;
+
 	/**
-	 * The constructor function 
+	 * The constructor function gets
 	 */
 	public Geometries() {
 		super();
 		geometriesList = new LinkedList<Intersectable>();
 	}
+
 	/**
 	 * The constructor function gets
 	 * 
-	 * @param Intersectable geometries collection of geometries bodies
+	 * @param Intersectable geometries
 	 */
 	public Geometries(Intersectable... geometries) {
 		geometriesList = new LinkedList<Intersectable>(Arrays.asList(geometries));
 	}
-	/**
-	 * The function receives a collection of geometries and adds them to the list of geometries
-	 * @param geometries collection of geometries to add
-	 */
 
+	/**
+	 * The operation of adding a body to the collection of existing bodies
+	 * 
+	 * @param Intersectable geometries
+	 */
 	public void add(Intersectable... geometries) {
 		if (geometries != null) {
 			geometriesList.addAll(Arrays.asList(geometries));
@@ -59,8 +61,7 @@ public class Geometries implements Intersectable {
 	}
 
 	/**
-	 * A get function
-	 * @return the geometriesList A list of the geometric bodies
+	 * @return the geometriesList
 	 */
 	public List<Intersectable> getGeometriesList() {
 		return geometriesList;
