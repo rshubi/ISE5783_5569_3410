@@ -1,7 +1,7 @@
 /**
  * 
  */
-package unittests;
+package unittests.primitives;
 
 import primitives.Point;
 import primitives.Vector;

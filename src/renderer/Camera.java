@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package renderer;
 
 import primitives.Point;
