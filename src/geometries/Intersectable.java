@@ -10,8 +10,9 @@ import java.util.List;
 import primitives.Point;
 
 /**
+ * An interface for calculating the intersection points between the beam and the geometric body 
  * @author Maayan & Renana
- * Intersectable interface
+ * 
  */
 
 /**

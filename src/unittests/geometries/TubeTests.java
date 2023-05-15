@@ -7,7 +7,6 @@ import primitives.Point;
 import geometries.Tube;
 import primitives.Vector;
 import primitives.Ray;
-import static primitives.Util.isZero;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;

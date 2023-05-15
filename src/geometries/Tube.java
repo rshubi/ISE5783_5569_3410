@@ -18,7 +18,7 @@ public class Tube extends RadialGeometry {
 	/**
 	 * The constructor function gets
 	 * 
-	 * @param ray    ray that determines the direction of the tube
+	 * @param ray    a ray that determines the direction of the tube
 	 * @param radius radius of the tube
 	 */
 	public Tube(Ray ray, double radius) {
@@ -47,6 +47,12 @@ public class Tube extends RadialGeometry {
 		return axisRay;
 	}
 
+	/**
+	 * A function to calculate intersection points with the ray
+	 * 
+	 * @param ray The cutting ray
+	 * @return null
+	 */
 	public List<Point> findIntersections(Ray ray) {
 		return null;
 	}

@@ -11,7 +11,9 @@ import primitives.Point;
 import primitives.Ray;
 
 /**
- * @author נעמי
+ * A class for a union of geometric bodies
+ * 
+ * @author Maayan & Renana
  *
  */
 public class Geometries implements Intersectable {

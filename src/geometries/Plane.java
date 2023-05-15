@@ -10,7 +10,7 @@ import static primitives.Util.isZero;
 import static primitives.Util.alignZero;
 
 /**
- * A class for representing a plane.
+ * A class for representing a plane
  * 
  * @author Maayan & Renana
  */

@@ -7,13 +7,8 @@ import primitives.Point;
 import primitives.Ray;
 import geometries.Sphere;
 import primitives.Vector;
-
-import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
-import static primitives.Util.isZero;
-
 import java.util.List;
-import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 /**

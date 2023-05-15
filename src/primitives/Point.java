@@ -89,14 +89,29 @@ public class Point {
 		return dx * dx + dy * dy + dz * dz;
 	}
 
+	/**
+	 * A get function
+	 * 
+	 * @return the first coordinate
+	 */
 	public double getX() {
 		return xyz.d1;
 	}
 
+	/**
+	 * A get function
+	 * 
+	 * @return the second coordinate
+	 */
 	public double getY() {
 		return xyz.d2;
 	}
 
+	/**
+	 * A get function
+	 * 
+	 * @return the third coordinate
+	 */
 	public double getZ() {
 		return xyz.d3;
 	}

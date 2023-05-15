@@ -3,7 +3,6 @@
  */
 package unittests.geometries;
 
-import geometries.Plane;
 import geometries.Triangle;
 import primitives.Point;
 import primitives.Ray;

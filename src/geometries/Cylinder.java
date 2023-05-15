@@ -4,9 +4,10 @@ import java.util.List;
 
 import primitives.Point;
 import primitives.Ray;
+import primitives.Vector;
 
 /**
- * A class for representing final cylinder.
+ * A class for representing final cylinder
  * 
  * @author Maayan & Renana
  */
@@ -18,9 +19,9 @@ public class Cylinder extends Tube {
 	/**
 	 * The constructor function gets
 	 * 
-	 * @param ray    A ray that determines the direction of the cylinder.
-	 * @param radius the radius of the cylinder.
-	 * @param Height The height of the cylinder.
+	 * @param ray    a ray that determines the direction of the cylinder
+	 * @param radius the radius of the cylinder
+	 * @param Height The height of the cylinder
 	 */
 	public Cylinder(Ray ray, double radius, double Height) {
 		super(ray, radius);
@@ -28,7 +29,7 @@ public class Cylinder extends Tube {
 	}
 
 	/**
-	 * A get function.
+	 * A get function
 	 * 
 	 * @returns the height of the final cylinder
 	 */
@@ -36,6 +37,22 @@ public class Cylinder extends Tube {
 		return height;
 	}
 
+	@Override
+	public Vector getNormal(Point p) {
+		return null;
+	}
+
+	@Override
+	public String toString() {
+		return super.toString() + "Cylinder: height=" + height + " ";
+	}
+
+	/**
+	 * A function to calculate intersection points with the ray
+	 * 
+	 * @param ray The cutting ray
+	 * @return null
+	 */
 	public List<Point> findIntersections(Ray ray) {
 		return null;
 	}
