@@ -60,7 +60,7 @@ public class Ray {
 	/**
 	 * A function that calculates the point on the ray
 	 * 
-	 * @param t
+	 * @param t scalar of dir vector
 	 * @return the point on the ray
 	 */
 	public Point getPoint(double t) {

@@ -240,8 +240,8 @@ public class Camera {
 	/**
 	 * The function creates a beam and calculates the color in the ray
 	 * 
-	 * @param i columns
-	 * @param j rows
+	 * @param i rows
+	 * @param j columns
 	 * @return the color
 	 */
 	private Color castRay(int i, int j) {
