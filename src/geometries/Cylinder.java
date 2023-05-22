@@ -9,7 +9,7 @@ import primitives.Vector;
 /**
  * A class for representing final cylinder
  * 
- * @author Maayan & Renana
+ * @author Maayan &amp; Renana
  */
 
 public class Cylinder extends Tube {
@@ -31,7 +31,7 @@ public class Cylinder extends Tube {
 	/**
 	 * A get function
 	 * 
-	 * @returns the height of the final cylinder
+	 * @return the height of the final cylinder
 	 */
 	public double getHeight() {
 		return height;

@@ -5,65 +5,60 @@ package geometries;
 
 import java.util.List;
 import java.util.LinkedList;
-import java.util.Arrays;
-import geometries.Intersectable;
 import primitives.Point;
 import primitives.Ray;
 
 /**
  * A class for a union of geometric bodies
  * 
- * @author Maayan & Renana
+ * @author Maayan &amp; Renana
  *
  */
 public class Geometries implements Intersectable {
-	private List<Intersectable> geometriesList;
+	private List<Intersectable> geometriesList = new LinkedList<Intersectable>();
 
 	/**
-	 * The constructor function gets
+	 * The default constructor
 	 */
 	public Geometries() {
-		super();
-		geometriesList = new LinkedList<Intersectable>();
 	}
 
 	/**
-	 * The constructor function gets
+	 * The constructor function gets list of geometries
 	 * 
-	 * @param Intersectable geometries
+	 * @param geometries as many geometries as you desire
 	 */
 	public Geometries(Intersectable... geometries) {
-		geometriesList = new LinkedList<Intersectable>(Arrays.asList(geometries));
+		add(geometries);
 	}
 
 	/**
 	 * The operation of adding a body to the collection of existing bodies
 	 * 
-	 * @param Intersectable geometries
+	 * @param geometries as many geometries as you desire to add
 	 */
 	public void add(Intersectable... geometries) {
-		if (geometries != null) {
-			geometriesList.addAll(Arrays.asList(geometries));
-		}
-
+		if (geometries != null)
+			geometriesList.addAll(List.of(geometries));
 	}
 
 	@Override
 	public List<Point> findIntersections(Ray ray) {
-		List<Point> temp = new LinkedList<Point>();
+		List<Point> result = null;
 		for (Intersectable intersectable : geometriesList) {
 			List<Point> intersection = intersectable.findIntersections(ray);
-			if (intersection != null)
-				temp.addAll(intersection);
+			if (intersection != null) {
+				if (result == null)
+					result = new LinkedList<>();
+				result.addAll(intersection);
+			}
 		}
-
-		if (temp.isEmpty())
-			return null;
-		return temp;
+		return result;
 	}
 
 	/**
-	 * @return the geometriesList
+	 * Getter for the list
+	 * @return the list geometries
 	 */
 	public List<Intersectable> getGeometriesList() {
 		return geometriesList;

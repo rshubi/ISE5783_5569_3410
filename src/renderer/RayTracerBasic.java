@@ -12,7 +12,7 @@ import scene.Scene;
 /**
  * A class inherits from an abstract class (RayTracerBase)
  * 
- * @author Maayan & Renana
+ * @author Maayan &amp; Renana
  */
 public class RayTracerBasic extends RayTracerBase {
 	/**

@@ -3,7 +3,7 @@ package primitives;
 /**
  * A class for representing a vector
  * 
- * @author Maayan & Renana
+ * @author Maayan &amp; Renana
  *
  */
 public class Vector extends Point {
@@ -51,7 +51,7 @@ public class Vector extends Point {
 	 * A function that performs vector addition to vector
 	 * 
 	 * @param vToAdd A vector that is added to a current vector
-	 * @returns a new vector
+	 * @return a new vector
 	 */
 	public Vector add(Vector vToAdd) {
 		return new Vector(this.xyz.add(vToAdd.xyz));
@@ -61,7 +61,7 @@ public class Vector extends Point {
 	 * Multiply a vector by a scalar
 	 * 
 	 * @param scalar A number with which the vector is multiplied
-	 * @returns a new vector
+	 * @return a new vector
 	 */
 	public Vector scale(double scalar) {
 		return new Vector(this.xyz.scale(scalar));
@@ -71,18 +71,18 @@ public class Vector extends Point {
 	 * Vector multiplication function
 	 * 
 	 * @param v second vector
-	 * @returns a new vector perpendicular to the two existing vectors
+	 * @return a new vector perpendicular to the two existing vectors
 	 */
 	public Vector crossProduct(Vector v) {
-		return new Vector((this.xyz.d2 * v.xyz.d3 - this.xyz.d3 * v.xyz.d2), //
-				(this.xyz.d3 * v.xyz.d1 - this.xyz.d1 * v.xyz.d3), //
+		return new Vector((this.xyz.d2 * v.xyz.d3 - this.xyz.d3 * v.xyz.d2), 
+				(this.xyz.d3 * v.xyz.d1 - this.xyz.d1 * v.xyz.d3), 
 				(this.xyz.d1 * v.xyz.d2 - this.xyz.d2 * v.xyz.d1));
 	}
 
 	/**
 	 * A function that calculates the squared length of the vector
 	 * 
-	 * @returns the squared length of the vector
+	 * @return the squared length of the vector
 	 */
 	public double lengthSquared() {
 		return this.dotProduct(this);
@@ -91,7 +91,7 @@ public class Vector extends Point {
 	/**
 	 * A function that calculates the length of the vector
 	 * 
-	 * @returns the length of the vector
+	 * @return the length of the vector
 	 */
 	public double length() {
 		return Math.sqrt(this.lengthSquared());
@@ -100,7 +100,7 @@ public class Vector extends Point {
 	/**
 	 * A function that normalizes the vector
 	 * 
-	 * @returns the normalized vector
+	 * @return the normalized vector
 	 */
 	public Vector normalize() {
 		return this.scale(1 / this.length());
@@ -110,7 +110,7 @@ public class Vector extends Point {
 	 * scalar multiplication
 	 * 
 	 * @param v second vector for scalar multiplication
-	 * @returns A number that represents the scalar product
+	 * @return A number that represents the scalar product
 	 */
 	public double dotProduct(Vector v) {
 		return this.xyz.d1 * v.xyz.d1 + this.xyz.d2 * v.xyz.d2 + this.xyz.d3 * v.xyz.d3;

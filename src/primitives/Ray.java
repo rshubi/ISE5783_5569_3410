@@ -1,23 +1,23 @@
 package primitives;
 
 import java.util.List;
+import static primitives.Util.*;
 
 /**
  * 
  * A class for representing a ray
  * 
- * @author Maayan & Renana
+ * @author Maayan &amp; Renana
  *
  */
 public class Ray {
-
-	final Point p0;
-	final Vector dir;
+	private final Point p0;
+	private final Vector dir;
 
 	/**
 	 * The constructor function gets
 	 * 
-	 * @param rhsP   right handle side point
+	 * @param rhsP handle side point
 	 * @param rhsDir right handle side direction vector for create ray
 	 */
 	public Ray(Point rhsP, Vector rhsDir) {
@@ -42,7 +42,7 @@ public class Ray {
 	/**
 	 * A get function
 	 * 
-	 * @returns the starting point of the ray
+	 * @return the starting point of the ray
 	 */
 	public Point getP0() {
 		return p0;
@@ -51,22 +51,21 @@ public class Ray {
 	/**
 	 * A get function
 	 * 
-	 * @returns the direction vector of the ray
+	 * @return the direction vector of the ray
 	 */
 	public Vector getDir() {
 		return dir;
 	}
 
 	/**
-	 * A function that calculates the point on the ray
+	 * A function that calculates a point on the ray at a given distance from the
+	 * ray head. The point can be anywhere on the line of the ray.
 	 * 
-	 * @param t scalar of dir vector
+	 * @param t the distance from the ray head
 	 * @return the point on the ray
 	 */
 	public Point getPoint(double t) {
-		if (t > 0)
-			return p0.add(dir.scale(t));
-		return null;
+		return isZero(t) ? p0 : p0.add(dir.scale(t));
 	}
 
 	/**
@@ -78,13 +77,17 @@ public class Ray {
 	public Point findClosestPoint(List<Point> points) {
 		if (points == null)
 			return null;
-		Point closet = points.get(0);
-		for (Point point : points) {
-			if (point.distance(p0) < closet.distance(p0))
-				closet = point;
+		Point closest = null;
+		double min = Double.POSITIVE_INFINITY;
+		for (var point : points) {
+			double dist = point.distance(p0);
+			if (dist < min) {
+				closest = point;
+				min = dist;
+			}
 		}
-		return closet;
 
+		return closest;
 	}
 
 }

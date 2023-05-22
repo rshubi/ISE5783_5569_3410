@@ -10,12 +10,16 @@ import primitives.Color;
 /**
  * A class of type PDF that represents a scene
  * 
- * @author Maayan & Renana
+ * @author Maayan &amp; Renana
  */
 public class Scene {
-	public String name;
-	public Color background;
+	/** the name of the scene */
+	public final String name;
+	/** default background color, black color*/
+	public Color background = Color.BLACK;
+	/** Ambient lighting is initialized to none */
 	public AmbientLight ambientLight = AmbientLight.NONE;
+	/** The 3D model is initialized to empty */
 	public Geometries geometries = new Geometries();
 
 	/**
@@ -25,7 +29,6 @@ public class Scene {
 	 */
 	public Scene(String name) {
 		this.name = name;
-		background = Color.BLACK;
 	}
 
 	/**
@@ -48,7 +51,6 @@ public class Scene {
 	public Scene setAmbientLight(AmbientLight ambientLight) {
 		this.ambientLight = ambientLight;
 		return this;
-
 	}
 
 	/**
@@ -61,4 +63,10 @@ public class Scene {
 		this.geometries = geometries;
 		return this;
 	}
+	
+
+
+
+
+
 }

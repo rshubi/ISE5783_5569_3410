@@ -10,11 +10,12 @@ import primitives.Color;
 /**
  * The abstract class
  * 
- * @author Maayan & Renana
+ * @author Maayan &amp; Renana
  *
  */
 public abstract class RayTracerBase {
-	protected Scene scene;
+	/** The scene object to trace with a ray */
+	protected final Scene scene;
 
 	/**
 	 * The constructor function gets
@@ -26,10 +27,10 @@ public abstract class RayTracerBase {
 	}
 
 	/**
-	 * An abstract function that calculates the color
+	 * Traces a ray through scene and calculates the color of the ray
 	 * 
-	 * @param ray a ray for calculating the color
-	 * @return a color
+	 * @param ray a ray to trace through the scene
+	 * @return the color of the ray
 	 */
 	public abstract Color traceRay(Ray ray);
 }

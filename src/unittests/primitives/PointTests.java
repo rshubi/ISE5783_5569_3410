@@ -1,18 +1,13 @@
-/**
- * 
- */
 package unittests.primitives;
-
 import primitives.Point;
 import primitives.Vector;
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for primitives.Point class
  * 
- * @author Maayan & Renana
+ * @author Maayan &amp; Renana
  */
 public class PointTests {
 
@@ -27,7 +22,6 @@ public class PointTests {
 		Vector v1 = new Vector(4, 5, 6);
 		Point pr = p1.add(v1);
 		assertEquals(new Point(5, 7, 9), pr, "Add() wrong result length");
-
 	}
 
 	/**
@@ -45,7 +39,6 @@ public class PointTests {
 		// TC11:Test that scaling two vectors does not produce a zero vector
 		assertThrows(IllegalArgumentException.class, () -> p1.subtract(p1),
 				"Subtract() should throw an exception, but it failed");
-
 	}
 
 	/**
@@ -59,6 +52,7 @@ public class PointTests {
 		Point p2 = new Point(5, 7, 9);
 		double dr = p1.distance(p2);
 		assertEquals(Math.sqrt(77), dr, 0.0000001, "Distance() wrong result");
+		assertEquals(0, (p1.distance(p2)-Math.sqrt(77)), 0.0000001, "Distance() wrong result");
 	}
 
 	/**
@@ -73,5 +67,4 @@ public class PointTests {
 		double dr = p1.distanceSquared(p2);
 		assertEquals(77, dr, 0.0000001, "DistanceSquared() wrong result");
 	}
-
 }

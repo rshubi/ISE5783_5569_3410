@@ -1,40 +1,30 @@
-/**
- * 
- */
 package unittests.renderer;
-
-import static org.junit.jupiter.api.Assertions.*;
 import renderer.ImageWriter;
 import primitives.Color;
-
 import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for renderer.ImageWriter class
  * 
- * @author Maayan & Renana
- *
+ * @author Maayan &amp; Renana
  */
 class ImageWriterTest {
 
 	/**
 	 * Test method for {@link renderer.ImageWriter#writeToImage()}.
 	 */
-
 	@Test
 	void testWriteToImage() {
-		ImageWriter image = new ImageWriter("firstImage", 800, 500);
-
-		for (int i = 0; i < 800; i++) {
-			for (int j = 0; j < 500; j++) {
-				if (i % 50 == 0 || j % 50 == 0)
-					image.writePixel(i, j, new Color(255, 255, 255));
-				else
-					image.writePixel(i, j, new Color(51, 204, 255));
-			}
-		}
+		final int width = 800;
+		final int height = 500;
+		final int step = 50;
+		final Color white = new Color(255, 255, 255);
+		final Color bluish = new Color(51, 204, 255);
+		ImageWriter image = new ImageWriter("firstImage", width, height);
+		for (int i = 0; i < width; i++)
+			for (int j = 0; j < height; j++)
+				image.writePixel(i, j, i % step == 0 || j % step == 0 ? white : bluish);
 		image.writeToImage();
-
 	}
 
 }

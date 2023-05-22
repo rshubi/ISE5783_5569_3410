@@ -6,40 +6,37 @@ import primitives.Double3;
 /**
  * A class for ambient lighting
  * 
- * @author Maayan & Renana
+ * @author Maayan &amp; Renana
  *
  */
 public class AmbientLight {
-	private Color Ia;
-	private Double3 Ka;
-	private Color intensity;
+	private final Color intensity;
+	/** The constant of absence of ambient lighting */
 	public static final AmbientLight NONE = new AmbientLight(Color.BLACK, Double3.ZERO);
 
 	/**
 	 * 
 	 * A constructor that save the intensity=Ia*Ka
 	 * 
-	 * @param Ia Color value
-	 * @param Ka Double3 value
+	 * @param iA Intensity of the light
+	 * @param kA Double3 value of attenuation by RGB
 	 */
-	public AmbientLight(Color Ia, Double3 Ka) {
-		intensity = Ia.scale(Ka);
-
+	public AmbientLight(Color iA, Double3 kA) {
+		intensity = iA.scale(kA);
 	}
 
 	/**
 	 * A constructor that save the intensity=Ia*Ka
 	 * 
-	 * @param Ia Color value
-	 * @param Ka double value
+	 * @param iA intensity of the light
+	 * @param kA value of attenuation factor
 	 */
-	public AmbientLight(Color Ia, double Ka) {
-		intensity = Ia.scale(Ka);
+	public AmbientLight(Color iA, double kA) {
+		intensity = iA.scale(kA);
 	}
 
 	/**
-	 * A function that returns the value of the ambient lighting intensity of type
-	 * Color
+	 * A function that returns the value of the ambient lighting intensity of type Color
 	 * 
 	 * @return Ambient lighting intensity value
 	 */

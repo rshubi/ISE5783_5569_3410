@@ -3,56 +3,48 @@ package geometries;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
-import static primitives.Util.isZero;
+import static primitives.Util.*;
 
 import java.util.List;
 
 /**
  * A class for representing a 3D tube
  * 
- * @author Maayan & Renana
+ * @author Maayan &amp; Renana
  */
 public class Tube extends RadialGeometry {
+	/** axis line of the tube */
 	protected final Ray axisRay;
 
 	/**
 	 * The constructor function gets
 	 * 
-	 * @param ray    a ray that determines the direction of the tube
+	 * @param ray a ray that determines the direction of the tube
 	 * @param radius radius of the tube
 	 */
 	public Tube(Ray ray, double radius) {
-
 		super(radius);
-		if (isZero(radius) || radius < 0)
+		if (alignZero(radius) <= 0)
 			throw new IllegalArgumentException("Zero or negative radius");
 		axisRay = ray;
 	}
 
 	@Override
 	public Vector getNormal(Point p) {
-		Vector v = axisRay.getDir();
-		Point p0 = axisRay.getP0();
-		double t = v.dotProduct(p.subtract(p0));
-		Point o = isZero(t) ? p0 : p0.add(v.scale(t));
-		return p.subtract(o).normalize();
+		double t = axisRay.getDir().dotProduct(p.subtract(axisRay.getP0()));
+		return p.subtract(axisRay.getPoint(t)).normalize();
 	}
 
 	/**
 	 * A get function
 	 * 
-	 * @returns the ray of the tube
+	 * @return the ray of the tube
 	 */
 	public Ray getAxisRay() {
 		return axisRay;
 	}
 
-	/**
-	 * A function to calculate intersection points with the ray
-	 * 
-	 * @param ray The cutting ray
-	 * @return null
-	 */
+	@Override
 	public List<Point> findIntersections(Ray ray) {
 		return null;
 	}

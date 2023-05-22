@@ -3,10 +3,10 @@ package primitives;
 /**
  * A class for representing point
  * 
- * @author Maayan & Renana
+ * @author Maayan &amp; Renana
  */
 public class Point {
-	//
+	/** the triad of coordinates X, Y, Z */
 	protected final Double3 xyz;
 
 	/**
@@ -48,7 +48,7 @@ public class Point {
 	 * Adding a vector to a point
 	 * 
 	 * @param vToAdd A vector that is added to a point
-	 * @returns a new point
+	 * @return a new point
 	 */
 	public Point add(Vector vToAdd) {
 		return new Point(xyz.add(vToAdd.xyz));
@@ -58,7 +58,7 @@ public class Point {
 	 * Vector subtraction to a point
 	 * 
 	 * @param pToSub point for subtraction
-	 * @returns a new vector
+	 * @return a new vector
 	 */
 	public Vector subtract(Point pToSub) {
 		return new Vector(xyz.subtract(pToSub.xyz));
@@ -78,9 +78,8 @@ public class Point {
 	/**
 	 * Calculating the squared distance between two points
 	 * 
-	 * @param point A second point to calculate the distance between the current
-	 *              point
-	 * @returns the distance between two points in a square
+	 * @param point A second point to calculate the distance between the current point
+	 * @return the distance between two points in a square
 	 */
 	public double distanceSquared(Point point) {
 		double dx = xyz.d1 - point.xyz.d1;

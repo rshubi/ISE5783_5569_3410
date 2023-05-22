@@ -2,10 +2,6 @@ package unittests.renderer;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.List;
-import java.util.ArrayList;
-import geometries.Intersectable;
-
 import org.junit.jupiter.api.Test;
 
 import primitives.*;
@@ -18,7 +14,7 @@ import renderer.Camera;
  *
  */
 class CameraTest {
-	static final Point ZERO_POINT = new Point(0, 0, 0);
+	private static final Point ZERO_POINT = new Point(0, 0, 0);
 
 	/**
 	 * Test method for {@link renderer.Camera#constructRay(int, int, int, int)}.

@@ -11,7 +11,7 @@ import java.util.MissingResourceException;
 /**
  * A class for Camera construction
  * 
- * @author Maayan & Renana
+ * @author Maayan &amp; Renana
  *
  */
 public class Camera {
@@ -169,7 +169,7 @@ public class Camera {
 	/**
 	 * A set function
 	 * 
-	 * @param imageWriter
+	 * @param imageWriter pixel color matrix
 	 * @return the object itself
 	 */
 	public Camera setImageWriter(ImageWriter imageWriter) {
@@ -180,7 +180,7 @@ public class Camera {
 	/**
 	 * A set function
 	 * 
-	 * @param rayTracer
+	 * @param rayTracer a ray to trace through the scene
 	 * @return the object itself
 	 */
 

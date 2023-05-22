@@ -1,18 +1,16 @@
 package geometries;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
-import static primitives.Util.isZero;
-import static primitives.Util.alignZero;
+import static primitives.Util.*;
 
 /**
  * A class for representing a plane
  * 
- * @author Maayan & Renana
+ * @author Maayan &amp; Renana
  */
 
 public class Plane implements Geometry {
@@ -37,7 +35,7 @@ public class Plane implements Geometry {
 	 * The constructor function gets
 	 * 
 	 * @param point  The reference point for creating the plane
-	 * @param vactor The normal vector to form the plane
+	 * @param vector The normal vector to form the plane
 	 */
 	public Plane(Point point, Vector vector) {
 		q0 = point;
@@ -45,7 +43,7 @@ public class Plane implements Geometry {
 	}
 
 	/**
-	 * A get function
+	 * A function that returns the normal
 	 * 
 	 * @return the normal vector of the plane
 	 */
@@ -60,31 +58,26 @@ public class Plane implements Geometry {
 	}
 
 	/**
-	 * A get function
+	 * A function that returns the point of the plane
 	 * 
-	 * @returns the reference point of the plane
+	 * @return the reference point of the plane
 	 */
 	public Point getQ0() {
 		return q0;
 	}
+	
+	@Override
+	public String toString(){
+		return "Plane: q0=" + q0 + ", normal=" + normal + " ";
+	}
 
 	@Override
 	public List<Point> findIntersections(Ray ray) {
-		List<Point> list = new ArrayList();
 		double nv = normal.dotProduct(ray.getDir());
-		if (isZero(nv))
+		if (isZero(nv) || q0.equals(ray.getP0()))
 			return null;
-		else {
-			Vector nQMinusP0 = q0.subtract(ray.getP0());
-			double t = alignZero((normal.dotProduct(nQMinusP0) / nv));
-			Point p = ray.getPoint(t);
-			if (p != null) {
-				list.add(p);
-				return list;
-			}
-
-			return null;
-		}
-
+		Vector nQMinusP0 = q0.subtract(ray.getP0());
+		double t = alignZero((normal.dotProduct(nQMinusP0) / nv));
+		return t <= 0 ? null : List.of( ray.getPoint(t));
 	}
 }

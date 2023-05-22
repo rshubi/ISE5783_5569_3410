@@ -1,20 +1,15 @@
-/**
- * 
- */
 package unittests.geometries;
-
 import primitives.Point;
 import geometries.Tube;
 import primitives.Vector;
 import primitives.Ray;
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for geometries.Tube class
  * 
- * @author Maayan & Renana
+ * @author Maayan &amp; Renana
  */
 class TubeTests {
 
