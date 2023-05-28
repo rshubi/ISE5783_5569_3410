@@ -11,7 +11,7 @@ import primitives.Vector;
 import scene.Scene;
 import geometries.Intersectable.GeoPoint;
 import lighting.LightSource;
-import static primitives.Util.alignZero;;
+import static primitives.Util.*;
 
 /**
  * A class inherits from an abstract class (RayTracerBase)
@@ -67,14 +67,14 @@ public class RayTracerBasic extends RayTracerBase {
 		Color color = gp.geometry.getEmission();
 		Vector v = ray.getDir();
 		Vector n = gp.geometry.getNormal(gp.point);
-		double nv = alignZero(n.dotProduct(v));
-		if (nv == 0)
+		double nv = n.dotProduct(v);
+		if (isZero(nv))
 			return color;
 		Material material = gp.geometry.getMaterial();
 		for (LightSource lightSource : scene.lights) {
 			Vector l = lightSource.getL(gp.point);
-			double nl = alignZero(n.dotProduct(l));
-			if (nl * nv > 0) { // sign(nl) == sing(nv)
+			double nl = n.dotProduct(l);
+			if (alignZero(nl * nv) > 0) { // sign(nl) == sing(nv)
 				Color iL = lightSource.getIntensity(gp.point);
 				color = color.add(iL.scale(calcDiffusive(material, nl)), iL.scale(calcSpecular(material, n, l, nl, v)));
 			}
@@ -93,10 +93,9 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @return the calculate the specolar effect
 	 */
 	private Double3 calcSpecular(Material material, Vector n, Vector l, double nl, Vector v) {
-		Vector r = l.subtract(n.scale(alignZero(2 * nl))).normalize();
-		double RV = alignZero(r.dotProduct(v));
-		double minusRV = RV * (-1);
-		return material.kS.scale(Math.pow(Math.max(0, minusRV), material.nShininess));
+		Vector r = l.subtract(n.scale(2 * nl)).normalize();
+		double minusRV = -alignZero(r.dotProduct(v));
+		return minusRV <= 0 ? Double3.ZERO : material.kS.scale(Math.pow(minusRV, material.nShininess));
 	}
 
 	/**
@@ -107,6 +106,6 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @return double value for calcDiffusive
 	 */
 	private Double3 calcDiffusive(Material material, double nl) {
-		return material.kD.scale(alignZero(Math.abs(nl)));
+		return material.kD.scale(nl < 0 ? -nl : nl);
 	}
 }

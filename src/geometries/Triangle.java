@@ -26,9 +26,7 @@ public class Triangle extends Polygon {
 		List<GeoPoint> intersections = plane.findGeoIntersections(ray);
 		if (intersections == null)
 			return null;
-		for (GeoPoint geoPoint : intersections) {
-			geoPoint.geometry = this;
-		}
+		
 		Point p0 = ray.getP0();
 		Vector dir = ray.getDir();
 		Vector v1 = vertices.get(0).subtract(p0);
@@ -37,15 +35,19 @@ public class Triangle extends Polygon {
 		double sign1 = alignZero(dir.dotProduct(n1));
 		if (sign1 == 0)
 			return null;
+		
 		Vector v3 = vertices.get(2).subtract(p0);
 		Vector n2 = (v2.crossProduct(v3)).normalize();
 		double sign2 = alignZero(dir.dotProduct(n2));
 		if (sign1 * sign2 <= 0)
 			return null;
+		
 		Vector n3 = (v3.crossProduct(v1)).normalize();
 		double sign3 = alignZero(dir.dotProduct(n3));
 		if (sign1 * sign3 <= 0)
 			return null;
+		
+		intersections.get(0).geometry = this;
 		return intersections;
 	}
 

@@ -87,10 +87,17 @@ public class Ray {
 	public GeoPoint findClosestGeoPoint(List<GeoPoint> intersections) {
 		if (intersections == null)
 			return null;
-		GeoPoint closet = intersections.get(0);
-		for (GeoPoint geoPoint : intersections)
-			if (geoPoint.point.distance(p0) < closet.point.distance(p0))
-				closet = geoPoint;
-		return closet;
+
+		double minDist = Double.POSITIVE_INFINITY;
+		GeoPoint closest = null;
+		for (GeoPoint geoPoint : intersections) {
+			double dist = geoPoint.point.distance(p0);
+			if (dist < minDist) {
+				minDist = dist;
+				closest = geoPoint;
+			}
+		}
+		
+		return closest;
 	}
 }

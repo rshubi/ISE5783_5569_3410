@@ -16,7 +16,7 @@ import primitives.Vector;
  */
 public class PointLight extends Light implements LightSource {
 
-	private Point position;
+	private final Point position;
 	private double kC = 1;
 	private double kL = 0;
 	private double kQ = 0;
@@ -30,17 +30,6 @@ public class PointLight extends Light implements LightSource {
 	public PointLight(Color intensity1, Point position1) {
 		super(intensity1);
 		position = position1;
-	}
-
-	/**
-	 * A set function for filed position
-	 * 
-	 * @param position the position to set
-	 * @return the object - builder
-	 */
-	public PointLight setPosition(Point position) {
-		this.position = position;
-		return this;
 	}
 
 	/**
@@ -78,13 +67,15 @@ public class PointLight extends Light implements LightSource {
 
 	@Override
 	public Color getIntensity(Point p) {
-		return getIntensity().reduce((kC + kL * p.distance(position) + kQ * p.distanceSquared(position)));
+		double dSquared = p.distanceSquared(position);
+		return intensity.reduce((kC + kL * Math.sqrt(dSquared) + kQ * dSquared));
 	}
 
 	@Override
 	public Vector getL(Point p) {
+		// In order not to reach a state of exception due to the zero vector
 		if (p.equals(position))
-			return null; // In order not to reach a state of exception due to the zero vector
+			return null;
 		return p.subtract(position).normalize();
 	}
 }

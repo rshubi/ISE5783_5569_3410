@@ -77,7 +77,7 @@ public abstract class Intersectable {
 			if (!(obj instanceof GeoPoint))
 				return false;
 			GeoPoint other = (GeoPoint) obj;
-			return this.geometry.equals(other.geometry) && this.point.equals(other.point);
+			return this.geometry == other.geometry && this.point.equals(other.point);
 		}
 
 		@Override

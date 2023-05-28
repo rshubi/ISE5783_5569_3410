@@ -3,8 +3,8 @@ package renderer;
 import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
-import primitives.Util;
 import primitives.Vector;
+import static primitives.Util.*;
 import java.util.MissingResourceException;
 
 /**
@@ -14,7 +14,7 @@ import java.util.MissingResourceException;
  *
  */
 public class Camera {
-	private Point p0;
+	private final Point p0;
 	private Vector vUp;
 	private Vector vRight;
 	private Vector vTo;
@@ -32,7 +32,7 @@ public class Camera {
 	 * @param vUp A vector that sets the direction of the camera to the up
 	 */
 	public Camera(Point p0, Vector vTo, Vector vUp) {
-		if (!Util.isZero(vTo.dotProduct(vUp)))
+		if (!isZero(vTo.dotProduct(vUp)))
 			throw new IllegalArgumentException("vUp is not ortogonal to vTo");
 
 		this.vTo = vTo.normalize();
@@ -75,31 +75,20 @@ public class Camera {
 	 * @return a ray that passes through the center of a certain pixel
 	 */
 	public Ray constructRay(int nX, int nY, int j, int i)/* throws Exception */ {// constructRayThroughPixel
-		Point Pc;
-		if (Util.isZero(distance))
-			Pc = p0;
-		else
-			Pc = p0.add(vTo.scale(distance));
+		Point Pc = p0.add(vTo.scale(distance));
 
 		double Ry = height / nY;
 		double Rx = width / nX;
 		double Yi = (i - (nY - 1) / 2d) * Ry;
 		double Xj = (j - (nX - 1) / 2d) * Rx;
 
-		if (Util.isZero(Xj) && Util.isZero(Yi))
-			return new Ray(p0, Pc.subtract(p0));
 		Point Pij = Pc;
-		if (!Util.isZero(Xj))
+		if (!isZero(Xj))
 			Pij = Pij.add(vRight.scale(Xj));
-
-		if (!Util.isZero(Yi))
+		if (!isZero(Yi))
 			Pij = Pij.add(vUp.scale(-Yi));
 
-		Vector Vij = Pij.subtract(p0);
-
-		if (Pij.equals(p0))
-			return new Ray(p0, new Vector(Pij.getX(), Pij.getY(), Pij.getZ()));
-		return new Ray(p0, Vij);
+		return new Ray(p0, Pij.subtract(p0));
 	}
 
 	/**
@@ -248,8 +237,7 @@ public class Camera {
 	 */
 	private Color castRay(int i, int j) {
 		Ray ray = constructRay(imageWriter.getNx(), imageWriter.getNy(), j, i);
-		Color rayColor = rayTracer.traceRay(ray);
-		return rayColor;
+		return rayTracer.traceRay(ray);
 	}
 
 }

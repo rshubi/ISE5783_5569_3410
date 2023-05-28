@@ -11,7 +11,7 @@ import primitives.Ray;
  *
  */
 public class Geometries extends Intersectable {
-	private List<Intersectable> geometriesList = new LinkedList<Intersectable>();
+	private final List<Intersectable> geometriesList = new LinkedList<>();
 
 	/**
 	 * The default constructor
@@ -42,7 +42,7 @@ public class Geometries extends Intersectable {
 	public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
 		List<GeoPoint> result = null;
 		for (Intersectable intersectable : geometriesList) {
-			List<GeoPoint> intersection = intersectable.findGeoIntersections(ray);
+			var intersection = intersectable.findGeoIntersections(ray);
 			if (intersection != null) {
 				if (result == null)
 					result = new LinkedList<>();

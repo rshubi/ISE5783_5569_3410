@@ -8,10 +8,7 @@ import primitives.*;
  * @author Maayan &amp; Renana
  */
 public abstract class Geometry extends Intersectable {
-	/**
-	 * The color of the geometric body. Black color (default)
-	 */
-	protected Color emission = Color.BLACK;
+	private Color emission = Color.BLACK;
 	private Material material = new Material();
 
 	/**
