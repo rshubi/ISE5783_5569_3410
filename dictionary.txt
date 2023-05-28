@@ -19,3 +19,13 @@ de
 co
 vertice
 int
+png
+geo
+ctor
+params
+nl
+nv
+difusive
+specolar
+geopoints
+util

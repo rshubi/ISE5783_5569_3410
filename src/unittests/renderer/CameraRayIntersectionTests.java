@@ -1,4 +1,5 @@
 package unittests.renderer;
+
 import primitives.Point;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -6,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import geometries.*;
+import geometries.Intersectable.GeoPoint;
 import primitives.*;
 import renderer.Camera;
 
@@ -55,7 +57,7 @@ public class CameraRayIntersectionTests {
 		List<Ray> raysList = createRays(camera, 3, 3);
 		int count = 0;
 		for (Ray ray : raysList) {
-			List<Point> temp = geomety.findIntersections(ray);
+			List<GeoPoint> temp = geomety.findGeoIntersections(ray);
 			if (temp != null)
 				count += temp.size();
 		}
@@ -95,11 +97,9 @@ public class CameraRayIntersectionTests {
 		sphere = new Sphere(0.5, new Point(0, 0, 1));
 		Camera camera3 = new Camera(new Point(0, 0, 0.5), new Vector(0, 0, -1), new Vector(0, 1, 0)).setVPDistance(1)
 				.setVPSize(3, 3);
-		assertEquals(0, findIntersectionPointsWithCamera(camera3, sphere), "The count of intersections are not correct");
+		assertEquals(0, findIntersectionPointsWithCamera(camera3, sphere),
+				"The count of intersections are not correct");
 	}
-	/**
-	 * Test method for {@link geometries.Sphere#getNormal(primitives.Point)}.
-	 */
 
 	@Test
 	public void constructRayPlane() {
@@ -121,8 +121,9 @@ public class CameraRayIntersectionTests {
 		assertEquals(6, findIntersectionPointsWithCamera(camera4, plane), "The count of intersections are not correct");
 
 	}
+
 	/**
-	 * Test method for {@link renderer#(renderer)}.
+	 * 
 	 */
 	@Test
 	public void constructRayTriangle() {

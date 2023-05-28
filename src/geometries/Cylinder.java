@@ -1,7 +1,6 @@
 package geometries;
 
 import java.util.List;
-
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
@@ -29,7 +28,7 @@ public class Cylinder extends Tube {
 	}
 
 	/**
-	 * A get function
+	 * get function to return the cylinder height
 	 * 
 	 * @return the height of the final cylinder
 	 */
@@ -53,7 +52,7 @@ public class Cylinder extends Tube {
 	 * @param ray The cutting ray
 	 * @return null
 	 */
-	public List<Point> findIntersections(Ray ray) {
+	public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
 		return null;
 	}
 }

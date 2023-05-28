@@ -1,4 +1,5 @@
 package unittests.primitives;
+
 import primitives.Ray;
 import primitives.Point;
 import primitives.Vector;
@@ -12,17 +13,17 @@ import java.util.List;
  * @author Maayan &amp; Renana
  */
 class RayTests {
-	
+
 	/**
 	 * Test method for {@link primitives.Ray#getPoint(double)}.
 	 */
 	@Test
 	public void testGetPoint() {
 		// ============ Equivalence Partitions Tests ==============
-			// TC01: test that check get point function
-			Ray ray = new Ray(new Point(0,0,1), new Vector(1,0,0));
-			assertEquals(new Point(2, 0, 1), ray.getPoint(2),"The function getPoint dont work correct");
-			assertEquals(new Point(1, 0, 1), ray.getPoint(1),"The function getPoint dont work correct");
+		// TC01: test that check get point function
+		Ray ray = new Ray(new Point(0, 0, 1), new Vector(1, 0, 0));
+		assertEquals(new Point(2, 0, 1), ray.getPoint(2), "The function getPoint dont work correct");
+		assertEquals(new Point(1, 0, 1), ray.getPoint(1), "The function getPoint dont work correct");
 	}
 
 	/**

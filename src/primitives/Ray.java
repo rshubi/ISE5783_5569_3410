@@ -2,13 +2,12 @@ package primitives;
 
 import java.util.List;
 import static primitives.Util.*;
+import geometries.Intersectable.GeoPoint;
 
 /**
- * 
  * A class for representing a ray
  * 
  * @author Maayan &amp; Renana
- *
  */
 public class Ray {
 	private final Point p0;
@@ -17,7 +16,7 @@ public class Ray {
 	/**
 	 * The constructor function gets
 	 * 
-	 * @param rhsP handle side point
+	 * @param rhsP   handle side point
 	 * @param rhsDir right handle side direction vector for create ray
 	 */
 	public Ray(Point rhsP, Vector rhsDir) {
@@ -40,7 +39,7 @@ public class Ray {
 	}
 
 	/**
-	 * A get function
+	 * A get function to return the starting point of the ray
 	 * 
 	 * @return the starting point of the ray
 	 */
@@ -49,7 +48,7 @@ public class Ray {
 	}
 
 	/**
-	 * A get function
+	 * A get function to return the direction vector of the ray
 	 * 
 	 * @return the direction vector of the ray
 	 */
@@ -75,19 +74,23 @@ public class Ray {
 	 * @return the point close to the beginning of the ray
 	 */
 	public Point findClosestPoint(List<Point> points) {
-		if (points == null)
-			return null;
-		Point closest = null;
-		double min = Double.POSITIVE_INFINITY;
-		for (var point : points) {
-			double dist = point.distance(p0);
-			if (dist < min) {
-				closest = point;
-				min = dist;
-			}
-		}
-
-		return closest;
+		return points == null || points.isEmpty() ? null
+				: findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
 	}
 
+	/**
+	 * A function that calculates the geoPoint closest to the beginning of the ray
+	 * 
+	 * @param intersections Collect geoPoints
+	 * @return the point close to the beginning of the ray
+	 */
+	public GeoPoint findClosestGeoPoint(List<GeoPoint> intersections) {
+		if (intersections == null)
+			return null;
+		GeoPoint closet = intersections.get(0);
+		for (GeoPoint geoPoint : intersections)
+			if (geoPoint.point.distance(p0) < closet.point.distance(p0))
+				closet = geoPoint;
+		return closet;
+	}
 }

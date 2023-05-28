@@ -8,7 +8,7 @@ import scene.Scene;
 import primitives.Color;
 
 /**
- * The abstract class
+ * abstract class for RayTracerBase
  * 
  * @author Maayan &amp; Renana
  *
@@ -18,7 +18,7 @@ public abstract class RayTracerBase {
 	protected final Scene scene;
 
 	/**
-	 * The constructor function gets
+	 * The constructor for RayTracerBase
 	 * 
 	 * @param s scene object
 	 */

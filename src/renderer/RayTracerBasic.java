@@ -4,10 +4,14 @@
 package renderer;
 
 import primitives.Color;
-import primitives.Point;
-
+import primitives.Double3;
+import primitives.Material;
 import primitives.Ray;
+import primitives.Vector;
 import scene.Scene;
+import geometries.Intersectable.GeoPoint;
+import lighting.LightSource;
+import static primitives.Util.alignZero;;
 
 /**
  * A class inherits from an abstract class (RayTracerBase)
@@ -29,23 +33,80 @@ public class RayTracerBasic extends RayTracerBase {
 	 * A function that looks for intersections between the ray and the 3D model of
 	 * the scene
 	 * 
+	 * @param ray the ray for trace
 	 * @return the intersections between the rays and the 3D model, or the
 	 *         background color if there are no intersection points
 	 */
 	public Color traceRay(Ray ray) {
-		Point closestPoint = ray.findClosestPoint(scene.geometries.findIntersections(ray));
-		return closestPoint == null ? scene.background : calcColor(closestPoint);
-
+		var intersections = scene.geometries.findGeoIntersections(ray);
+		if (intersections == null)
+			return scene.background;
+		GeoPoint closestPoint = ray.findClosestGeoPoint(intersections);
+		return calcColor(closestPoint, ray);
 	}
 
 	/**
 	 * A function that calculates the fill lighting color
 	 * 
-	 * @param point a point on the scene
+	 * @param intersection a point on the scene
+	 * @param ray          The ray that intersects at the point
 	 * @return the color of lighting fill or environment of the scene
 	 */
-	public Color calcColor(Point point) {
-		return scene.ambientLight.getIntensity();
+	private Color calcColor(GeoPoint intersection, Ray ray) {
+		return scene.ambientLight.getIntensity().add(calcLocalEffects(intersection, ray));
 	}
 
+	/**
+	 * Auxiliary function for calculating the light color
+	 * 
+	 * @param gp  a point on the scene
+	 * @param ray The ray that intersects at the point
+	 * @return the color on the point
+	 */
+	private Color calcLocalEffects(GeoPoint gp, Ray ray) {
+		Color color = gp.geometry.getEmission();
+		Vector v = ray.getDir();
+		Vector n = gp.geometry.getNormal(gp.point);
+		double nv = alignZero(n.dotProduct(v));
+		if (nv == 0)
+			return color;
+		Material material = gp.geometry.getMaterial();
+		for (LightSource lightSource : scene.lights) {
+			Vector l = lightSource.getL(gp.point);
+			double nl = alignZero(n.dotProduct(l));
+			if (nl * nv > 0) { // sign(nl) == sing(nv)
+				Color iL = lightSource.getIntensity(gp.point);
+				color = color.add(iL.scale(calcDiffusive(material, nl)), iL.scale(calcSpecular(material, n, l, nl, v)));
+			}
+		}
+		return color;
+	}
+
+	/**
+	 * help function that calculate the specolar effect
+	 * 
+	 * @param material Material value
+	 * @param l        Vector value
+	 * @param n        Vector value
+	 * @param v        Vector value
+	 * @param nl       double value
+	 * @return the calculate the specolar effect
+	 */
+	private Double3 calcSpecular(Material material, Vector n, Vector l, double nl, Vector v) {
+		Vector r = l.subtract(n.scale(alignZero(2 * nl))).normalize();
+		double RV = alignZero(r.dotProduct(v));
+		double minusRV = RV * (-1);
+		return material.kS.scale(Math.pow(Math.max(0, minusRV), material.nShininess));
+	}
+
+	/**
+	 * help function that calculate the difusive effect
+	 * 
+	 * @param material Material value
+	 * @param nl       double value
+	 * @return double value for calcDiffusive
+	 */
+	private Double3 calcDiffusive(Material material, double nl) {
+		return material.kD.scale(alignZero(Math.abs(nl)));
+	}
 }

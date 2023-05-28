@@ -1,4 +1,3 @@
-
 package renderer;
 
 import primitives.Color;
@@ -26,7 +25,7 @@ public class Camera {
 	private RayTracerBase rayTracer;
 
 	/**
-	 * The constructor function
+	 * The constructor for camera
 	 * 
 	 * @param p0  Camera location point
 	 * @param vTo A vector that sets the direction of the camera to the forward
@@ -43,7 +42,7 @@ public class Camera {
 	}
 
 	/**
-	 * A Set Function
+	 * A set function for the size.
 	 * 
 	 * @param width  Width of the view plane
 	 * @param height height of the view plane
@@ -56,7 +55,7 @@ public class Camera {
 	}
 
 	/**
-	 * A Set Function
+	 * A Set Function for the size distance
 	 * 
 	 * @param distance distance of the camera from the geometric body
 	 * @return the distance
@@ -104,7 +103,7 @@ public class Camera {
 	}
 
 	/**
-	 * A get function
+	 * A get function to return P0
 	 * 
 	 * @return the p0
 	 */
@@ -113,7 +112,7 @@ public class Camera {
 	}
 
 	/**
-	 * A get function
+	 * A get function to return vUp
 	 * 
 	 * @return the vUp
 	 */
@@ -122,7 +121,7 @@ public class Camera {
 	}
 
 	/**
-	 * A get function
+	 * A get function to return vRight
 	 * 
 	 * @return the vRight
 	 */
@@ -131,7 +130,7 @@ public class Camera {
 	}
 
 	/**
-	 * A get function
+	 * A get function to return vTo
 	 * 
 	 * @return the vTo
 	 */
@@ -140,7 +139,7 @@ public class Camera {
 	}
 
 	/**
-	 * A get function
+	 * A get function to return the width
 	 * 
 	 * @return the width
 	 */
@@ -149,7 +148,7 @@ public class Camera {
 	}
 
 	/**
-	 * A get function
+	 * A get function to return the height
 	 * 
 	 * @return the height
 	 */
@@ -158,7 +157,7 @@ public class Camera {
 	}
 
 	/**
-	 * A get function
+	 * A get function to return the distance
 	 * 
 	 * @return the distance
 	 */
@@ -167,7 +166,7 @@ public class Camera {
 	}
 
 	/**
-	 * A set function
+	 * A set function for the ImageWriter
 	 * 
 	 * @param imageWriter pixel color matrix
 	 * @return the object itself
@@ -178,7 +177,7 @@ public class Camera {
 	}
 
 	/**
-	 * A set function
+	 * A set function for the RayTracer
 	 * 
 	 * @param rayTracer a ray to trace through the scene
 	 * @return the object itself
@@ -192,8 +191,10 @@ public class Camera {
 	/**
 	 * A function that builds for each pixel a ray and sets the color in the
 	 * corresponding pixel
+	 * 
+	 * @return the camera
 	 */
-	public void renderImage() {
+	public Camera renderImage() {
 		Color rayColor;
 		if (imageWriter == null)
 			throw new MissingResourceException("ERROR: renderImage, imageWriter is null", "ImageWriter", "imageWriter");
@@ -205,6 +206,7 @@ public class Camera {
 				imageWriter.writePixel(j, i, rayColor);
 			}
 		}
+		return this;
 	}
 
 	/**

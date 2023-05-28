@@ -1,4 +1,5 @@
 package unittests.renderer;
+
 import renderer.ImageWriter;
 import primitives.Color;
 import org.junit.jupiter.api.Test;

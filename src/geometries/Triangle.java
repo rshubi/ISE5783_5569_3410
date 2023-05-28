@@ -11,7 +11,7 @@ import static primitives.Util.*;
  */
 public class Triangle extends Polygon {
 	/**
-	 * The constructor function gets
+	 * The constructor for Triangle
 	 * 
 	 * @param point1 First point to create the triangle
 	 * @param point2 Second point to create the triangle
@@ -22,10 +22,13 @@ public class Triangle extends Polygon {
 	}
 
 	@Override
-	public List<Point> findIntersections(Ray ray) {
-		var list = plane.findIntersections(ray);
-		if (list == null)
+	public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+		List<GeoPoint> intersections = plane.findGeoIntersections(ray);
+		if (intersections == null)
 			return null;
+		for (GeoPoint geoPoint : intersections) {
+			geoPoint.geometry = this;
+		}
 		Point p0 = ray.getP0();
 		Vector dir = ray.getDir();
 		Vector v1 = vertices.get(0).subtract(p0);
@@ -43,7 +46,7 @@ public class Triangle extends Polygon {
 		double sign3 = alignZero(dir.dotProduct(n3));
 		if (sign1 * sign3 <= 0)
 			return null;
-		return list;
+		return intersections;
 	}
 
 }

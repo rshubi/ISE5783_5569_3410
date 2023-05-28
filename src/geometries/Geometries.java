@@ -1,11 +1,7 @@
-/**
- * 
- */
 package geometries;
 
 import java.util.List;
 import java.util.LinkedList;
-import primitives.Point;
 import primitives.Ray;
 
 /**
@@ -14,7 +10,7 @@ import primitives.Ray;
  * @author Maayan &amp; Renana
  *
  */
-public class Geometries implements Intersectable {
+public class Geometries extends Intersectable {
 	private List<Intersectable> geometriesList = new LinkedList<Intersectable>();
 
 	/**
@@ -43,10 +39,10 @@ public class Geometries implements Intersectable {
 	}
 
 	@Override
-	public List<Point> findIntersections(Ray ray) {
-		List<Point> result = null;
+	public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+		List<GeoPoint> result = null;
 		for (Intersectable intersectable : geometriesList) {
-			List<Point> intersection = intersectable.findIntersections(ray);
+			List<GeoPoint> intersection = intersectable.findGeoIntersections(ray);
 			if (intersection != null) {
 				if (result == null)
 					result = new LinkedList<>();
@@ -58,6 +54,7 @@ public class Geometries implements Intersectable {
 
 	/**
 	 * Getter for the list
+	 * 
 	 * @return the list geometries
 	 */
 	public List<Intersectable> getGeometriesList() {

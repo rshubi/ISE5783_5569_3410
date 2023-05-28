@@ -1,7 +1,6 @@
 package geometries;
 
 import java.util.List;
-
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
@@ -13,7 +12,7 @@ import static primitives.Util.*;
  * @author Maayan &amp; Renana
  */
 
-public class Plane implements Geometry {
+public class Plane extends Geometry {
 	private final Point q0;
 	private final Vector normal;
 
@@ -43,7 +42,7 @@ public class Plane implements Geometry {
 	}
 
 	/**
-	 * A function that returns the normal
+	 * A get function that returns the normal
 	 * 
 	 * @return the normal vector of the plane
 	 */
@@ -58,26 +57,26 @@ public class Plane implements Geometry {
 	}
 
 	/**
-	 * A function that returns the point of the plane
+	 * A get function that returns the point of the plane
 	 * 
 	 * @return the reference point of the plane
 	 */
 	public Point getQ0() {
 		return q0;
 	}
-	
+
 	@Override
-	public String toString(){
+	public String toString() {
 		return "Plane: q0=" + q0 + ", normal=" + normal + " ";
 	}
 
 	@Override
-	public List<Point> findIntersections(Ray ray) {
+	public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
 		double nv = normal.dotProduct(ray.getDir());
 		if (isZero(nv) || q0.equals(ray.getP0()))
 			return null;
 		Vector nQMinusP0 = q0.subtract(ray.getP0());
 		double t = alignZero((normal.dotProduct(nQMinusP0) / nv));
-		return t <= 0 ? null : List.of( ray.getPoint(t));
+		return t <= 0 ? null : List.of(new GeoPoint(this, ray.getPoint(t)));
 	}
 }

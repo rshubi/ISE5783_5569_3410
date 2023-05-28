@@ -78,7 +78,8 @@ public class Point {
 	/**
 	 * Calculating the squared distance between two points
 	 * 
-	 * @param point A second point to calculate the distance between the current point
+	 * @param point A second point to calculate the distance between the current
+	 *              point
 	 * @return the distance between two points in a square
 	 */
 	public double distanceSquared(Point point) {
@@ -89,7 +90,7 @@ public class Point {
 	}
 
 	/**
-	 * A get function
+	 * A get function to return the first coordinate
 	 * 
 	 * @return the first coordinate
 	 */
@@ -98,7 +99,7 @@ public class Point {
 	}
 
 	/**
-	 * A get function
+	 * A get function to return the second coordinate
 	 * 
 	 * @return the second coordinate
 	 */
@@ -107,12 +108,11 @@ public class Point {
 	}
 
 	/**
-	 * A get function
+	 * A get function to return the third coordinate
 	 * 
 	 * @return the third coordinate
 	 */
 	public double getZ() {
 		return xyz.d3;
 	}
-
 }

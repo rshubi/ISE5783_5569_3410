@@ -1,4 +1,6 @@
 package unittests.geometries;
+
+import geometries.Intersectable.GeoPoint;
 import geometries.Triangle;
 import primitives.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,7 +36,8 @@ class TriangleTests {
 	}
 
 	/**
-	 * Test method for {@link geometries.Triangle#findIntersections(primitives.Ray)}.
+	 * Test method for
+	 * {@link geometries.Triangle#findIntersections(primitives.Ray)}.
 	 */
 	@Test
 	public void testFindIntersections() {
@@ -42,23 +45,23 @@ class TriangleTests {
 		Triangle mytr = new Triangle(new Point(0, 1, 0), new Point(2, 6, 0), new Point(5, 0, 0));
 		// ============ Equivalence Partitions Tests ==============
 		// TC01: the ray goes through the triangle
-		Point p1 = new Point(2, 2, 0);
-		List<Point> result1 = mytr
-				.findIntersections(new Ray(new Point(-2.09, 2.69, 2.3), new Vector(4.09, -0.69, -2.3)));
+		GeoPoint p1 = new GeoPoint(mytr, new Point(2, 2, 0));
+		List<GeoPoint> result1 = mytr
+				.findGeoIntersectionsHelper(new Ray(new Point(-2.09, 2.69, 2.3), new Vector(4.09, -0.69, -2.3)));
 		assertEquals(List.of(p1), result1, "Ray crosses sphere");
 		// TC02: the ray is outside the triangle against edge
-		assertNull(tr.findIntersections(new Ray(new Point(5, 5, -2), new Vector(2, 2, -3))),
-			"the ray is outside the triangle against edge");
+		assertNull(tr.findGeoIntersectionsHelper(new Ray(new Point(5, 5, -2), new Vector(2, 2, -3))),
+				"the ray is outside the triangle against edge");
 		// TC03: the ray is outside the triangle against vertex
-		assertNull(tr.findIntersections(new Ray(new Point(-4.4, 0, 0), new Vector(1, 1, 1))),
+		assertNull(tr.findGeoIntersectionsHelper(new Ray(new Point(-4.4, 0, 0), new Vector(1, 1, 1))),
 				"the ray is outside the triangle against edge");
 		// =============== Boundary Values Tests ==================
 		// TC11: The ray intersects on the edge of the triangle
-		assertNull(tr.findIntersections(new Ray(new Point(3, 5, 1), new Vector(-2, -5, -5))), "TC11:ERROR");
+		assertNull(tr.findGeoIntersectionsHelper(new Ray(new Point(3, 5, 1), new Vector(-2, -5, -5))), "TC11:ERROR");
 		// TC12: The ray intersects on vertice of the triangle
-		assertNull(tr.findIntersections(new Ray(new Point(3, 5, 1), new Vector(-3, -1, -5))), "TC12:ERROR");
+		assertNull(tr.findGeoIntersectionsHelper(new Ray(new Point(3, 5, 1), new Vector(-3, -1, -5))), "TC12:ERROR");
 		// TC13: The ray On the straight line continuing the edge of the triangle
-		assertNull(tr.findIntersections(new Ray(new Point(3, 5, 1), new Vector(2, -5, -5))),
+		assertNull(tr.findGeoIntersectionsHelper(new Ray(new Point(3, 5, 1), new Vector(2, -5, -5))),
 				"TC13:ERROR:the ray is outside the triangle against edge");
 	}
 }

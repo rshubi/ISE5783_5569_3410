@@ -5,14 +5,14 @@ package geometries;
  * 
  * @author Maayan &amp; Renana
  */
-public abstract class RadialGeometry implements Geometry {
+public abstract class RadialGeometry extends Geometry {
 	/** radius of a rounded geometry */
 	protected final double radius;
 	/** squared radius of a rounded geometry */
 	protected final double radiusSquared;
 
 	/**
-	 * The constructor function gets
+	 * constructor for RadialGeometry
 	 * 
 	 * @param r Radius of the geometric shape
 	 */
@@ -20,4 +20,5 @@ public abstract class RadialGeometry implements Geometry {
 		radius = r;
 		radiusSquared = r * r;
 	}
+
 }

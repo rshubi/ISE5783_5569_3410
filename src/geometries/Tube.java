@@ -4,7 +4,6 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 import static primitives.Util.*;
-
 import java.util.List;
 
 /**
@@ -17,9 +16,9 @@ public class Tube extends RadialGeometry {
 	protected final Ray axisRay;
 
 	/**
-	 * The constructor function gets
+	 * The constructor for Tube
 	 * 
-	 * @param ray a ray that determines the direction of the tube
+	 * @param ray    a ray that determines the direction of the tube
 	 * @param radius radius of the tube
 	 */
 	public Tube(Ray ray, double radius) {
@@ -36,7 +35,7 @@ public class Tube extends RadialGeometry {
 	}
 
 	/**
-	 * A get function
+	 * A get function to return the ray of the tube
 	 * 
 	 * @return the ray of the tube
 	 */
@@ -45,7 +44,7 @@ public class Tube extends RadialGeometry {
 	}
 
 	@Override
-	public List<Point> findIntersections(Ray ray) {
+	public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
 		return null;
 	}
 }

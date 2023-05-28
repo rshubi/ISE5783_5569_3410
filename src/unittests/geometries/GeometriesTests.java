@@ -2,6 +2,7 @@
  * 
  */
 package unittests.geometries;
+
 import static org.junit.jupiter.api.Assertions.*;
 import geometries.*;
 import primitives.*;
@@ -48,21 +49,22 @@ class GeometriesTests {
 		Triangle triangle = new Triangle(new Point(3, 0, 0), new Point(0, 3, 0), new Point(0, 0, 0));
 		Plane plane = new Plane(new Point(1, 0, 0), new Point(0, 1, 0), new Point(0, 0, 0));
 		collection.add(sphere, triangle, plane);
-		assertNull(collection.findIntersections(new Ray(new Point(0, 0, 1.5), new Vector(0, 0, 3))),
-			"No cut shape must return 0");
+		assertNull(collection.findGeoIntersectionsHelper(new Ray(new Point(0, 0, 1.5), new Vector(0, 0, 3))),
+				"No cut shape must return 0");
 		// TC12:Only one shape is cut.the plane cut
-		assertEquals(1, collection.findIntersections(new Ray(new Point(0, 0, 1.5), new Vector(-2, 0, -1.5))).size(),
+		assertEquals(1,
+				collection.findGeoIntersectionsHelper(new Ray(new Point(0, 0, 1.5), new Vector(-2, 0, -1.5))).size(),
 				"wrong number of intersactions");
 		// TC13:All shapes are cut
 		assertEquals(4,
-				collection.findIntersections(new Ray(new Point(0, 0, 1),
+				collection.findGeoIntersectionsHelper(new Ray(new Point(0, 0, 1),
 						new Vector(0.817794869001868, 1.560276981288437, -0.868465759315167))).size(),
 				"wrong number of intersactions");
 		// ============ Equivalence Partitions Tests ==============
 		// TC01:Some (but not all) shapes are cut.triangle and plane cut
 		assertEquals(2,
 				collection
-						.findIntersections(
+						.findGeoIntersectionsHelper(
 								new Ray(new Point(0, 0, 2), new Vector(2.002120262832886, 0.414405628871247, -2)))
 						.size(),
 				"wrong number of intersactions");

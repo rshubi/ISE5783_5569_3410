@@ -1,4 +1,5 @@
 package unittests.primitives;
+
 import primitives.Point;
 import primitives.Vector;
 import static org.junit.jupiter.api.Assertions.*;
@@ -52,7 +53,7 @@ public class PointTests {
 		Point p2 = new Point(5, 7, 9);
 		double dr = p1.distance(p2);
 		assertEquals(Math.sqrt(77), dr, 0.0000001, "Distance() wrong result");
-		assertEquals(0, (p1.distance(p2)-Math.sqrt(77)), 0.0000001, "Distance() wrong result");
+		assertEquals(0, (p1.distance(p2) - Math.sqrt(77)), 0.0000001, "Distance() wrong result");
 	}
 
 	/**
