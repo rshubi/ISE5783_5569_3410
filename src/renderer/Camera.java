@@ -75,20 +75,20 @@ public class Camera {
 	 * @return a ray that passes through the center of a certain pixel
 	 */
 	public Ray constructRay(int nX, int nY, int j, int i)/* throws Exception */ {// constructRayThroughPixel
-		Point Pc = p0.add(vTo.scale(distance));
+		Point pC = p0.add(vTo.scale(distance));
 
-		double Ry = height / nY;
-		double Rx = width / nX;
-		double Yi = (i - (nY - 1) / 2d) * Ry;
-		double Xj = (j - (nX - 1) / 2d) * Rx;
+		double rY = height / nY;
+		double rX = width / nX;
+		double yI = (i - (nY - 1) / 2d) * rY;
+		double xJ = (j - (nX - 1) / 2d) * rX;
 
-		Point Pij = Pc;
-		if (!isZero(Xj))
-			Pij = Pij.add(vRight.scale(Xj));
-		if (!isZero(Yi))
-			Pij = Pij.add(vUp.scale(-Yi));
+		Point pIJ = pC;
+		if (!isZero(xJ))
+			pIJ = pIJ.add(vRight.scale(xJ));
+		if (!isZero(yI))
+			pIJ = pIJ.add(vUp.scale(-yI));
 
-		return new Ray(p0, Pij.subtract(p0));
+		return new Ray(p0, pIJ.subtract(p0));
 	}
 
 	/**
@@ -185,12 +185,14 @@ public class Camera {
 	 */
 	public Camera renderImage() {
 		Color rayColor;
+		int nX=imageWriter.getNx();
+		int nY=imageWriter.getNy();
 		if (imageWriter == null)
 			throw new MissingResourceException("ERROR: renderImage, imageWriter is null", "ImageWriter", "imageWriter");
 		if (rayTracer == null)
 			throw new MissingResourceException("ERROR: renderImage, rayTracer is null", "RayTracerBase", "rayTracer");
-		for (int i = 0; i < imageWriter.getNx(); i++) {
-			for (int j = 0; j < imageWriter.getNy(); j++) {
+		for (int i = 0; i < nX; i++) {
+			for (int j = 0; j < nY; j++) {
 				rayColor = castRay(i, j);
 				imageWriter.writePixel(j, i, rayColor);
 			}
@@ -205,11 +207,13 @@ public class Camera {
 	 * @param color    the color of the grid
 	 */
 	public void printGrid(int interval, Color color) {
+		int nX=imageWriter.getNx();
+		int nY=imageWriter.getNy();
 		if (imageWriter == null)
 			throw new MissingResourceException("ERROR: renderImage, imageWriter is null", "ImageWriter", "imageWriter");
 
-		for (int i = 0; i < imageWriter.getNx(); i++) {
-			for (int j = 0; j < imageWriter.getNy(); j++) {
+		for (int i = 0; i < nX; i++) {
+			for (int j = 0; j < nY; j++) {
 				// check if this grid line
 				if (i % interval == 0 || j % interval == 0)
 					imageWriter.writePixel(i, j, color);

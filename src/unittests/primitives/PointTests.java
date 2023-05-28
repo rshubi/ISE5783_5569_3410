@@ -53,7 +53,8 @@ public class PointTests {
 		Point p2 = new Point(5, 7, 9);
 		double dr = p1.distance(p2);
 		assertEquals(Math.sqrt(77), dr, 0.0000001, "Distance() wrong result");
-		assertEquals(0, (p1.distance(p2) - Math.sqrt(77)), 0.0000001, "Distance() wrong result");
+		assertEquals(0, p1.distance(p1), 0.0000001, "Distance() wrong result");
+	
 	}
 
 	/**
@@ -66,6 +67,7 @@ public class PointTests {
 		Point p1 = new Point(1, 2, 3);
 		Point p2 = new Point(5, 7, 9);
 		double dr = p1.distanceSquared(p2);
+		assertEquals(0, p1.distance(p1), 0.0000001, "Distance() wrong result");
 		assertEquals(77, dr, 0.0000001, "DistanceSquared() wrong result");
 	}
 }
