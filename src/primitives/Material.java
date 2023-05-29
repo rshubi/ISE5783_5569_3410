@@ -18,6 +18,8 @@ public class Material {
 	 * The attenuation coefficient kS- initialized to 0 (default value)
 	 */
 	public Double3 kS = Double3.ZERO;
+	public Double3 kT = Double3.ZERO;
+	public Double3 kR = Double3.ZERO;
 
 	/**
 	 * A set function for the shininess of the material
@@ -72,6 +74,48 @@ public class Material {
 	public Material setKs(Double3 kS1) {
 		kS = kS1;
 		return this;
+	}
+
+	/**
+	 * @return the kD
+	 */
+	public Double3 getkD() {
+		return kD;
+	}
+
+	/**
+	 * @return the kR
+	 */
+	public Double3 getkR() {
+		return kR;
+	}
+
+	/**
+	 * @param kD the kD to set
+	 */
+	public void setkD(Double3 kD) {
+		this.kD = kD;
+	}
+
+	/**
+	 * @param kR the kR to set
+	 */
+	public void setkR(Double3 kR) {
+		this.kR = kR;
+	}
+
+	/**
+	 * @return the kT
+	 */
+	public Double3 getkT() {
+		return kT;
+	}
+	
+	/**
+	 * @param kT the kT to set
+	 */
+	public void setkT(Double3 kT) {
+		this.kT = kT;
 	}
 
 }
