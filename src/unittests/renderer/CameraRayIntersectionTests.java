@@ -65,9 +65,10 @@ public class CameraRayIntersectionTests {
 	}
 
 	private static final Point ZERO_POINT = new Point(0, 0, 0);
-/**
- * A test that checks the intersection points of the sphere with a ray 
- */
+
+	/**
+	 * A test that checks the intersection points of the sphere with a ray
+	 */
 	@Test
 	public void constructRaySphere() {
 		// TC01: 2 intersection points between the camera and the sphere
@@ -102,8 +103,9 @@ public class CameraRayIntersectionTests {
 		assertEquals(0, findIntersectionPointsWithCamera(camera3, sphere),
 				"The count of intersections are not correct");
 	}
+
 	/**
-	 * A test that checks the intersection points of the plane with a ray 
+	 * A test that checks the intersection points of the plane with a ray
 	 */
 	@Test
 	public void constructRayPlane() {
@@ -127,7 +129,7 @@ public class CameraRayIntersectionTests {
 	}
 
 	/**
-	 * A test that checks the intersection points of the triangle with a ray 
+	 * A test that checks the intersection points of the triangle with a ray
 	 */
 	@Test
 	public void constructRayTriangle() {

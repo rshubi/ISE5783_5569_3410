@@ -24,19 +24,18 @@ public class Ray {
 		p0 = rhsP;
 		dir = rhsDir.normalize();
 	}
-	public Ray(Point head, Vector lightDirection, Vector n) 
-	{
-		if(Util.alignZero(lightDirection.dotProduct(n)) < 0)
-			 p0= head.add(n.scale(-DELTA));
-		else if(Util.alignZero(lightDirection.dotProduct(n)) > 0)
-			 p0= head.add(n.scale(DELTA));
-		else //if(Util.isZero(lightDirection.dotProduct(n)))
-			 p0=head;
 
-		dir=lightDirection;
-		dir.normalize();		
+	public Ray(Point head, Vector lightDirection, Vector n) {
+		if (Util.alignZero(lightDirection.dotProduct(n)) < 0)
+			p0 = head.add(n.scale(-DELTA));
+		else if (Util.alignZero(lightDirection.dotProduct(n)) > 0)
+			p0 = head.add(n.scale(DELTA));
+		else // if(Util.isZero(lightDirection.dotProduct(n)))
+			p0 = head;
+
+		dir = lightDirection;
+		dir.normalize();
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -111,7 +110,7 @@ public class Ray {
 				closest = geoPoint;
 			}
 		}
-		
+
 		return closest;
 	}
 }

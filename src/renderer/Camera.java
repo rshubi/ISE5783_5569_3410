@@ -185,8 +185,8 @@ public class Camera {
 	 */
 	public Camera renderImage() {
 		Color rayColor;
-		int nX=imageWriter.getNx();
-		int nY=imageWriter.getNy();
+		int nX = imageWriter.getNx();
+		int nY = imageWriter.getNy();
 		if (imageWriter == null)
 			throw new MissingResourceException("ERROR: renderImage, imageWriter is null", "ImageWriter", "imageWriter");
 		if (rayTracer == null)
@@ -207,8 +207,8 @@ public class Camera {
 	 * @param color    the color of the grid
 	 */
 	public void printGrid(int interval, Color color) {
-		int nX=imageWriter.getNx();
-		int nY=imageWriter.getNy();
+		int nX = imageWriter.getNx();
+		int nY = imageWriter.getNy();
 		if (imageWriter == null)
 			throw new MissingResourceException("ERROR: renderImage, imageWriter is null", "ImageWriter", "imageWriter");
 

@@ -18,7 +18,13 @@ public class Material {
 	 * The attenuation coefficient kS- initialized to 0 (default value)
 	 */
 	public Double3 kS = Double3.ZERO;
+	/**
+	 * Attenuation coefficient of transparency
+	 */
 	public Double3 kT = Double3.ZERO;
+	/**
+	 * attenuation coefficient of reflection
+	 */
 	public Double3 kR = Double3.ZERO;
 
 	/**
@@ -76,7 +82,6 @@ public class Material {
 		return this;
 	}
 
-
 	/**
 	 * @param kD the kD to set
 	 */
@@ -85,33 +90,44 @@ public class Material {
 		return this;
 	}
 
-	
-
-	
-	
 	/**
-	 * @param kT the kT to set
+	 * A set function for the kT
+	 * 
+	 * @param kT the kT to set-Double3
+	 * @return the current material
 	 */
 	public Material setkT(Double3 kT) {
 		this.kT = kT;
 		return this;
 	}
+
 	/**
-	 * @param kT the kT to set
+	 * A set function for the kT
+	 * 
+	 * @param kT the kT to set-double
+	 * @return the current material
 	 */
 	public Material setkT(double kT) {
 		this.kT = new Double3(kT);
 		return this;
 	}
+
 	/**
-	 * @param kT the kT to set
+	 * A set function for the kR
+	 * 
+	 * @param kR the kR to set-Double3
+	 * @return the current material
 	 */
 	public Material setkR(Double3 kR) {
 		this.kR = kR;
 		return this;
 	}
+
 	/**
-	 * @param kT the kT to set
+	 * A set function for the kR
+	 * 
+	 * @param kR the kR to set-double
+	 * @return the current material
 	 */
 	public Material setkR(double kR) {
 		this.kR = new Double3(kR);
@@ -119,7 +135,8 @@ public class Material {
 	}
 
 	/**
-	 * @return the kT
+	 * A Get Function
+	 * @return kT Attenuation coefficient of transparency
 	 */
 	public double getkT() {
 		return kT.d1;

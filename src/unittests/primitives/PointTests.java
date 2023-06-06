@@ -54,7 +54,7 @@ public class PointTests {
 		double dr = p1.distance(p2);
 		assertEquals(Math.sqrt(77), dr, 0.0000001, "Distance() wrong result");
 		assertEquals(0, p1.distance(p1), 0.0000001, "Distance() wrong result");
-	
+
 	}
 
 	/**

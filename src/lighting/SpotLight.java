@@ -34,6 +34,5 @@ public class SpotLight extends PointLight {
 		double dirL = alignZero(direction.dotProduct(getL(p)));
 		return dirL <= 0 ? Color.BLACK : super.getIntensity(p).scale(dirL);
 	}
-	
 
 }
