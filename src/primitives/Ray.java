@@ -10,6 +10,7 @@ import geometries.Intersectable.GeoPoint;
  * @author Maayan &amp; Renana
  */
 public class Ray {
+	private static final double DELTA = 0.1;
 	private final Point p0;
 	private final Vector dir;
 
@@ -23,6 +24,19 @@ public class Ray {
 		p0 = rhsP;
 		dir = rhsDir.normalize();
 	}
+	public Ray(Point head, Vector lightDirection, Vector n) 
+	{
+		if(Util.alignZero(lightDirection.dotProduct(n)) < 0)
+			 p0= head.add(n.scale(-DELTA));
+		else if(Util.alignZero(lightDirection.dotProduct(n)) > 0)
+			 p0= head.add(n.scale(DELTA));
+		else //if(Util.isZero(lightDirection.dotProduct(n)))
+			 p0=head;
+
+		dir=lightDirection;
+		dir.normalize();		
+	}
+
 
 	@Override
 	public boolean equals(Object obj) {

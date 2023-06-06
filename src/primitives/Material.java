@@ -76,46 +76,53 @@ public class Material {
 		return this;
 	}
 
-	/**
-	 * @return the kD
-	 */
-	public Double3 getkD() {
-		return kD;
-	}
-
-	/**
-	 * @return the kR
-	 */
-	public Double3 getkR() {
-		return kR;
-	}
 
 	/**
 	 * @param kD the kD to set
 	 */
-	public void setkD(Double3 kD) {
+	public Material setkD(Double3 kD) {
 		this.kD = kD;
+		return this;
 	}
 
+	
+
+	
+	
 	/**
-	 * @param kR the kR to set
+	 * @param kT the kT to set
 	 */
-	public void setkR(Double3 kR) {
+	public Material setkT(Double3 kT) {
+		this.kT = kT;
+		return this;
+	}
+	/**
+	 * @param kT the kT to set
+	 */
+	public Material setkT(double kT) {
+		this.kT = new Double3(kT);
+		return this;
+	}
+	/**
+	 * @param kT the kT to set
+	 */
+	public Material setkR(Double3 kR) {
 		this.kR = kR;
+		return this;
+	}
+	/**
+	 * @param kT the kT to set
+	 */
+	public Material setkR(double kR) {
+		this.kR = new Double3(kR);
+		return this;
 	}
 
 	/**
 	 * @return the kT
 	 */
-	public Double3 getkT() {
-		return kT;
-	}
-	
-	/**
-	 * @param kT the kT to set
-	 */
-	public void setkT(Double3 kT) {
-		this.kT = kT;
+	public double getkT() {
+		return kT.d1;
 	}
 
 }

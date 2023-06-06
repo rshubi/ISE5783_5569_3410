@@ -1,4 +1,4 @@
-package unittests.renderer;
+package unittests.lighting;
 
 import org.junit.jupiter.api.Test;
 
@@ -48,7 +48,7 @@ public class ShadowTests {
 	@Test
 	public void sphereTriangleMove1() {
 		sphereTriangleHelper("shadowSphereTriangleMove2", //
-				new Triangle(new Point(???, ???, ???), new Point(???, ???, ???), new Point(???, ???, ???)), //
+				new Triangle(new Point(-62, -32, 0), new Point(-32, -62, 0), new Point(-60, -60, -4)), //
 				new Point(-100, -100, 200));
 	}
 
@@ -58,7 +58,7 @@ public class ShadowTests {
 	@Test
 	public void sphereTriangleMove2() {
 		sphereTriangleHelper("shadowSphereTriangleMove1", //
-		      new Triangle(new Point(???, ???, ???), new Point(???, ???, ???), new Point(???, ???, ???)), //
+		      new Triangle(new Point(-49, -19, 0), new Point(-19, -49, 0), new Point(-47, -47, -4)), //
 				new Point(-100, -100, 200));
 	}
 
@@ -67,7 +67,7 @@ public class ShadowTests {
    public void sphereTriangleSpot1() {
       sphereTriangleHelper("shadowSphereTriangleSpot1", //
                            new Triangle(new Point(-70, -40, 0), new Point(-40, -70, 0), new Point(-68, -68, -4)), //
-                           new Point(???, ???, ???));
+                           new Point(-87,-87, 120));
    }
 
    /** Sphere-Triangle shading - move spot even more close */
@@ -75,7 +75,7 @@ public class ShadowTests {
    public void sphereTriangleSpot2() {
       sphereTriangleHelper("shadowSphereTriangleSpot2", //
                            new Triangle(new Point(-70, -40, 0), new Point(-40, -70, 0), new Point(-68, -68, -4)), //
-                           new Point(???, ???, ???));
+                           new Point(-77, -77, 70));
    }
 
    /** Produce a picture of a two triangles lighted by a spot light with a Sphere
@@ -84,7 +84,7 @@ public class ShadowTests {
    public void trianglesSphere() {
       scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.15));
 
-      scene.geometries.add( //
+      scene.geometries.add( 
                            new Triangle(new Point(-150, -150, -115), new Point(150, -150, -135),
                                         new Point(75, 75, -150)) //
                               .setMaterial(new Material().setKs(0.8).setnShininess(60)), //
@@ -94,7 +94,7 @@ public class ShadowTests {
                               .setEmission(new Color(BLUE)) //
                               .setMaterial(new Material().setKd(0.5).setKs(0.5).setnShininess(30)) //
       );
-      scene.lights.add( //
+      scene.lights.add( 
                        new SpotLight(new Color(700, 400, 400), new Point(40, 40, 115), new Vector(-1, -1, -4)) //
                           .setKl(4E-4).setKq(2E-5));
 

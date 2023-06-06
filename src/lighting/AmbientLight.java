@@ -31,7 +31,7 @@ public class AmbientLight extends Light {
 	 * @param kA value of attenuation factor
 	 */
 	public AmbientLight(Color iA, double kA) {
-		super(iA);
+		super(iA.scale(kA));
 	}
 
 }
