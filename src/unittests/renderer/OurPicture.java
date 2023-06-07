@@ -33,8 +33,8 @@ class OurPicture {
 	public void OurPicture() {
 		try {
 			Point a=new Point(140, 0, 0);
-		Camera camera = new Camera(new Point(0, 0, -1000), new Vector(0, 0, -1), new Vector(0, 1, 0));
-		camera.setVPDistance(1000).setVPSize(200,200);
+		Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0));
+		camera.setVPDistance(1z).setVPSize(200,200);
 		scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), new Double3(0.15)));
 		scene.geometries.add( //
 				 //
@@ -44,7 +44,7 @@ class OurPicture {
 				new Triangle(a, new Point(120, 40,0), new Point(100, 0, 0))
 				.setEmission(new Color(0 ,0,204)).setMaterial(new Material().setKd(0).setKs(0.8).setnShininess(6)),
 				new Triangle(a, new Point(100, 0,0), new Point(120, -40, 0))
-				.setEmission(new Color(255,153,51)).setMaterial(new Material().setKd(0).setKs(0.8).setnShininess(6)),
+				.setEmission(new Color(102, 0 ,153)).setMaterial(new Material().setKd(0).setKs(0.8).setnShininess(6)),
 				new Triangle(a, new Point(120, -40, 0), new Point(160, -40, 0))
 				.setEmission(new Color(255,153,51)).setMaterial(new Material().setKd(0).setKs(0.8).setnShininess(6))
 				
