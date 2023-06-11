@@ -24,7 +24,8 @@ public class RayTracerBasic extends RayTracerBase {
 	 */
 	private static final double DELTA = 0.1;
 	/**
-	 * Constants for stopping conditions in the recursion of transparencies/reflections
+	 * Constants for stopping conditions in the recursion of
+	 * transparencies/reflections
 	 */
 	private static final int MAX_CALC_COLOR_LEVEL = 10;
 	private static final double MIN_CALC_COLOR_K = 0.001;
@@ -64,7 +65,7 @@ public class RayTracerBasic extends RayTracerBase {
 	 * A function that calculates the fill lighting color
 	 * 
 	 * @param intersection a point on the scene
-	 * @param ray The ray that intersects at the point
+	 * @param ray          The ray that intersects at the point
 	 * @return the color of lighting fill or environment of the scene
 	 */
 
@@ -73,11 +74,13 @@ public class RayTracerBasic extends RayTracerBase {
 				.add(scene.ambientLight.getIntensity());
 
 	}
+
 	/**
-	 *  Recursive function for calculating a point color
+	 * Recursive function for calculating a point color
+	 * 
 	 * @param intersection geometric body and point
 	 * @param ray
-	 * @param level level of Recursive function stops that level=1
+	 * @param level        level of Recursive function stops that level=1
 	 * @param k
 	 * @return
 	 */
@@ -146,26 +149,28 @@ public class RayTracerBasic extends RayTracerBase {
 	private Double3 calcDiffusive(Material material, double nl) {
 		return material.kD.scale(nl < 0 ? -nl : nl);
 	}
-/**
- * A method of checking non-shading between a point and the light source
- * @param gp A geometric body that the point is on
- * @param light The lighting of the scene
- * @param l opposite direction vector of light source
- * @param n value vector
- * @return True if the point on the body has no shading and false if there is shading
- */
+
+	/**
+	 * A method of checking non-shading between a point and the light source
+	 * 
+	 * @param gp    A geometric body that the point is on
+	 * @param light The lighting of the scene
+	 * @param l     opposite direction vector of light source
+	 * @param n     value vector
+	 * @return True if the point on the body has no shading and false if there is
+	 *         shading
+	 */
 	private boolean unshaded(GeoPoint gp, LightSource light, Vector l, Vector n) {
-		Vector lightDirection = l.scale(-1); // from point to light source
+		Vector lightDirection = l.scale(-1);
 		Vector epsV = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA);
 		Point point = gp.point.add(epsV);
-		Ray lightRay = new Ray(point, lightDirection); // refactored ray head move
+		Ray lightRay = new Ray(point, lightDirection);
 		List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
 		if (intersections == null)
 			return true;
 		double lightDistance = light.getDistance(point);
 		for (GeoPoint geoPoint : intersections) {
-			// if (lightDistance>point.distance(geoPoint.point))
-			// return false;
+
 			if (Util.alignZero(gp.point.distance(geoPoint.point) - lightDistance) <= 0
 					&& gp.geometry.getMaterial().getkT() == 0)
 				return false;
@@ -178,7 +183,7 @@ public class RayTracerBasic extends RayTracerBase {
 	 * 
 	 * @param normal Vector value
 	 * @param point  Point3D value
-	 * @param ray Ray value
+	 * @param ray    Ray value
 	 * @return ray for refracted
 	 */
 	private Ray constructRefractedRay(GeoPoint gp, Vector vRay, Vector normal) {
@@ -214,30 +219,33 @@ public class RayTracerBasic extends RayTracerBase {
 		Vector r = vRay.subtract(normal.scale(nv * 2));
 		return new Ray(gp.point, r, normal);
 	}
-/**
- * A function that calculate the globals effects of the color
- * @param gp geo point
- * @param ray
- * @param level of Recursive function
- * @param k
- * @return
- */
+
+	/**
+	 * A function that calculate the globals effects of the color
+	 * 
+	 * @param gp    geo point
+	 * @param ray   of the lighting direction
+	 * @param level of Recursive function
+	 * @param k     low cumulative attenuation coefficient value
+	 * @return the color of global effects
+	 */
 	private Color calcGlobalEffects(GeoPoint gp, Ray ray, int level, Double3 k) {
-		Color color = Color.BLACK;
 		Vector v = ray.getDir();
 		Vector n = gp.geometry.getNormal(gp.point);
 		Material material = gp.geometry.getMaterial();
 		return calcGlobalEffect(constructReflectedRay(gp, v, n), level, k, material.kR)
 				.add(calcGlobalEffect(constructRefractedRay(gp, v, n), level, k, material.kT));
 	}
-/**
- * A function that calculate the globals effects of the color
- * @param ray
- * @param level
- * @param k
- * @param kx
- * @return
- */
+
+	/**
+	 * A function that calculate the globals effects of the color
+	 * 
+	 * @param ray   of the lighting direction
+	 * @param level of Recursive function
+	 * @param k     low cumulative attenuation coefficient value
+	 * @param kx    cumulative attenuation coefficient value
+	 * @return the color of global effects
+	 */
 	private Color calcGlobalEffect(Ray ray, int level, Double3 k, Double3 kx) {
 		Double3 kkx = k.product(kx);
 		if (kkx.lowerThan(MIN_CALC_COLOR_K))
@@ -248,14 +256,17 @@ public class RayTracerBasic extends RayTracerBase {
 		return isZero(gp.geometry.getNormal(gp.point).dotProduct(ray.getDir())) ? Color.BLACK
 				: calcColor(gp, ray, level - 1, kkx).scale(kx);
 	}
-/**
- * A function for checking partial shading
- * @param gp A geometric body that the point is on
- * @param light The lighting of the scene
- * @param l opposite direction vector of light source
- * @param n value vector
- * @return 1 if the point on the body has no shading and 0 if there is shading or number to represent partial shading
- */
+
+	/**
+	 * A function for checking partial shading
+	 * 
+	 * @param gp    A geometric body that the point is on
+	 * @param light The lighting of the scene
+	 * @param l     opposite direction vector of light source
+	 * @param n     value vector
+	 * @return 1 if the point on the body has no shading and 0 if there is shading
+	 *         or number to represent partial shading
+	 */
 	private double transparency(GeoPoint geoPoint, Vector l, Vector n, LightSource light) {
 		Vector lightDirection = l.scale(-1); // from point to light source
 		Ray lightRay = new Ray(geoPoint.point, lightDirection, n); // refactored ray head move

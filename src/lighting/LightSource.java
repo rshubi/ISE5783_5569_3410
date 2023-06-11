@@ -24,11 +24,15 @@ public interface LightSource {
 	 * @return the lighting direction on a point
 	 */
 	public Vector getL(Point p);
-/**
- * The function calculates the distance between the point and the lighting of the scene
- * @param point A point from which the distance is calculatedA point from which the distance is calculated
- * @return the distance between the point and the lighting of the scene
- */
+
+	/**
+	 * The function calculates the distance between the point and the lighting of
+	 * the scene
+	 * 
+	 * @param point A point from which the distance is calculatedA point from which
+	 *              the distance is calculated
+	 * @return the distance between the point and the lighting of the scene
+	 */
 	double getDistance(Point point);
 
 }

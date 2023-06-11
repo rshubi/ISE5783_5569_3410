@@ -83,7 +83,10 @@ public class Material {
 	}
 
 	/**
-	 * @param kD the kD to set
+	 * A set function for the kD
+	 * 
+	 * @param kD the kD to set-Double3
+	 * @return the object - builder
 	 */
 	public Material setkD(Double3 kD) {
 		this.kD = kD;
@@ -136,6 +139,7 @@ public class Material {
 
 	/**
 	 * A Get Function
+	 * 
 	 * @return kT Attenuation coefficient of transparency
 	 */
 	public double getkT() {
