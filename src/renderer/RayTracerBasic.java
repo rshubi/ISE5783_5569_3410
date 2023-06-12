@@ -6,9 +6,7 @@ package renderer;
 import primitives.*;
 
 import scene.Scene;
-import geometries.*;
 import geometries.Intersectable.GeoPoint;
-//import geometries.Intersectable.GeoPoint;
 import lighting.LightSource;
 import static primitives.Util.*;
 import java.util.List;
@@ -181,7 +179,7 @@ public class RayTracerBasic extends RayTracerBase {
 	/**
 	 * A function that calculates the refracted rays.
 	 * 
-	 * @param normal Vector value
+	 * @param nor0mal Vector value
 	 * @param point  Point3D value
 	 * @param ray    Ray value
 	 * @return ray for refracted
