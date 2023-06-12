@@ -85,11 +85,11 @@ public class Material {
 	/**
 	 * A set function for the kD
 	 * 
-	 * @param kD the kD to set-Double3
+	 * @param d the kD to set-Double3
 	 * @return the object - builder
 	 */
-	public Material setkD(Double3 kD) {
-		this.kD = kD;
+	public Material setkD(Double3 d) {
+		this.kD = d;
 		return this;
 	}
 
