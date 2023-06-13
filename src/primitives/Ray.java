@@ -25,6 +25,13 @@ public class Ray {
 		dir = rhsDir.normalize();
 	}
 
+	/**
+	 * The constructor function gets
+	 * 
+	 * @param head           point that ray starts
+	 * @param lightDirection direct vector of light
+	 * @param n              vector
+	 */
 	public Ray(Point head, Vector lightDirection, Vector n) {
 		if (Util.alignZero(lightDirection.dotProduct(n)) < 0)
 			p0 = head.add(n.scale(-DELTA));

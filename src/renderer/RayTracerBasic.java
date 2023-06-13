@@ -180,8 +180,8 @@ public class RayTracerBasic extends RayTracerBase {
 	 * A function that calculates the refracted rays.
 	 * 
 	 * @param nor0mal Vector value
-	 * @param point  Point3D value
-	 * @param ray    Ray value
+	 * @param point   Point3D value
+	 * @param ray     Ray value
 	 * @return ray for refracted
 	 */
 	private Ray constructRefractedRay(GeoPoint gp, Vector vRay, Vector normal) {

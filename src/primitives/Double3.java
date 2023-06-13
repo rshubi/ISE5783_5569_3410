@@ -141,6 +141,14 @@ public class Double3 {
 		return d1 < other.d1 && d2 < other.d2 && d3 < other.d3;
 	}
 
+	/**
+	 * Checks whether all the numbers are greater than three numbers in another
+	 * triad
+	 * 
+	 * @param k other triad
+	 * @return true if all the numbers are greater that appropriate numbers in other
+	 *         triad, false otherwise
+	 */
 	public boolean greaterThan(double k) {
 		return d1 > k && d2 > k && d3 > k;
 	}
