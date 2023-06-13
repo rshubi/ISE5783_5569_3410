@@ -158,26 +158,20 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @return True if the point on the body has no shading and false if there is
 	 *         shading
 	 */
-	
-	/**
-	private boolean unshaded(GeoPoint gp, LightSource light, Vector l, Vector n) {
-		Vector lightDirection = l.scale(-1);
-		Vector epsV = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA);
-		Point point = gp.point.add(epsV);
-		Ray lightRay = new Ray(point, lightDirection);
-		List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
-		if (intersections == null)
-			return true;
-		double lightDistance = light.getDistance(point);
-		for (GeoPoint geoPoint : intersections) {
 
-			if (Util.alignZero(gp.point.distance(geoPoint.point) - lightDistance) <= 0
-					&& gp.geometry.getMaterial().getkT() == 0)
-				return false;
-		}
-		return true;
-	}
-	*/
+	/**
+	 * private boolean unshaded(GeoPoint gp, LightSource light, Vector l, Vector n)
+	 * { Vector lightDirection = l.scale(-1); Vector epsV =
+	 * n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA); Point point =
+	 * gp.point.add(epsV); Ray lightRay = new Ray(point, lightDirection);
+	 * List<GeoPoint> intersections =
+	 * scene.geometries.findGeoIntersections(lightRay); if (intersections == null)
+	 * return true; double lightDistance = light.getDistance(point); for (GeoPoint
+	 * geoPoint : intersections) {
+	 * 
+	 * if (Util.alignZero(gp.point.distance(geoPoint.point) - lightDistance) <= 0 &&
+	 * gp.geometry.getMaterial().getkT() == 0) return false; } return true; }
+	 */
 
 	/**
 	 * A function that calculates the refracted rays.

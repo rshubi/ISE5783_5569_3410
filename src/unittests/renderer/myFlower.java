@@ -50,7 +50,7 @@ class myFlower {
 						.setMaterial(new Material().setKd(0.5).setKs(0.5).setkT(0).setnShininess(60)),
 
 				new Plane(new Point(200, -1000, 0), new Point(30, 1000, 0), new Point(0, 0, 100))
-						.setEmission(new Color(0, 0, 0)).setMaterial(new Material().setnShininess(100).setkR(1)),
+						.setEmission(new Color(0, 0, 0)).setMaterial(new Material().setkR(1)),
 
 				new Triangle(new Point(0, 55, 0), new Point(30, 200, 0), new Point(-30, 200, 0))
 						.setEmission(new Color(0, 153, 0))
