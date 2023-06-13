@@ -158,6 +158,8 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @return True if the point on the body has no shading and false if there is
 	 *         shading
 	 */
+	
+	/**
 	private boolean unshaded(GeoPoint gp, LightSource light, Vector l, Vector n) {
 		Vector lightDirection = l.scale(-1);
 		Vector epsV = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA);
@@ -175,6 +177,7 @@ public class RayTracerBasic extends RayTracerBase {
 		}
 		return true;
 	}
+	*/
 
 	/**
 	 * A function that calculates the refracted rays.
