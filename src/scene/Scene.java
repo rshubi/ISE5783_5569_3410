@@ -53,7 +53,7 @@ public class Scene {
 		this.ambientLight = ambientLight;
 		return this;
 	}
-
+//
 	/**
 	 * set function for Geometries
 	 * 
