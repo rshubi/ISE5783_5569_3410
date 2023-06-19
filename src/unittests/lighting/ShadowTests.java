@@ -98,7 +98,8 @@ public class ShadowTests {
 						.setEmission(new Color(BLUE)) //
 						.setMaterial(new Material().setKd(0.5).setKs(0.5).setnShininess(30)) //
 		);
-		scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point(40, 40, 115), new Vector(-1, -1, -4)) //
+		scene.lights.add(new PointLight(new Color(700, 400, 400), new Point(40, 40,
+				115),20/* , new Vector(-1, -1, -4) */) //
 				.setKl(4E-4).setKq(2E-5));
 
 		camera.setImageWriter(new ImageWriter("shadowTrianglesSphere", 600, 600)) //

@@ -28,20 +28,14 @@ public class Ray {
 	/**
 	 * The constructor function gets
 	 * 
-	 * @param head           point that ray starts
-	 * @param lightDirection direct vector of light
-	 * @param n              vector
+	 * @param head point that ray starts
+	 * @param v    direct vector of light (must be normalized)
+	 * @param n    vector
 	 */
-	public Ray(Point head, Vector lightDirection, Vector n) {
-		if (Util.alignZero(lightDirection.dotProduct(n)) < 0)
-			p0 = head.add(n.scale(-DELTA));
-		else if (Util.alignZero(lightDirection.dotProduct(n)) > 0)
-			p0 = head.add(n.scale(DELTA));
-		else // if(Util.isZero(lightDirection.dotProduct(n)))
-			p0 = head;
-
-		dir = lightDirection;
-		dir.normalize();
+	public Ray(Point head, Vector v, Vector n) {
+		double vn = Util.alignZero(v.dotProduct(n));
+		p0 = vn == 0 ? head : head.add(n.scale(vn < 0 ? -DELTA : DELTA));
+		dir = v;
 	}
 
 	@Override

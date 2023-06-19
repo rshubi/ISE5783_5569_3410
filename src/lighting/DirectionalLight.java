@@ -3,6 +3,8 @@
  */
 package lighting;
 
+import java.util.List;
+
 import primitives.Color;
 import primitives.Point;
 import primitives.Vector;
@@ -43,4 +45,12 @@ public class DirectionalLight extends Light implements LightSource {
 	public double getDistance(Point point) {
 		return Double.POSITIVE_INFINITY;
 	}
+	 public List<Vector> getL(Point p, int numOfgetL) 
+	 {
+		 return null;
+	 }
+	 public List<Vector> getBeamL(Point p,double radius , int amount)
+	 {
+		 return null;
+	 }
 }

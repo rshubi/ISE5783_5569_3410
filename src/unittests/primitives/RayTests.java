@@ -21,12 +21,14 @@ class RayTests {
 	public void testGetPoint() {
 		// ============ Equivalence Partitions Tests ==============
 		Ray ray = new Ray(new Point(0, 0, 1), new Vector(1, 0, 0));
-		// TC01: test that check get point function while t==0
-		assertEquals(new Point(0, 0, 1), ray.getPoint(0), "The function getPoint dont work correct");
 		// TC02: test that check get point function while t>0
 		assertEquals(new Point(2, 0, 1), ray.getPoint(2), "The function getPoint dont work correct");
 		// TC03: test that check get point function while t<0
 		assertEquals(new Point(-2, 0, 1), ray.getPoint(-2), "The function getPoint dont work correct");
+
+		// =============== Boundary Values Tests ==================
+		// TC01: test that check get point function while t==0
+		assertEquals(new Point(0, 0, 1), ray.getPoint(0), "The function getPoint dont work correct");
 	}
 
 	/**

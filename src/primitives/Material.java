@@ -136,14 +136,4 @@ public class Material {
 		this.kR = new Double3(kR);
 		return this;
 	}
-
-	/**
-	 * A Get Function
-	 * 
-	 * @return kT Attenuation coefficient of transparency
-	 */
-	public double getkT() {
-		return kT.d1;
-	}
-
 }

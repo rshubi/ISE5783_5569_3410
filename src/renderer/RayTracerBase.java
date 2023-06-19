@@ -5,7 +5,11 @@ package renderer;
 
 import primitives.Ray;
 import scene.Scene;
+
+import java.util.List;
+
 import primitives.Color;
+
 
 /**
  * abstract class for RayTracerBase
@@ -16,7 +20,8 @@ import primitives.Color;
 public abstract class RayTracerBase {
 	/** The scene object to trace with a ray */
 	protected final Scene scene;
-
+	 protected double beamRadius=20d;
+	 protected boolean softShadows=true;
 	/**
 	 * The constructor for RayTracerBase
 	 * 
@@ -33,4 +38,8 @@ public abstract class RayTracerBase {
 	 * @return the color of the ray
 	 */
 	public abstract Color traceRay(Ray ray);
+	 
+	 public abstract Color traceRays(List<Ray> rays) ;
+
+	        
 }
