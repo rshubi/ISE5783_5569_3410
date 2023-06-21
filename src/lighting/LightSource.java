@@ -44,5 +44,12 @@ public interface LightSource {
 	 * @return the distance between the point and the lighting of the scene
 	 */
 	double getDistance(Point point);
+	/**
+     * Get the direction of the light from a point
+     *
+     * @param p         the point
+     * @return the direction
+     */
+   
 
 }

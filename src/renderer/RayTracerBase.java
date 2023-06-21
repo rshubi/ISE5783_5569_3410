@@ -38,14 +38,9 @@ public abstract class RayTracerBase {
 	 * @param ray a ray to trace through the scene
 	 * @return the color of the ray
 	 */
-	public abstract Color traceRay(Ray ray);
+	public abstract Color traceRay(Ray ray) ;
 	
-	 /**
-	  * 
-	  * @param rays list of the rays
-	  * @return color
-	  */
-	 public abstract Color traceRays(List<Ray> rays) ;
+	public abstract Color traceRays(List<Ray> rays);
 
 	        
 }

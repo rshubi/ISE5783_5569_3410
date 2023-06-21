@@ -92,4 +92,46 @@ public class Scene {
 	{
 		return softShadow;
 	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @return the background
+	 */
+	public Color getBackground() {
+		return background;
+	}
+
+	/**
+	 * @return the ambientLight
+	 */
+	public AmbientLight getAmbientLight() {
+		return ambientLight;
+	}
+
+	/**
+	 * @return the geometries
+	 */
+	public Geometries getGeometries() {
+		return geometries;
+	}
+
+	/**
+	 * @return the lights
+	 */
+	public List<LightSource> getLights() {
+		return lights;
+	}
+
+	/**
+	 * @return the softShadow
+	 */
+	public int getSoftShadow() {
+		return softShadow;
+	}
 }

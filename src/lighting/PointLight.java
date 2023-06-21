@@ -25,7 +25,7 @@ public class PointLight extends Light implements LightSource {
 	private double kQ = 0;
 	private  static final Random RND= new Random();
 	private double radius = 0;
-	
+	 private final int numOfRays=10;
     
 	/**
 	 * The constructor for PointLight
@@ -182,5 +182,7 @@ public class PointLight extends Light implements LightSource {
 	public double getradius() {
 		return this.radius;
 	}
+	
+
 	
 }
