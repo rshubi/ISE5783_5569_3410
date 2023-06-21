@@ -22,6 +22,7 @@ public abstract class RayTracerBase {
 	 protected double beamRadius=20d;
 	 /** Feature of the soft Shadows */
 	 protected boolean softShadowsBool=true;
+	
 	 
 	/**
 	 * The constructor for RayTracerBase
