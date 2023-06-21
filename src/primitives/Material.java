@@ -26,7 +26,7 @@ public class Material {
 	 * attenuation coefficient of reflection
 	 */
 	public Double3 kR = Double3.ZERO;
-
+	  public double kG=0.0;
 	/**
 	 * A set function for the shininess of the material
 	 * 
@@ -136,4 +136,21 @@ public class Material {
 		this.kR = new Double3(kR);
 		return this;
 	}
+	 /**
+     * Builder patterns setter for field kG
+     * @param kG parameter for kG
+     * @return Material object
+     */
+    public Material setKG(double kG) {
+        this.kG = kG;
+        return this;
+    }
+
+    /**
+     * Builder patterns getter for field kG
+     * @return Double3 object
+     */
+    public double getKG() {
+        return kG;
+    }
 }

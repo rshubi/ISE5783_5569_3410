@@ -16,18 +16,25 @@ import static primitives.Util.alignZero;;
 public class SpotLight extends PointLight {
 
 	private Vector direction;
-
+	
 	/**
 	 * constructor for spotlight
 	 * 
 	 * @param direction1 Vector value
 	 * @param intensity1 Color value
-	 * @param position1  Point3D value
+	 * @param position1  Point value
 	 */
 	public SpotLight(Color intensity1, Point position1, Vector direction1) {
 		super(intensity1, position1);
 		this.direction = direction1.normalize();
 	}
+/**
+ * 
+ * @param intensity1 Color value
+ * @param position1 Point value
+ * @param direction1 Vector value
+ * @param r radius of the light source
+ */
 	public SpotLight(Color intensity1, Point position1, Vector direction1,double r) {
 		super(intensity1, position1,r);
 		this.direction = direction1.normalize();
@@ -40,4 +47,7 @@ public class SpotLight extends PointLight {
 		return dirL <= 0 ? Color.BLACK : super.getIntensity(p).scale(dirL);
 	}
 
+	
+	
+	
 }

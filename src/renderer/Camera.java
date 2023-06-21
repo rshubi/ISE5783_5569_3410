@@ -5,6 +5,9 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 import java.util.*;
+
+import lighting.PointLight;
+
 import static primitives.Util.*;
 
 
@@ -27,7 +30,8 @@ public class Camera {
 	private int antiAliasingFactor = 1;
 	private int maxAdaptiveLevel = 2;
 	private boolean useAdaptive = false;
-
+	 private int threadsCount;
+	 private double printInterval;
 	/**
 	 * The constructor for camera
 	 * 
@@ -90,28 +94,6 @@ public class Camera {
 		this.distance = distance;
 		return this;
 	}
-
-	/**
-	 * The function returns a ray that passes through the center of a certain pixel
-	 * 
-	 * @param nX row number of view plane
-	 * @param nY column number of view plane
-	 * @param j  column of a certain pixel
-	 * @param i  row of a certain pixel
-	 * @return a ray that passes through the center of a certain pixel
-	 */
-	/*
-	 * public Ray constructRay(int nX, int nY, int j, int i) throws Exception {//
-	 * constructRayThroughPixel Point pC = p0.add(vTo.scale(distance));
-	 * 
-	 * double rY = height / nY; double rX = width / nX; double yI = (i - (nY - 1) /
-	 * 2d) * rY; double xJ = (j - (nX - 1) / 2d) * rX;
-	 * 
-	 * Point pIJ = pC; if (!isZero(xJ)) pIJ = pIJ.add(vRight.scale(xJ)); if
-	 * (!isZero(yI)) pIJ = pIJ.add(vUp.scale(-yI));
-	 * 
-	 * return new Ray(p0, pIJ.subtract(p0)); }
-	 */
 
 	/**
 	 * A get function to return P0
@@ -215,7 +197,6 @@ public class Camera {
 			throw new MissingResourceException("ERROR: renderImage, rayTracer is null", "RayTracerBase", "rayTracer");
 		for (int i = 0; i < nX; i++) {
 			for (int j = 0; j < nY; j++) {
-				//////////////////////////////
 				rayColor = castRay(nX, nY,j, i);
 				imageWriter.writePixel(j, i, rayColor);
 			}
@@ -271,72 +252,6 @@ public class Camera {
 	        else
 	            return rayTracer.traceRays(constructRays(nX, nY, i, j));
 	    }
-	/*
-	 * ///////////////////////////////////////////////////////////////// public
-	 * List<Ray> constructBeamThroughPixel (int nX, int nY, int j, int i, int
-	 * raysAmount){
-	 * 
-	 * //The distance between the screen and the camera cannot be 0 if
-	 * (isZero(distance)) { throw new
-	 * IllegalArgumentException("distance cannot be 0"); }
-	 * 
-	 * int numOfRays = (int)Math.floor(Math.sqrt(raysAmount)); //num of rays in each
-	 * row or column
-	 * 
-	 * if (numOfRays==1) return List.of(constructRay(nX, nY, j, i));
-	 * 
-	 * double Ry= height/nY; double Rx=width/nX; double Yi=(i-(nY-1)/2d)*Ry; double
-	 * Xj=(j-(nX-1)/2d)*Rx;
-	 * 
-	 * double PRy = Ry / numOfRays; //height distance between each ray double PRx =
-	 * Rx / numOfRays; //width distance between each ray
-	 * 
-	 * List<Ray> sample_rays = new ArrayList<>();
-	 * 
-	 * //double Ry = height/nY; //The number of pixels on the y axis //double Rx =
-	 * width/nX; //The number of pixels on the x axis //double yi = ((i -
-	 * nY/2d)*Ry); //distance of original pixel from (0,0) on Y axis //double xj=
-	 * ((j - nX/2d)*Rx); //distance of original pixel from (0,0) on x axis //double
-	 * pixel_Ry = Ry/num_of_sample_rays; //The height of each grid block we divided
-	 * the parcel into //double pixel_Rx = Rx/num_of_sample_rays; //The width of
-	 * each grid block we divided the parcel into
-	 * 
-	 * for (int row = 0; row < numOfRays; ++row) {//foreach place in the pixel grid
-	 * for (int column = 0; column < numOfRays; ++column) {
-	 * sample_rays.add(constructRaysThroughPixel(PRy,PRx,Yi, Xj, row, column));//add
-	 * the ray } } sample_rays.add(constructRay(nX, nY, j, i));//add the center
-	 * screen ray return sample_rays; }
-	 *//**
-		 * In this function we treat each pixel like a little screen of its own and
-		 * divide it to smaller "pixels". Through each one we construct a ray. This
-		 * function is similar to ConstructRayThroughPixel.
-		 * 
-		 * @param Ry       height of each grid block we divided the pixel into
-		 * @param Rx       width of each grid block we divided the pixel into
-		 * @param yi       distance of original pixel from (0,0) on Y axis
-		 * @param xj       distance of original pixel from (0,0) on X axis
-		 * @param j        j coordinate of small "pixel"
-		 * @param i        i coordinate of small "pixel"
-		 * @param distance distance of screen from camera
-		 * @return beam of rays through pixel
-		 *//*
-			 * private Ray constructRaysThroughPixel(double Ry,double Rx, double yi, double
-			 * xj, int j, int i){ Point Pc = p0.add(vTo.scale(distance)); //the center of
-			 * the screen point
-			 * 
-			 * double y_sample_i = (i *Ry + Ry/2d); //The pixel starting point on the y axis
-			 * double x_sample_j= (j *Rx + Rx/2d); //The pixel starting point on the x axis
-			 * 
-			 * Point Pij = Pc; //The point at the pixel through which a beam is fired
-			 * //Moving the point through which a beam is fired on the x axis if
-			 * (!isZero(x_sample_j + xj)) { Pij = Pij.add(vRight.scale(x_sample_j + xj)); }
-			 * //Moving the point through which a beam is fired on the y axis if
-			 * (!isZero(y_sample_i + yi)) { Pij = Pij.add(vUp.scale(-y_sample_i -yi )); }
-			 * Vector Vij = Pij.subtract(p0); return new Ray(p0,Vij);//create the ray throw
-			 * the point we calculate here }
-			 * /////////////////////////////////////////////////////////////////////////////
-			 * ///////
-			 */
 
 	/**
 	 * function that calculates the pixels location
@@ -396,7 +311,7 @@ public class Camera {
 	 /**
      * get the point and return the color of the ray to this point
      *
-     * @param p- point on the view plane
+     * @param p point on the view plane
      * @return color of this point
      */
     private Color calcPointColor(Point p) {
@@ -406,9 +321,9 @@ public class Camera {
 	/**
      * calculate average color of the pixel by using adaptive Super-sampling
      *
-     * @param center- the center of the pixel
-     * @param nY-     number of pixels to width
-     * @param nX-     number of pixels to length
+     * @param center the center of the pixel
+     * @param nY    number of pixels to width
+     * @param nX   number of pixels to length
      * @return- the average color of the pixel
      */
     private Color adaptiveHelper(Point center, double nY, double nX) {
@@ -422,15 +337,22 @@ public class Camera {
 
         return adaptive(1, center, rX, rY, pointColorTable, upLeft, upRight, downLeft, downRight);
     }
-
+/**
+ * 
+ * @param nX number of pixels to length
+ * @param nY number of pixels to width
+ * @param j the y coordinate
+ * @param i the x coordinate
+ * @return A ray that passes through a specific pixel center
+ */
 	public Ray constructRay(int nX, int nY, int j, int i) {
 		return new Ray(p0, findPixelLocation(nX, nY, j, i).subtract(p0));
 	}
 	/**
      * check if this point exist in the HashTable return his color otherwise calculate the color and save it
      *
-     * @param point-           certain point in the pixel
-     * @param pointColorTable- dictionary that save points and their color
+     * @param point certain point in the pixel
+     * @param pointColorTable dictionary that save points and their color
      * @return the color of the point
      */
     private Color getPointColorFromTable(Point point, Hashtable<Point, Color> pointColorTable) {
@@ -444,14 +366,14 @@ public class Camera {
 	/**
      * recursive method that return the average color of the pixel- by checking the color of the four corners
      *
-     * @param max-         the depth of the recursion
-     * @param center-      the center of the pixel
-     * @param rX-          the width of the pixel
-     * @param rY-          the height of the pixel
-     * @param upLeftCol-   the color of the vUp left corner
-     * @param upRightCol-  the color of the vUp vRight corner
-     * @param downLeftCol- the color of the down left corner
-     * @param downRightCol - the color of the down vRight corner
+     * @param max the depth of the recursion
+     * @param center     the center of the pixel
+     * @param rX         the width of the pixel
+     * @param rx          the height of the pixel
+     * @param upLeftCol  the color of the vUp left corner
+     * @param upRightCol the color of the vUp vRight corner
+     * @param downLeftCol the color of the down left corner
+     * @param downRightCol the color of the down vRight corner
      * @return the average color of the pixel
      */
     private Color adaptive(int max, Point center, double rX, double rY, Hashtable<Point, Color> pointColorTable,
@@ -482,5 +404,14 @@ public class Camera {
         }
         
     }
+    public Camera setMultithreading(int n) {
+        this.threadsCount = n;
+        return this;
+    }
+    public Camera setDebugPrint(double k) {
+        this.printInterval = k;
+        return this;
+    }
+
 
 }

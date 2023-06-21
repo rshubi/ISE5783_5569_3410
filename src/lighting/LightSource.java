@@ -25,7 +25,15 @@ public interface LightSource {
 	 * @return the lighting direction on a point
 	 */
 	public Vector getL(Point p);
-	 public List<Vector> getBeamL(Point p,double radius , int amount);
+	
+	/**
+	 * A function that produces a beam of rays around the lighting source
+	 * @param p point of lighting source
+	 * @param radius of the beam
+	 * @param amount of the rays
+	 * @return A list of vectors around the light source
+	 */
+	public List<Vector> getBeamL(Point p,double radius , int amount);
 
 	/**
 	 * The function calculates the distance between the point and the lighting of
