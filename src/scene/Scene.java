@@ -22,7 +22,7 @@ public class Scene {
 	public Geometries geometries = new Geometries();
 	/** A list of light sources is initialized to an empty list */
 	public List<LightSource> lights = new LinkedList<>();
-	private int softShadow = 10;
+	//private int softShade = 10;
 	/**
 	 * Constructor for Scene
 	 * 
@@ -75,63 +75,13 @@ public class Scene {
 		this.lights = lights;
 		return this;
 	}
-	/**
-	 * set function for Soft Shadow
-	 * @param softShadow Boolean variable for soft shadows feature
-	 * @return this for builder pattern 
-	 */
-	public Scene setsoftShadow(int softShadow) {
-        this.softShadow = softShadow;
-        return this;
-    }
-	/**
-	 * get function for soft Shadow
-	 * @return softShadow feature
-	 */
-	public int getSoftShade()
-	{
-		return softShadow;
-	}
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @return the background
-	 */
-	public Color getBackground() {
-		return background;
-	}
-
-	/**
-	 * @return the ambientLight
-	 */
-	public AmbientLight getAmbientLight() {
-		return ambientLight;
-	}
-
-	/**
-	 * @return the geometries
-	 */
-	public Geometries getGeometries() {
-		return geometries;
-	}
-
-	/**
-	 * @return the lights
-	 */
-	public List<LightSource> getLights() {
-		return lights;
-	}
-
-	/**
-	 * @return the softShadow
-	 */
-	public int getSoftShadow() {
-		return softShadow;
-	}
+//	public Scene setSoftShade(int other) {
+//        this.softShade = other;//
+//        return this;
+//    }
+//	
+//	public int getSoftShade()
+//	{
+//		return softShade;
+//	}
 }

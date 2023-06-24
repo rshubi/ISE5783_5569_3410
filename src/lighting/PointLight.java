@@ -9,6 +9,7 @@ import primitives.Vector;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Random;
+import static primitives.Util.alignZero;
 import static primitives.Util.isZero;;
 /**
  * A class for Point Light. the class extends from Light and realizes the
@@ -25,25 +26,17 @@ public class PointLight extends Light implements LightSource {
 	private double kQ = 0;
 	private  static final Random RND= new Random();
 	private double radius = 0;
-	 private final int numOfRays=10;
     
 	/**
 	 * The constructor for PointLight
 	 * 
 	 * @param intensity1 Color value
-	 * @param position1  Point value
+	 * @param position1  Point3D value
 	 */
 	public PointLight(Color intensity1, Point position1) {
 		super(intensity1);
 		position = position1;
 	}
-	/**
-	 * The constructor for PointLight
-	 * 
-	 * @param intensity1 Color value
-	 * @param position1  Point value
-	 * @param radius of the light source
-	 */
 	public PointLight(Color intensity1, Point position1,double radius) {
 		super(intensity1);
 		position = position1;
@@ -96,6 +89,7 @@ public class PointLight extends Light implements LightSource {
 	        }
 	        LinkedList<Vector> beam = new LinkedList<>();
 
+	        //from pointlight position to p point
 	        Vector v = this.getL(p);
 	        beam.add(v);
 	        if (amount <= 1) {
@@ -111,6 +105,8 @@ public class PointLight extends Light implements LightSource {
 	        Point lightHead = new Point(v.getX(),v.getY(),v.getZ());
 	        Vector normX;
 
+	        // if v._head == (0,0,w) then normX.head ==(-w,0,0)
+	        // otherwise normX.head == (-y,x,0)
 	        if (isZero(lightHead.getX()) && isZero(lightHead.getY())) {
 	            normX = new Vector(lightHead.getZ() * -1, 0, 0).normalize();
 	        } else {
@@ -127,12 +123,13 @@ public class PointLight extends Light implements LightSource {
 
 	        for (int counter = 0; counter < amount; counter++) {
 	            Point newPoint = new Point(this.position.getX(),this.position.getY(),this.position.getZ());
-
+	            // randomly coose cosTheta and sinTheta in the range (-1,1)
 	            cosTheta = 2 * RND.nextDouble() - 1;
 	            sinTheta = Math.sqrt(1d - cosTheta * cosTheta);
 
+	            //d ranged between -radius and  +radius
 	            d = radius * (2 * RND.nextDouble() - 1);
-
+	            //d ranged between -radius and  +radius
 	            if (isZero(d)) { 
 	                counter--;
 	                continue;
@@ -151,21 +148,15 @@ public class PointLight extends Light implements LightSource {
 	        return beam;
 
 	 }
-	 /**
-	  * A set function for filed kL
-	  * @param r the radius
-	  * @return the object - builder 
-	  */
-
 	public PointLight setRadius(double r) {
-        this.radius = r;
+        this.radius = r;//
         return this;
     }
 	
 	
 	@Override
 	public Vector getL(Point p) {
-
+		// In order not to reach a state of exception due to the zero vector
 		if (p.equals(position))
 			return null;
 		return p.subtract(position).normalize();
@@ -175,14 +166,7 @@ public class PointLight extends Light implements LightSource {
 	public double getDistance(Point point) {
 		return position.distance(point);
 	}
-	/**
-	 * get function for the radius of pointLight
-	 * @return the radius
-	 */
 	public double getradius() {
 		return this.radius;
 	}
-	
-
-	
 }
