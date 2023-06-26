@@ -13,8 +13,12 @@ import primitives.*;
 import scene.Scene;
 import geometries.Intersectable.GeoPoint;
 import lighting.LightSource;
+import lighting.PointLight;
+
 import static primitives.Util.*;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -54,16 +58,13 @@ super(scene);
 * @return the intersections between the rays and the 3D model, or the
 *         background color if there are no intersection points
 */
+@Override
 public Color traceRay(Ray ray,int numOfRays) {
 if (ray == null)
 return scene.background;
-// var intersections = scene.geometries.findGeoIntersections(ray);
 GeoPoint closestPoint = findClosestIntersection(ray);
 return closestPoint == null ? scene.background : calcColor(closestPoint, ray, numOfRays);
-// if (intersections == null)
-// return scene.background;
-// GeoPoint closestPoint = ray.findClosestGeoPoint(intersections);
-// return calcColor(closestPoint, ray);
+
 }
 
 @Override
@@ -305,6 +306,8 @@ private Color calcLocalEffect(GeoPoint intersection, Ray ray,Double3 k,int numOf
            {
                if(softShadows)
                    ktr=transparencyBeam(lightSource,n,intersection,beam);
+            	   
+            	  
                else
                    ktr =transparency(intersection,l,n,lightSource,nv);
                if(!ktr.product(k).lowerThan(MIN_CALC_COLOR_K))
@@ -335,8 +338,11 @@ return 1 == level ? color : color.add(calcGlobalEffects(intersection, ray, level
 
 }
 private Double3 transparencyBeam(LightSource lightSource, Vector n, GeoPoint geoPoint,int beam) {
+	
     Double3 tempKtr = new Double3(0d);
-    List<Vector> beamL = lightSource.getBeamL(geoPoint.point,beamRadius,beam);
+   
+    List<Vector> beamL= lightSource.getBeamL(geoPoint.point,beamRadius,beam);
+    
 
     for (Vector vl : beamL) {
         tempKtr = tempKtr.add(transparency(geoPoint,vl,n,lightSource,n.dotProduct(vl)));
@@ -344,6 +350,63 @@ private Double3 transparencyBeam(LightSource lightSource, Vector n, GeoPoint geo
     tempKtr = tempKtr.reduce(beamL.size());
 
     return tempKtr;
+}
+
+/**
+ * Super Sampling
+ * function that return the average color of the pixel recursively
+ * @param p0 corner upLeft
+ * @param p1 corner upRight
+ * @param p2 corner downRight
+ * @param p3 corner downLeft
+ * @param cameraP0 camera position
+ * @param level level of the recursion
+ * @return the average of the colors of the rays
+ */
+@Override
+public Color traceRaySS(Point p0, Point p1, Point p2, Point p3, Point cameraP0, int level,int numOfRays) {
+    List<Color> listColors=new ArrayList<>();
+    List<Point> listOfCorners=List.of(p0, p1, p2, p3);
+    Ray ray;
+
+    for(int i=0; i<4;i++){
+        ray=new Ray(cameraP0, listOfCorners.get(i).subtract(cameraP0).normalize());
+        GeoPoint gp= findClosestIntersection(ray);
+        if(gp!=null)
+            listColors.add(calcColor(gp,ray,numOfRays));
+        else
+            listColors.add(scene.background);
+    }
+    // condition for stopping the recursion
+    if(level==0 || (listColors.get(0).isAlmostEquals(listColors.get(1)) && listColors.get(0).isAlmostEquals(listColors.get(2))
+            && listColors.get(0).isAlmostEquals(listColors.get(3)) && listColors.get(2).isAlmostEquals(listColors.get(3))
+            && listColors.get(1).isAlmostEquals(listColors.get(3))
+            && listColors.get(1).isAlmostEquals(listColors.get(2))))
+        return listColors.get(0);
+
+    Point midUp=findMiddlePoint(p0, p1);
+    Point midDown=findMiddlePoint(p2, p3);
+    Point midRight=findMiddlePoint(p2, p1);
+    Point midLeft=findMiddlePoint(p0, p3);
+    Point center=findMiddlePoint(midRight, midLeft);
+
+    // recursive call, call the function 4 times (corners square)
+    return traceRaySS(p0, midUp, center, midLeft, cameraP0, level-1,numOfRays).scale(0.25)
+            .add(traceRaySS(midUp, p1, midRight, center, cameraP0, level-1,numOfRays).scale(0.25))
+            .add(traceRaySS(center, midRight, p2, midDown, cameraP0, level-1,numOfRays).scale(0.25))
+            .add(traceRaySS(midLeft, center, midDown, p3, cameraP0, level-1,numOfRays).scale(0.25));
+}
+/**
+ * help function to find the middle point between 2 points
+ * @param p1 point1
+ * @param p2 point2
+ * @return
+ */
+public Point findMiddlePoint(Point p1, Point p2){
+    double x= (p1.getX()+ p2.getX())/2d;
+    double y= (p1.getY()+ p2.getY())/2d;
+    double z= (p1.getZ()+ p2.getZ())/2d;
+    return new Point(x, y, z);
 }
 
 }

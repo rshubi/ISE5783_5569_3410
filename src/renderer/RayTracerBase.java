@@ -7,6 +7,7 @@ import scene.Scene;
 import java.util.List;
 
 import primitives.Color;
+import primitives.Point;
 
 
 /**
@@ -42,6 +43,7 @@ public abstract class RayTracerBase {
 	public abstract Color traceRay(Ray ray,int numOfRays) ;
 	
 	public abstract Color traceRays(List<Ray> rays,int numOfRays);
+	public abstract Color traceRaySS(Point p0, Point p1, Point p2, Point p3, Point cameraP0, int level,int numOfRays);
 
 	        
 }
