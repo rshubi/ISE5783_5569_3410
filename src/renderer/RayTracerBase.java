@@ -7,7 +7,6 @@ import scene.Scene;
 import java.util.List;
 
 import primitives.Color;
-import primitives.Point;
 
 
 /**
@@ -20,9 +19,9 @@ public abstract class RayTracerBase {
 	/** The scene object to trace with a ray */
 	protected final Scene scene;
 	/**the radius of the beam */
-	
-	 protected double beamRadius=10d;
-	 protected boolean softShadows=true;
+	 protected double beamRadius=20d;
+	 /** Feature of the soft Shadows */
+	 protected boolean softShadowsBool=true;
 	
 	 
 	/**
@@ -40,10 +39,9 @@ public abstract class RayTracerBase {
 	 * @param ray a ray to trace through the scene
 	 * @return the color of the ray
 	 */
-	public abstract Color traceRay(Ray ray,int numOfRays) ;
+	public abstract Color traceRay(Ray ray) ;
 	
-	public abstract Color traceRays(List<Ray> rays,int numOfRays);
-	public abstract Color traceRaySS(Point p0, Point p1, Point p2, Point p3, Point cameraP0, int level,int numOfRays);
+	public abstract Color traceRays(List<Ray> rays);
 
 	        
 }

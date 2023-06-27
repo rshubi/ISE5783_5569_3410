@@ -1,63 +1,81 @@
+/**
+ * 
+ */
 package renderer;
 
-import primitives.Color;
-import primitives.Point;
-import primitives.Ray;
-import primitives.Vector;
-import java.util.*;
+import primitives.*;
+
+import scene.Scene;
+
 import static primitives.Util.*;
-//import renderer.PixelManager;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.MissingResourceException;
+
+import geometries.Geometries;
 
 /**
- * A class for Camera construction
+ * @author tzipora and ester:)
  * 
- * @author Maayan &amp; Renana
- *
+ *         This class represents a camera in a 3D space.
+ * 
+ *         The camera defines the view of the scene and is responsible for
+ *         generating rays that pass through the pixels
+ * 
+ *         in the view plane and into the scene.
  */
 public class Camera {
-	private final Point p0;
-	private Vector vUp;
-	private Vector vRight;
-	private Vector vTo;
-	private double width;
-	private double height;
-	private double distance;
-	private ImageWriter imageWriter;
+	private Point p0; // The location of the camera in 3D space
+	private Vector vUp; // The up vector of the camera
+	private Vector vRight; // The right vector of the camera
+	private Vector vTo; // The view vector of the camera
+	private double width; // The width of the view plane
+	private double height; // The height of the view plane
+	private double distance; // The distance between the camera and the view plane
+
+	private ImageWriter writer;
 	private RayTracerBase rayTracer;
-	private int antiAliasingFactor = 1;
-	private int maxAdaptiveLevel = 2;
-	private int maxRaysForSuperSampling = 500;
-	private boolean AdaptiveSuperSamplingFlag = false;
+	private int numOfRays = 1;
 	private double debugPrint = 0;
-	private int _threads =3;
-	private static final int SPARE_THREADS = 2; // Spare threads if trying to use all the cores
-	private boolean print = false; // printing progress percentage
-	private int numOfRays = 50;
-	private boolean addaptive =true;
 
 	/**
-	 * The constructor for camera
+	 * numOfRaysForSuperSampling - number of rays for super sampling
+	 * AdaptiveSuperSamplingFlag - Flag to choose whether to apply the Adaptive
+	 * Super Sampling
+	 */
+	private boolean AdaptiveSuperSamplingFlag = false;
+	private int numOfThreads = 1;
+	// private boolean print = false; // printing progress percentage
+
+	/**
 	 * 
-	 * @param p0  Camera location point
-	 * @param vTo A vector that sets the direction of the camera to the forward
-	 * @param vUp A vector that sets the direction of the camera to the up
+	 * Constructs a new camera.
+	 * 
+	 * @param p0  the location of the camera in 3D space.
+	 * @param vTo the view vector of the camera. *
+	 * @param vUp the up vector of the camera. *
+	 * @throws IllegalArgumentException if the up vector is not orthogonal to the
+	 *                                  view vector.
 	 */
 	public Camera(Point p0, Vector vTo, Vector vUp) {
-		if (!isZero(vTo.dotProduct(vUp)))
-			throw new IllegalArgumentException("vUp is not ortogonal to vTo");
+		if (!isZero(vTo.dotProduct(vUp))) {
+			throw new IllegalArgumentException("vUp is not orthogonal to vTo");
+		}
 
 		this.vTo = vTo.normalize();
 		this.vUp = vUp.normalize();
 		vRight = (vTo.crossProduct(vUp)).normalize();
+
 		this.p0 = p0;
 	}
 
 	/**
-	 * A set function for the size.
 	 * 
-	 * @param width  Width of the view plane
-	 * @param height height of the view plane
-	 * @return the size
+	 * Sets the sizes of the view plane. *
+	 * 
+	 * @param width  the width of the view plane.
+	 * @param height the height of the view plane.
+	 * @return the camera object.
 	 */
 	public Camera setVPSize(double width, double height) {
 		this.width = width;
@@ -66,31 +84,10 @@ public class Camera {
 	}
 
 	/**
-	 * setter for UseAdaptive
+	 * Sets the distance between the camera and the view plane.
 	 * 
-	 * @param useAdaptive- the number of pixels in row/col of every pixel
-	 * @return camera itself
-	 *//*
-		 * public Camera setUseAdaptive(boolean useAdaptive) { this.useAdaptive =
-		 * useAdaptive; return this; }
-		 */
-
-	/**
-	 * setter for maxAdaptiveLevel
-	 * 
-	 * @param maxAdaptiveLevel- The depth of the recursion
-	 * @return camera itself
-	 */
-	public Camera setMaxAdaptiveLevel(int maxAdaptiveLevel) {
-		this.maxAdaptiveLevel = maxAdaptiveLevel;
-		return this;
-	}
-
-	/**
-	 * A Set Function for the size distance
-	 * 
-	 * @param distance distance of the camera from the geometric body
-	 * @return the distance
+	 * @param distance the distance between the camera and the view plane.
+	 * @return the camera object.
 	 */
 	public Camera setVPDistance(double distance) {
 		this.distance = distance;
@@ -98,30 +95,226 @@ public class Camera {
 	}
 
 	/**
-	 * The function returns a ray that passes through the center of a certain pixel
 	 * 
-	 * @param nX row number of view plane
-	 * @param nY column number of view plane
-	 * @param j  column of a certain pixel
-	 * @param i  row of a certain pixel
-	 * @return a ray that passes through the center of a certain pixel
+	 * Sets the image writer for the camera.
+	 * 
+	 * @param writer The image writer to be set.
+	 * @return The Camera object itself for method chaining.
 	 */
-	/*
-	 * public Ray constructRay(int nX, int nY, int j, int i) throws Exception {//
-	 * constructRayThroughPixel Point pC = p0.add(vTo.scale(distance));
-	 * 
-	 * double rY = height / nY; double rX = width / nX; double yI = (i - (nY - 1) /
-	 * 2d) * rY; double xJ = (j - (nX - 1) / 2d) * rX;
-	 * 
-	 * Point pIJ = pC; if (!isZero(xJ)) pIJ = pIJ.add(vRight.scale(xJ)); if
-	 * (!isZero(yI)) pIJ = pIJ.add(vUp.scale(-yI));
-	 * 
-	 * return new Ray(p0, pIJ.subtract(p0)); }
-	 */
+	public Camera setImageWriter(ImageWriter writer) {
+		this.writer = writer;
+		return this;
+	}
 
 	/**
-	 * A get function to return P0
 	 * 
+	 * Sets the ray tracer for the camera.
+	 * 
+	 * @param rayTracerBase The ray tracer to be set.
+	 * @return The Camera object itself for method chaining.
+	 */
+	public Camera setRayTracer(RayTracerBase rayTracerBase) {
+		this.rayTracer = rayTracerBase;
+		return this;
+	}
+
+	/**
+	 * A setter function for parameter rayTracer this function return the object -
+	 * this for builder pattern
+	 * 
+	 * @param rayTracer RayTracerBase value
+	 */
+	public Camera setNumOfRays(int numOfRays) {
+		if (numOfRays == 0)
+			this.numOfRays = 1;
+		else
+			this.numOfRays = numOfRays;
+		return this;
+	}
+
+	/**
+	 * 
+	 * Casts a ray from the camera's position to the specified pixel coordinates.
+	 * 
+	 * @param j The horizontal pixel coordinate.
+	 * @param i The vertical pixel coordinate.
+	 * @return The color of the ray.
+	 */
+	private Color castRay(int j, int i) {
+		Ray ray = constructRay(writer.getNx(), writer.getNy(), j, i);
+		return rayTracer.traceRay(ray);
+	}
+
+	/**
+	 * A function that creates a grid of lines
+	 * 
+	 * @param interval int value
+	 * @param color    Color value
+	 */
+	public Camera printGrid(int interval, Color color) {
+		if (writer == null)
+			throw new MissingResourceException("this function must have values in all the fileds", "ImageWriter",
+					"imageWriter");
+
+		for (int i = 0; i < writer.getNx(); i++) {
+			for (int j = 0; j < writer.getNy(); j++) {
+				if (i % interval == 0 || j % interval == 0)
+					writer.writePixel(i, j, color);
+			}
+		}
+		return this;
+	}
+
+	/**
+	 * A function that finally creates the image. This function delegates the
+	 * function of a class imageWriter
+	 */
+	public void writeToImage() {
+		if (writer == null)
+			throw new MissingResourceException("this function must have values in all the fileds", "ImageWriter",
+					"imageWriter");
+		writer.writeToImage();// delegation
+	}
+
+	/**
+	 * Constructs a ray that passes through a specific pixel in the view plane.
+	 * 
+	 * @param nX the number of pixels in the x direction.
+	 * @param nY the number of pixels in the y direction.
+	 * @param j  the index of the pixel in the x direction.
+	 * @param i  the index of the pixel in the y direction.
+	 * @return a Ray object that passes through the specified pixel.
+	 */
+	public Ray constructRay(int nX, int nY, int j, int i) {
+		Point pC;
+		if (isZero(distance))
+			pC = p0;
+		else
+			pC = p0.add(vTo.scale(distance));
+
+		Point pIJ = pC;
+		double rY = height / nY; // height of every pixel
+		double rX = width / nX; // width of every pixel
+		double yI = -(i - (nY - 1) / 2d) * rY;
+		double xJ = (j - (nX - 1) / 2d) * rX;
+
+		if (!isZero(xJ))
+			pIJ = pIJ.add(vRight.scale(xJ));
+
+		if (!isZero(yI))
+			pIJ = pIJ.add(vUp.scale(yI));
+
+		if (pIJ.equals(p0))// if distance is zero and piont axactly in the middle...
+			return new Ray(p0, new Vector(pIJ.getX(), pIJ.getY(), pIJ.getZ()));
+		return new Ray(p0, pIJ.subtract(p0));
+	}
+
+	/**
+	 * The function transfers beams from camera to pixel, tracks the beam and
+	 * receives the pixel color from the point of intersection
+	 */
+	public Camera renderImage() {
+		if (writer == null)
+			throw new MissingResourceException("this function must have values in all the fields", "ImageWriter",
+					"imageWriter");
+		if (rayTracer == null)
+			throw new MissingResourceException("this function must have values in all the fields", "RayTracerBase",
+					"rayTracer");
+		if (numOfThreads > 1) {
+			renderImageThreaded();
+			return this;
+		}
+		for (int i = 0; i < writer.getNx(); i++) {
+			for (int j = 0; j < writer.getNy(); j++) {
+				if (numOfRays == 1) {
+					Ray ray = constructRay(writer.getNx(), writer.getNy(), j, i);
+					Color rayColor = rayTracer.traceRay(ray);
+					writer.writePixel(j, i, rayColor);
+				} else {
+					if (AdaptiveSuperSamplingFlag) {
+						Color rayColor = AdaptiveSuperSampling(writer.getNx(), writer.getNy(), j, i);
+						writer.writePixel(j, i, rayColor);
+					} else {
+						List<Ray> rays = constructBeamThroughPixel(writer.getNx(), writer.getNy(), j, i);
+						Color rayColor = rayTracer.traceRays(rays);
+						writer.writePixel(j, i, rayColor);
+					}
+				}
+
+			}
+		}
+		return this;
+	}
+
+	public List<Ray> constructBeamThroughPixel(int nX, int nY, int j, int i) {
+
+		// The distance between the screen and the camera cannot be 0
+		if (isZero(distance)) {
+			throw new IllegalArgumentException("distance cannot be 0");
+		}
+
+		int numOfRays = (int) Math.floor(Math.sqrt(this.numOfRays)); // num of rays in each row or column
+
+		if (numOfRays == 1) // if (1-4) so there is 1 ray
+			return List.of(constructRay(nX, nY, j, i));
+
+		double Ry = height / nY;
+		double Rx = width / nX;
+		double Yi = (i - (nY - 1) / 2d) * Ry;
+		double Xj = (j - (nX - 1) / 2d) * Rx;
+
+		double PRy = Ry / numOfRays; // height distance between each ray
+		double PRx = Rx / numOfRays; // width distance between each ray
+
+		List<Ray> sample_rays = new LinkedList<>();
+
+		for (int row = 0; row < numOfRays; ++row) {// foreach place in the pixel grid
+			for (int column = 0; column < numOfRays; ++column) {
+				double jitterX = (Math.random() - 0.5) * PRx; // Random jitter in the x direction
+				double jitterY = (Math.random() - 0.5) * PRy; // Random jitter in the y direction
+				sample_rays.add(constructRaysThroughPixel(PRy, PRx, Yi, Xj, row, column, jitterX, jitterY));// add the
+																											// ray
+			}
+		}
+		sample_rays.add(constructRay(nX, nY, j, i));// add the center screen ray
+		return sample_rays;
+	}
+
+	/**
+	 * In this function we treat each pixel like a little screen of its own and
+	 * divide it to smaller "pixels". Through each one we construct a ray. This
+	 * function is similar to ConstructRayThroughPixel.
+	 * 
+	 * @param Ry       height of each grid block we divided the pixel into
+	 * @param Rx       width of each grid block we divided the pixel into
+	 * @param yi       distance of original pixel from (0,0) on Y axis
+	 * @param xj       distance of original pixel from (0,0) on X axis
+	 * @param j        j coordinate of small "pixel"
+	 * @param i        i coordinate of small "pixel"
+	 * @param distance distance of screen from camera
+	 * @return beam of rays through pixel
+	 */
+	private Ray constructRaysThroughPixel(double Ry, double Rx, double yi, double xj, int j, int i, double jitterX,
+			double jitterY) {
+		Point Pc = p0.add(vTo.scale(distance)); // the center of the screen point
+
+		double x_sample_j = (j * Rx + Rx / 2d) + jitterX; // Add jitter to the x coordinate
+		double y_sample_i = (i * Ry + Ry / 2d) + jitterY; // Add jitter to the y coordinate
+
+		Point Pij = Pc; // The point at the pixel through which a beam is fired
+		// Moving the point through which a beam is fired on the x axis
+		if (!isZero(x_sample_j + xj)) {
+			Pij = Pij.add(vRight.scale(x_sample_j + xj));
+		}
+		// Moving the point through which a beam is fired on the y axis
+		if (!isZero(y_sample_i + yi)) {
+			Pij = Pij.add(vUp.scale(-y_sample_i - yi));
+		}
+		Vector Vij = Pij.subtract(p0);
+		return new Ray(p0, Vij);// create the ray throw the point we calculate here
+	}
+
+	/**
 	 * @return the p0
 	 */
 	public Point getP0() {
@@ -129,8 +322,6 @@ public class Camera {
 	}
 
 	/**
-	 * A get function to return vUp
-	 * 
 	 * @return the vUp
 	 */
 	public Vector getvUp() {
@@ -138,8 +329,6 @@ public class Camera {
 	}
 
 	/**
-	 * A get function to return vRight
-	 * 
 	 * @return the vRight
 	 */
 	public Vector getvRight() {
@@ -147,8 +336,6 @@ public class Camera {
 	}
 
 	/**
-	 * A get function to return vTo
-	 * 
 	 * @return the vTo
 	 */
 	public Vector getvTo() {
@@ -156,17 +343,14 @@ public class Camera {
 	}
 
 	/**
-	 * A get function to return the width
-	 * 
 	 * @return the width
 	 */
 	public double getWidth() {
 		return width;
+
 	}
 
 	/**
-	 * A get function to return the height
-	 * 
 	 * @return the height
 	 */
 	public double getHeight() {
@@ -174,8 +358,6 @@ public class Camera {
 	}
 
 	/**
-	 * A get function to return the distance
-	 * 
 	 * @return the distance
 	 */
 	public double getDistance() {
@@ -183,237 +365,189 @@ public class Camera {
 	}
 
 	/**
-	 * A set function for the ImageWriter
-	 * 
-	 * @param imageWriter pixel color matrix
-	 * @return the object itself
+	 * This function renders image's pixel color map from the scene with
+	 * multi-threading
 	 */
-	public Camera setImageWriter(ImageWriter imageWriter) {
-		this.imageWriter = imageWriter;
+	private void renderImageThreaded() {
+		final int nX = writer.getNx();// numRows
+		final int nY = writer.getNy();// numCols
+		Pixel.initialize(nY, nX, debugPrint);
+		if (numOfRays != 1) {
+			if (AdaptiveSuperSamplingFlag)
+				while (numOfThreads-- > 0) {
+					new Thread(() -> {
+						for (Pixel pixel = new Pixel(); pixel.nextPixel(); Pixel.pixelDone())
+							writer.writePixel(pixel.col, pixel.row,
+									AdaptiveSuperSampling(nX, nY, pixel.col, pixel.row));
+
+					}).start();
+				}
+			else
+				while (numOfThreads-- > 0) {
+					new Thread(() -> {
+						for (Pixel pixel = new Pixel(); pixel.nextPixel(); Pixel.pixelDone()) {
+							List<Ray> rays = constructBeamThroughPixel(nX, nY, pixel.col, pixel.row);
+							Color rayColor = rayTracer.traceRays(rays);
+							writer.writePixel(pixel.col, pixel.row, rayColor);
+						}
+					}).start();
+				}
+		} else// If not used the improvement of anti-aliasing
+		{
+			while (numOfThreads-- > 0) {
+				new Thread(() -> {
+					for (Pixel pixel = new Pixel(); pixel.nextPixel(); Pixel.pixelDone()) {
+						Ray ray = constructRay(nX, nY, pixel.col, pixel.row);
+						Color rayColor = rayTracer.traceRay(ray);
+						writer.writePixel(pixel.col, pixel.row, rayColor);
+					}
+
+				}).start();
+			}
+		}
+		Pixel.waitToFinish();
+	}
+
+	/**
+	 * Set multi-threading <br>
+	 * - if the parameter is 0 - number of cores less 2 is taken
+	 *
+	 * @param threads number of threads
+	 * @return the Render object itself
+	 */
+	public Camera setMultithreading(int threads) {
+		if (threads < 0)
+			throw new IllegalArgumentException("Multithreading parameter must be 0 or higher");
+		if (threads != 0)
+			numOfThreads = threads;
+		else {
+			int cores = Runtime.getRuntime().availableProcessors();
+			numOfThreads = cores < 2 ? 1 : cores;
+		}
 		return this;
 	}
 
 	/**
-	 * A set function for the RayTracer
-	 * 
-	 * @param rayTracer a ray to trace through the scene
-	 * @return the object itself
+	 * Set debug printing on
+	 *
+	 * @return the Render object itself
 	 */
-
-	public Camera setRayTracer(RayTracerBase rayTracer) {
-		this.rayTracer = rayTracer;
+	public Camera setDebugPrint(double d) {
+		debugPrint = d;
 		return this;
 	}
 
 	/**
-	 * A function that builds for each pixel a ray and sets the color in the
-	 * corresponding pixel
-	 * 
-	 * @return the camera
+	 * set Adaptive Super Sampling Flag Flag to choose whether to apply the Adaptive
+	 * Super Sampling
 	 */
-	public Camera renderImage() {
-		 {
-			Color rayColor;
-			int nX = imageWriter.getNx();
-			int nY = imageWriter.getNy();
-			if (imageWriter == null)
-				throw new MissingResourceException("ERROR: renderImage, imageWriter is null", "ImageWriter",
-						"imageWriter");
-			if (rayTracer == null)
-				throw new MissingResourceException("ERROR: renderImage, rayTracer is null", "RayTracerBase",
-						"rayTracer");
-			for (int i = 0; i < nX; i++) {
-				for (int j = 0; j < nY; j++) {
-					if(addaptive==false) {
-					     rayColor = castRay(nX, nY, j, i);
-					imageWriter.writePixel(j, i, rayColor);
-					}
-					else
-					{
-						rayColor = castSSrays(nX, nY, j, i);
-						imageWriter.writePixel(j, i, rayColor);
-					}
-					
+	public Camera setAdaptiveSuperSamplingFlag(boolean adaptiveSuperSamplingFlag) {
+		AdaptiveSuperSamplingFlag = adaptiveSuperSamplingFlag;
+		return this;
+	}
+
+	/**
+	 * Adaptive Super Sampling
+	 * 
+	 * @param nX        number of pixels in x axis
+	 * @param nY        number of pixels in y axis
+	 * @param j         number of pixels in x axis
+	 * @param i         number of pixels in x axis
+	 * @param numOfRays max num of ray for pixel
+	 * @return color for pixel
+	 */
+	private primitives.Color AdaptiveSuperSampling(int nX, int nY, int j, int i) {
+		int numOfRaysInRowCol = (int) Math.floor(Math.sqrt(numOfRays));
+		if (numOfRaysInRowCol == 1)
+			return rayTracer.traceRay(constructRay(nX, nY, j, i));
+		Point Pc;
+		if (distance != 0)
+			Pc = p0.add(vTo.scale(distance));
+		else
+			Pc = p0;
+		Point Pij = Pc;
+		double Ry = height / nY;
+		double Rx = width / nX;
+		double Yi = -(i - ((nY - 1) / 2d)) * Ry;
+		double Xj = (j - ((nX - 1) / 2d)) * Rx;
+		if (Xj != 0)
+			Pij = Pij.add(vRight.scale(Xj));
+		if (Yi != 0)
+			Pij = Pij.add(vUp.scale(Yi));
+		double PRy = Ry / numOfRaysInRowCol;
+		double PRx = Rx / numOfRaysInRowCol;
+		return AdaptiveSuperSamplingRec(Pij, Rx, Ry, PRx, PRy, null);
+	}
+
+	/**
+	 * Adaptive Super Sampling recursive
+	 * 
+	 * @param centerP   the screen location
+	 * @param Width     the screen width
+	 * @param Height    the screen height
+	 * @param minWidth  the min cube width
+	 * @param minHeight the min cube height
+	 * @param prePoints list of pre points to
+	 * @return color for pixel
+	 */
+	private primitives.Color AdaptiveSuperSamplingRec(Point centerP, double Width, double Height, double minWidth,
+			double minHeight, List<Point> prePoints) {
+
+		if (Width < minWidth * 2 || Height < minHeight * 2)// there is no more than one pixelon in the pixel
+			return rayTracer.traceRay(new Ray(p0, centerP.subtract(p0)));// so trace just one!
+
+		List<Point> nextCenterPList = new LinkedList<>();// center of every recPixelon
+		List<Point> cornersList = new LinkedList<>();// all corners of current pixel each time
+		List<primitives.Color> colorList = new LinkedList<>();
+		Point tempCorner;
+		Ray tempRay;
+		for (int i = -1; i <= 1; i += 2) {
+			for (int j = -1; j <= 1; j += 2) {
+				tempCorner = centerP.add(vRight.scale(i * Width / 2)).add(vUp.scale(j * Height / 2));
+				cornersList.add(tempCorner);
+				if (prePoints == null || !isInList(prePoints, tempCorner))// the corner has never been checked
+				{
+					tempRay = new Ray(p0, tempCorner.subtract(p0));
+					nextCenterPList.add(centerP.add(vRight.scale(i * Width / 4)).add(vUp.scale(j * Height / 4)));
+					colorList.add(rayTracer.traceRay(tempRay));
 				}
 			}
-			return this;
-		} 
-			
-	}
-
-
-
-	
-
-	/**
-	 * A function to create a grid of lines
-	 * 
-	 * @param interval the number of profits
-	 * @param color    the color of the grid
-	 */
-	public void printGrid(int interval, Color color) {
-		int nX = imageWriter.getNx();
-		int nY = imageWriter.getNy();
-		if (imageWriter == null)
-			throw new MissingResourceException("ERROR: renderImage, imageWriter is null", "ImageWriter", "imageWriter");
-
-		for (int i = 0; i < nX; i++) {
-			for (int j = 0; j < nY; j++) {
-				// check if this grid line
-				if (i % interval == 0 || j % interval == 0)
-					imageWriter.writePixel(i, j, color);
-			}
 		}
 
-	}
-
-	/**
-	 * A function that finally creates the image. this function delegates the
-	 * function of a class imageWriter
-	 */
-	public void writeToImage() {
-		if (imageWriter == null)
-			throw new MissingResourceException("ERROR: renderImage, imageWriter is null", "ImageWriter", "imageWriter");
-		imageWriter.writeToImage();
-	}
-
-	/**
-	 * The function creates a beam and calculates the color in the ray
-	 * 
-	 * @param nX the x resolution
-	 * @param nY the y resolution
-	 * @param i  rows
-	 * @param j  columns
-	 * @return the color
-	 */
-	private Color castRay(int nX, int nY, int i, int j) {
-		
-		if (numOfRays == 1)
-			return rayTracer.traceRay(constructRay(nX, nY, i, j), numOfRays);
-		else {
-			//if(!addaptive) 
-			return rayTracer.traceRays(constructRays(nX, nY, i, j), numOfRays);
-		    
-			}
-		
-	}
-	public Ray constructRay(int nX, int nY, int j, int i) {
-		return new Ray(p0, findPixelLocation(nX, nY, j, i).subtract(p0));
-	}
-
-	
-	/**
-	 * function that calculates the pixels location
-	 *
-	 * @param nX the x resolution
-	 * @param nY the y resolution
-	 * @param i  the x coordinate
-	 * @param j  the y coordinate
-	 * @return the ray
-	 */
-	private Point findPixelLocation(int nX, int nY, int j, int i) {
-
-		double rY = height / nY;
-		double rX = width / nX;
-
-		double yI = -(i - (nY - 1d) / 2) * rY;
-		double jX = (j - (nX - 1d) / 2) * rX;
-		Point pIJ = p0.add(vTo.scale(distance));
-
-		if (yI != 0)
-			pIJ = pIJ.add(vUp.scale(yI));
-		if (jX != 0)
-			pIJ = pIJ.add(vRight.scale(jX));
-		return pIJ;
-	}
-
-	/**
-	 * function that returns the rays from the camera to the point
-	 *
-	 * @param nX the x resolution
-	 * @param nY the y resolution
-	 * @param i  the x coordinate
-	 * @param j  the y coordinate
-	 * @return the ray
-	 */
-	public List<Ray> constructRays(int nX, int nY, int j, int i) {
-		List<Ray> rays = new LinkedList<>();
-		Point centralPixel = findPixelLocation(nX, nY, j, i);
-		double rY = height / nY / 1;
-		double rX = width / nX / 1;
-		double x, y;
-
-		for (int rowNumber = 0; rowNumber < 1; rowNumber++) {
-			for (int colNumber = 0; colNumber < 1; colNumber++) {
-				y = -(rowNumber - (1 - 1d) / 2) * rY;
-				x = (colNumber - (1 - 1d) / 2) * rX;
-				Point pIJ = centralPixel;
-				if (y != 0)
-					pIJ = pIJ.add(vUp.scale(y));
-				if (x != 0)
-					pIJ = pIJ.add(vRight.scale(x));
-				rays.add(new Ray(p0, pIJ.subtract(p0)));
-			}
+		if ( nextCenterPList.size() == 0) {// all the corners have been checked
+			return primitives.Color.BLACK;
 		}
-		return rays;
+
+		boolean isAllEquals = true;
+		primitives.Color tempColor = colorList.get(0);
+		for (primitives.Color color : colorList) {
+			if (!tempColor.isAlmostEquals(color))
+				isAllEquals = false;
+		}
+		if (isAllEquals && colorList.size() > 2)
+			return tempColor;
+
+		tempColor = primitives.Color.BLACK;
+		for (Point center : nextCenterPList) {
+			tempColor = tempColor
+					.add(AdaptiveSuperSamplingRec(center, Width / 2, Height / 2, minWidth, minHeight, cornersList));
+		}
+		return tempColor.reduce(nextCenterPList.size());
+
 	}
 
-	private Color castSSrays(int nX, int nY, int i, int j)
-    {
-        //Ray r = constructRay(nX,nY,i,j);
-        List<Point> corners = constructCorners(nX,nY,i,j);
-        Color color = rayTracer.traceRaySS(corners.get(0), corners.get(1)
-                ,corners.get(2), corners.get(3), p0,1,numOfRays);
-        //imageWriter.writePixel(i,j,color);
-        return color;
-    }
-
 	/**
-     * for supersampling
-     * This function receive the pixel position and size and return a list of all the
-     * corner Points of the Pixel
-     * @param nX
-     * @param nY
-     * @param j
-     * @param i
-     * @return
-     */
-    public List<Point> constructCorners(int nX, int nY, int j, int i){
-
-        Point Pc = p0.add(vTo.scale(distance));
-
-        double Rx = width/nX;
-        double Ry = height/nY;
-
-        double Yi = ( i - (nY -1)/2d)*Ry;
-        double Xj = ( j - (nX-1)/2d)*Rx;
-
-        Point Pij = Pc;
-        if (!isZero(Xj))
-            Pij = Pij.add(vRight.scale(Xj));
-        if (!isZero(Yi))
-            Pij = Pij.add(vUp.scale(-Yi));
-
-  
-
-
-        List<Point> points = new ArrayList<>();
-        points.add(new Point(Pij.getX() + -Rx/2, Pij.getY() + Ry/2 , Pij.getZ()));
-        points.add(new Point(Pij.getX() + Rx/2, Pij.getY() + Ry/2 , Pij.getZ()));
-        points.add(new Point(Pij.getX() + Rx/2, Pij.getY() + -Ry/2 , Pij.getZ()));
-        points.add(new Point(Pij.getX() + -Rx/2, Pij.getY() + -Ry/2 , Pij.getZ()));
-
-        return points;
-
-    }
-
-	
-
-	
-	
-	
-
-	
-	
-
+	 * is In List - Checks whether a point is in a points list
+	 * 
+	 * @param point      the point we want to check
+	 * @param pointsList where we search the point
+	 * @return true if the point is in the list, false otherwise
+	 */
+	private boolean isInList(List<Point> pointsList, Point point) {
+		for (Point tempPoint : pointsList) {
+			if (point.isAlmostEquals(tempPoint))
+				return true;
+		}
+		return false;
+	}
 }

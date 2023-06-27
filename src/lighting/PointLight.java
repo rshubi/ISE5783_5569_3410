@@ -6,8 +6,6 @@ package lighting;
 import primitives.Color;
 import primitives.Point;
 import primitives.Vector;
-import renderer.RayTracerBase;
-
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Random;
@@ -28,7 +26,7 @@ public class PointLight extends Light implements LightSource {
 	private double kQ = 0;
 	private  static final Random RND= new Random();
 	private double radius = 0;
-	private RayTracerBase rayTracer;
+    
 	/**
 	 * The constructor for PointLight
 	 * 
@@ -171,48 +169,4 @@ public class PointLight extends Light implements LightSource {
 	public double getradius() {
 		return this.radius;
 	}
-	/**
-	 * @return the position
-	 */
-	public Point getPosition() {
-		return position;
-	}
-	/**
-	 * @return the kC
-	 */
-	public double getkC() {
-		return kC;
-	}
-	/**
-	 * @return the kL
-	 */
-	public double getkL() {
-		return kL;
-	}
-	/**
-	 * @return the kQ
-	 */
-	public double getkQ() {
-		return kQ;
-	}
-	/**
-	 * @return the rnd
-	 */
-	public static Random getRnd() {
-		return RND;
-	}
-	/**
-	 * @return the radius
-	 */
-	public double getRadius() {
-		return radius;
-	}
-	/**
-	 * @return the rayTracer
-	 */
-	public RayTracerBase getRayTracer() {
-		return rayTracer;
-	}
-	
-	
 }

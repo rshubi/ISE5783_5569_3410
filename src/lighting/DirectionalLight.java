@@ -45,20 +45,12 @@ public class DirectionalLight extends Light implements LightSource {
 	public double getDistance(Point point) {
 		return Double.POSITIVE_INFINITY;
 	}
-	/**
-	 * 
-	 * @param p point 
-	 * @param numOfgetL amount of the rays 
-	 * @return null
-	 */
 	 public List<Vector> getL(Point p, int numOfgetL) 
 	 {
 		 return null;
 	 }
-	@Override
 	 public List<Vector> getBeamL(Point p,double radius , int amount)
 	 {
 		 return null;
 	 }
-	
 }
