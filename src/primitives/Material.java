@@ -26,7 +26,8 @@ public class Material {
 	 * attenuation coefficient of reflection
 	 */
 	public Double3 kR = Double3.ZERO;
-	 // public double kG=0.0;
+
+	// public double kG=0.0;
 	/**
 	 * A set function for the shininess of the material
 	 * 

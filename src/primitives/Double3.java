@@ -106,7 +106,7 @@ public class Double3 {
 	 */
 	public Double3 reduce(double rhs) {
 		return new Double3(d1 / rhs, d2 / rhs, d3 / rhs);
-		
+
 	}
 
 	/**

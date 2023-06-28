@@ -11,7 +11,7 @@ import primitives.Color;
  * @author Maayan &amp; Renana
  *
  */
-abstract class Light { 
+abstract class Light {
 	/** original intensity of the light I<sub>0</sub> */
 	protected final Color intensity;
 

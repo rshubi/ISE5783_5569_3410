@@ -141,16 +141,18 @@ public class Color {
 	public String toString() {
 		return "rgb:" + rgb;
 	}
-	/**
-     * Checks whether the different between the colors is [almost] zero
-     * @param color second color to check
-     * @return true if the different between the colors is zero or almost zero, false otherwise
-     */
-	
-    public  boolean isAlmostEquals(primitives.Color color) {
 
-        return  (Math.abs(rgb.d1-color.rgb.d1)<= 2) &&
-                (Math.abs(rgb.d2-color.rgb.d2)<= 2) &&
-                (Math.abs(rgb.d3-color.rgb.d3)<= 2);
-    }
+	/**
+	 * Checks whether the different between the colors is [almost] zero
+	 * 
+	 * @param color second color to check
+	 * @return true if the different between the colors is zero or almost zero,
+	 *         false otherwise
+	 */
+
+	public boolean isAlmostEquals(primitives.Color color) {
+
+		return (Math.abs(rgb.d1 - color.rgb.d1) <= 2) && (Math.abs(rgb.d2 - color.rgb.d2) <= 2)
+				&& (Math.abs(rgb.d3 - color.rgb.d3) <= 2);
+	}
 }

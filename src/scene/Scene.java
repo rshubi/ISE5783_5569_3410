@@ -22,7 +22,8 @@ public class Scene {
 	public Geometries geometries = new Geometries();
 	/** A list of light sources is initialized to an empty list */
 	public List<LightSource> lights = new LinkedList<>();
-	//private int softShade = 10;
+
+	// private int softShade = 10;
 	/**
 	 * Constructor for Scene
 	 * 
@@ -53,6 +54,7 @@ public class Scene {
 		this.ambientLight = ambientLight;
 		return this;
 	}
+
 //
 	/**
 	 * set function for Geometries

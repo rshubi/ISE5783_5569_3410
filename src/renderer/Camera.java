@@ -15,7 +15,7 @@ import java.util.MissingResourceException;
 import geometries.Geometries;
 
 /**
- * @author 
+ * @author
  * 
  *         This class represents a camera in a 3D space.
  * 
@@ -35,7 +35,7 @@ public class Camera {
 
 	private ImageWriter writer;
 	private RayTracerBase rayTracer;
-	private int numOfRays =1;
+	private int numOfRays = 1;
 	private double debugPrint = 1;
 
 	/**
@@ -117,10 +117,11 @@ public class Camera {
 		this.rayTracer = rayTracerBase;
 		return this;
 	}
-	
+
 	/**
-	 *A setter function for parameter rayTracer this function return the object -
+	 * A setter function for parameter rayTracer this function return the object -
 	 * this for builder pattern
+	 * 
 	 * @param numOfRays number of rays from camera
 	 * @return camera- the object - builder
 	 */
@@ -213,6 +214,7 @@ public class Camera {
 	/**
 	 * The function transfers beams from camera to pixel, tracks the beam and
 	 * receives the pixel color from the point of intersection
+	 * 
 	 * @return the object - builder
 	 */
 	public Camera renderImage() {
@@ -247,14 +249,15 @@ public class Camera {
 		}
 		return this;
 	}
-/**
- * 
-  * @param nX the number of pixels in the x direction.
+
+	/**
+	 * 
+	 * @param nX the number of pixels in the x direction.
 	 * @param nY the number of pixels in the y direction.
 	 * @param j  the index of the pixel in the x direction.
 	 * @param i  the index of the pixel in the y direction.
- * @return list of rays-beam through a current Pixel
- */
+	 * @return list of rays-beam through a current Pixel
+	 */
 	public List<Ray> constructBeamThroughPixel(int nX, int nY, int j, int i) {
 
 		// The distance between the screen and the camera cannot be 0
@@ -415,7 +418,7 @@ public class Camera {
 			}
 		}
 		Pixel.waitToFinish();
-		
+
 	}
 
 	/**
@@ -439,7 +442,8 @@ public class Camera {
 
 	/**
 	 * Set debug printing on
-	  * @param d number of debug print
+	 * 
+	 * @param d number of debug print
 	 * @return the Render object itself
 	 */
 	public Camera setDebugPrint(double d) {
@@ -449,8 +453,9 @@ public class Camera {
 
 	/**
 	 * set Adaptive Super Sampling Flag Flag to choose whether to apply the Adaptive
-	  * @param adaptiveSuperSamplingFlag to set adaptive super simple flag
-	 *  @return camera-the object - builder 
+	 * 
+	 * @param adaptiveSuperSamplingFlag to set adaptive super simple flag
+	 * @return camera-the object - builder
 	 */
 	public Camera setAdaptiveSuperSamplingFlag(boolean adaptiveSuperSamplingFlag) {
 		AdaptiveSuperSamplingFlag = adaptiveSuperSamplingFlag;
@@ -525,7 +530,7 @@ public class Camera {
 			}
 		}
 
-		if ( nextCenterPList.size() == 0) {// all the corners have been checked
+		if (nextCenterPList.size() == 0) {// all the corners have been checked
 			return primitives.Color.BLACK;
 		}
 
