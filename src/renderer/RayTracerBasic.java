@@ -12,8 +12,7 @@ import lighting.PointLight;
 
 import static primitives.Util.*;
 import java.util.List;
-import java.util.LinkedList;
-import java.util.Random;
+
 
 /**
  * A class inherits from an abstract class (RayTracerBase)
@@ -108,7 +107,7 @@ public class RayTracerBasic extends RayTracerBase {
 				lightRay = new Ray(geoPoint.point, lightDirection, n.scale(-1));
 
 			double lightDistance = light.getDistance(geoPoint.point);
-			double maxDistance = light.getDistance(geoPoint.point);
+			
 			List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
 			if (intersections == null)
 				return Double3.ONE;

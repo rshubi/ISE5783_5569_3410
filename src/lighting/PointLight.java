@@ -5,12 +5,10 @@ package lighting;
 
 import primitives.Color;
 import primitives.Point;
-import primitives.Ray;
 import primitives.Vector;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Random;
-import static primitives.Util.alignZero;
 import static primitives.Util.isZero;;
 
 /**

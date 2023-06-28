@@ -4,15 +4,12 @@
 package renderer;
 
 import primitives.*;
-
-import scene.Scene;
-
 import static primitives.Util.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.MissingResourceException;
 
-import geometries.Geometries;
+
 
 /**
  * @author
@@ -35,11 +32,14 @@ public class Camera {
 
 	private ImageWriter writer;
 	private RayTracerBase rayTracer;
+	/**
+	 * numOfRays - number of rays for super sampling
+	 */
 	private int numOfRays = 1;
 	private double debugPrint = 1;
 
 	/**
-	 * numOfRaysForSuperSampling - number of rays for super sampling
+	 * 
 	 * AdaptiveSuperSamplingFlag - Flag to choose whether to apply the Adaptive
 	 * Super Sampling
 	 */
