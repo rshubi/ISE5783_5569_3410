@@ -40,7 +40,12 @@ public abstract class RayTracerBase {
 	 * @return the color of the ray
 	 */
 	public abstract Color traceRay(Ray ray) ;
-	
+	/**
+	 * Traces list of rays through scene and calculates the average of the color from the rays
+	 * 
+	 * @param rays list of rays through the scene
+	 * @return color-the average of the color from the rays
+	 */
 	public abstract Color traceRays(List<Ray> rays);
 
 	        

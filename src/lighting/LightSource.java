@@ -25,6 +25,13 @@ public interface LightSource {
 	 * @return the lighting direction on a point
 	 */
 	public Vector getL(Point p);
+	/**
+	 * 
+	 * @param p point from the geometry body 
+	 * @param radius radius of the beam
+	 * @param amount amount of rays that create the beam
+	 * @return list of vector that creates the beam
+	 */
 	 public List<Vector> getBeamL(Point p,double radius , int amount);
 	 
 	/**
@@ -36,5 +43,5 @@ public interface LightSource {
 	 * @return the distance between the point and the lighting of the scene
 	 */
 	double getDistance(Point point);
-	//public List<Ray> softShadow(Point p, int rayNum, double d);
+	
 }

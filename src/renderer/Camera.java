@@ -117,12 +117,12 @@ public class Camera {
 		this.rayTracer = rayTracerBase;
 		return this;
 	}
-
+	
 	/**
-	 * A setter function for parameter rayTracer this function return the object -
+	 *A setter function for parameter rayTracer this function return the object -
 	 * this for builder pattern
-	 * 
-	 * @param rayTracer RayTracerBase value
+	 * @param numOfRays number of rays from camera
+	 * @return camera- the object - builder
 	 */
 	public Camera setNumOfRays(int numOfRays) {
 		if (numOfRays == 0)
@@ -150,6 +150,7 @@ public class Camera {
 	 * 
 	 * @param interval int value
 	 * @param color    Color value
+	 * @return Camera-the object - builder
 	 */
 	public Camera printGrid(int interval, Color color) {
 		if (writer == null)
@@ -212,6 +213,7 @@ public class Camera {
 	/**
 	 * The function transfers beams from camera to pixel, tracks the beam and
 	 * receives the pixel color from the point of intersection
+	 * @return the object - builder
 	 */
 	public Camera renderImage() {
 		if (writer == null)
@@ -245,7 +247,14 @@ public class Camera {
 		}
 		return this;
 	}
-
+/**
+ * 
+  * @param nX the number of pixels in the x direction.
+	 * @param nY the number of pixels in the y direction.
+	 * @param j  the index of the pixel in the x direction.
+	 * @param i  the index of the pixel in the y direction.
+ * @return list of rays-beam through a current Pixel
+ */
 	public List<Ray> constructBeamThroughPixel(int nX, int nY, int j, int i) {
 
 		// The distance between the screen and the camera cannot be 0
@@ -430,7 +439,7 @@ public class Camera {
 
 	/**
 	 * Set debug printing on
-	 *
+	  * @param d number of debug print
 	 * @return the Render object itself
 	 */
 	public Camera setDebugPrint(double d) {
@@ -440,7 +449,8 @@ public class Camera {
 
 	/**
 	 * set Adaptive Super Sampling Flag Flag to choose whether to apply the Adaptive
-	 * Super Sampling
+	  * @param adaptiveSuperSamplingFlag to set adaptive super simple flag
+	 *  @return camera-the object - builder 
 	 */
 	public Camera setAdaptiveSuperSamplingFlag(boolean adaptiveSuperSamplingFlag) {
 		AdaptiveSuperSamplingFlag = adaptiveSuperSamplingFlag;

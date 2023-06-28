@@ -117,7 +117,7 @@ public class Point {
 	}
 	/**
      * Checks whether the different between the points is [almost] zero
-     * @param point
+     * @param point second point for the check
      * @return true if the different between the points is zero or almost zero, false otherwise
      */
     public boolean isAlmostEquals(Point point) {

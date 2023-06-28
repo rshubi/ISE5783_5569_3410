@@ -143,7 +143,7 @@ public class Color {
 	}
 	/**
      * Checks whether the different between the colors is [almost] zero
-     * @param color
+     * @param color second color to check
      * @return true if the different between the colors is zero or almost zero, false otherwise
      */
 	

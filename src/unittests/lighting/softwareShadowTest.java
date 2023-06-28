@@ -12,7 +12,7 @@ import renderer.*;
 import scene.Scene;
 
 /**
- * @author נעמי
+ * @author Maayan &amp; Renana 
  *
  */
 

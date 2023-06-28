@@ -38,6 +38,13 @@ public class PointLight extends Light implements LightSource {
 		super(intensity1);
 		position = position1;
 	}
+	/**
+	 * The constructor for PointLight
+	 * 
+	 * @param intensity1 Color value
+	 * @param position1  Point3D value
+	 * @param radius  radius of the point light
+	 */
 	public PointLight(Color intensity1, Point position1,double radius) {
 		super(intensity1);
 		position = position1;
@@ -156,6 +163,11 @@ public class PointLight extends Light implements LightSource {
 	        return beam;
 
 	 }
+	/**
+	 * set function
+	 * @param r radius to set the current radius
+	 * @return point light the object - builder
+	 */
 	public PointLight setRadius(double r) {
         this.radius = r;//
         return this;
@@ -174,6 +186,10 @@ public class PointLight extends Light implements LightSource {
 	public double getDistance(Point point) {
 		return position.distance(point);
 	}
+	/**
+	 * get function
+	 * @return the radius of the point light
+	 */
 	public double getradius() {
 		return this.radius;
 	}
