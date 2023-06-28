@@ -15,7 +15,7 @@ import java.util.MissingResourceException;
 import geometries.Geometries;
 
 /**
- * @author tzipora and ester:)
+ * @author 
  * 
  *         This class represents a camera in a 3D space.
  * 
@@ -35,8 +35,8 @@ public class Camera {
 
 	private ImageWriter writer;
 	private RayTracerBase rayTracer;
-	private int numOfRays = 1;
-	private double debugPrint = 0;
+	private int numOfRays =1;
+	private double debugPrint = 1;
 
 	/**
 	 * numOfRaysForSuperSampling - number of rays for super sampling
@@ -406,6 +406,7 @@ public class Camera {
 			}
 		}
 		Pixel.waitToFinish();
+		
 	}
 
 	/**

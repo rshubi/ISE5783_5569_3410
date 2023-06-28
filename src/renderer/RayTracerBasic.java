@@ -8,6 +8,8 @@ import primitives.*;
 import scene.Scene;
 import geometries.Intersectable.GeoPoint;
 import lighting.LightSource;
+import lighting.PointLight;
+
 import static primitives.Util.*;
 import java.util.List;
 import java.util.LinkedList;
@@ -30,9 +32,7 @@ public class RayTracerBasic extends RayTracerBase {
 	private static final int MAX_CALC_COLOR_LEVEL = 10;
 	private static final double MIN_CALC_COLOR_K = 0.001;
 	private static final double INITIAL_K = 1.0;
-	private int glossinessRaysNum = 36;
-    private double distanceGrid = 25;
-    private double sizeGrid=4;
+	
 	/**
 	 * A constructor that invokes the constructor of the parent class
 	 * (RayTracerBase)
@@ -288,7 +288,7 @@ public class RayTracerBasic extends RayTracerBase {
 				        Material material = intersection.geometry.getMaterial();
 				        Color color = intersection.geometry.
 				                getEmission(); //base color
-				        int beam=50;//for the number of beams
+				        int beam=this.numOfRays;//for the number of beams
 				        Double3 ktr=new Double3(0d);;
 				        //for each light source in the scene
 				        for (LightSource lightSource : scene.lights)
@@ -298,7 +298,7 @@ public class RayTracerBasic extends RayTracerBase {
 				            //if sign(nl) == sing(nv) (if the light hits the point add it, otherwise don't add this light)
 				            if (nl * nv > 0)
 				            {
-				                if(softShadowsBool)
+				                if(softShadowsBool&& lightSource instanceof PointLight other)
 				                	
 				                    ktr=transparencyBeam(lightSource,n,intersection,beam);
 				                else
@@ -345,6 +345,8 @@ private Double3 transparencyBeam(LightSource lightSource, Vector n, GeoPoint geo
     }
     return tempKtr;
 }
+
+
 	
 }
 

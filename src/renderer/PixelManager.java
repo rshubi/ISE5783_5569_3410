@@ -130,7 +130,7 @@ class Pixel {
     private static volatile long last = -1l;
     private static volatile int lastPrinted = -1;
 
-    private static boolean print = false;
+    private static boolean print = true;
     private static long printInterval = 100l;
     private static final String PRINT_FORMAT = "%5.1f%%\r";
     private static Object mutexNext = new Object();
@@ -155,6 +155,7 @@ class Pixel {
         pixels = 0;
         printInterval = (int) (interval * 1000);
         print = printInterval != 0;
+       
         last = -1l;
     }
 

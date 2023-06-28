@@ -5,6 +5,7 @@ package lighting;
 
 import primitives.Color;
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
 import java.util.List;
 import java.util.LinkedList;
@@ -81,8 +82,15 @@ public class PointLight extends Light implements LightSource {
 		double dSquared = p.distanceSquared(position);
 		return intensity.reduce((kC + kL * Math.sqrt(dSquared) + kQ * dSquared));
 	}
-	 
-	 @Override
+	
+	
+
+	
+	
+	 /**
+	 *
+	 */
+	@Override
 	    public List<Vector> getBeamL(Point p, double radius, int amount) {
 	        if (p.equals(position)) {
 	            return null;

@@ -26,7 +26,7 @@ public interface LightSource {
 	 */
 	public Vector getL(Point p);
 	 public List<Vector> getBeamL(Point p,double radius , int amount);
-
+	 
 	/**
 	 * The function calculates the distance between the point and the lighting of
 	 * the scene
